@@ -81,7 +81,7 @@ Primarily aimed at Sweden and the Nordics, but will hopefully be internationally
   - public (frontend)
 - Versioning and access control
 
-## Templates
+### Templates
 - Pre-built document and e-mail templates
   - document templates (PDF, reports, confirmations)
   - email templates (notifications, reminders, confirmations)
