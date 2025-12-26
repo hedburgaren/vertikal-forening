@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Membership Certificate Template -->
+        <record id="document_template_membership_certificate" model="vf.document.template">
+            <field name="name">Membership Certificate</field>
+            <field name="description">Certificate for confirming membership status</field>
+            <field name="category_id" ref="category_document_certificates"/>
+            <field name="template_type">certificate</field>
+            <field name="body_text">
+This certifies that
+
+{{member_name}}
+
+Membership Number: {{membership_number}}
+
+Has been a member of {{association_name}} since {{membership_date}}
+
+Issued on: {{current_date}}
+
+_________________________
+Association President
+            </field>
+            <field name="sample_data">{"member_name": "John Doe", "membership_number": "VF000001", "association_name": "Vertical Association", "membership_date": "01/01/2024", "current_date": "26/12/2024"}</field>
+        </record>
+
+        <!-- Annual Report Template -->
+        <record id="document_template_annual_report" model="vf.document.template">
+            <field name="name">Annual Report</field>
+            <field name="description">Annual association report template</field>
+            <field name="category_id" ref="category_document_reports"/>
+            <field name="template_type">pdf_report</field>
+            <field name="body_text">{{association_name}}
+Annual Report {{report_year}}
+
+1. Membership Statistics
+Total Members: {{total_members}}
+New Members: {{new_members}}
+Active Members: {{active_members}}
+
+2. Financial Summary
+Total Income: {{total_income}}
+Total Expenses: {{total_expenses}}
+Net Result: {{net_result}}
+
+3. Activities
+Total Activities: {{total_activities}}
+Participants: {{total_participants}}
+
+4. Conclusion
+{{conclusion_text}}
+            </field>
+            <field name="sample_data">{"association_name": "Vertical Association", "report_year": "2024", "total_members": "500", "new_members": "50", "active_members": "450", "total_income": "100000", "total_expenses": "90000", "net_result": "10000", "total_activities": "25", "total_participants": "300", "conclusion_text": "A successful year with growth in membership and activities."}</field>
+        </record>
+
+        <!-- Membership Application Form -->
+        <record id="document_template_membership_application" model="vf.document.template">
+            <field name="name">Membership Application Form</field>
+            <field name="description">Form for new membership applications</field>
+            <field name="category_id" ref="category_document_forms"/>
+            <field name="template_type">form</field>
+            <field name="body_html">
+&lt;h2&gt;Membership Application&lt;/h2&gt;
+&lt;p&gt;{{association_name}}&lt;/p&gt;
+
+&lt;h3&gt;Personal Information&lt;/h3&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;td&gt;Full Name:&lt;/td&gt;&lt;td&gt;_________________________&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Birth Date:&lt;/td&gt;&lt;td&gt;_________________________&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Address:&lt;/td&gt;&lt;td&gt;_________________________&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Phone:&lt;/td&gt;&lt;td&gt;_________________________&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;Email:&lt;/td&gt;&lt;td&gt;_________________________&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h3&gt;Membership Type&lt;/h3&gt;
+&lt;p&gt;[ ] Regular Member [ ] Student Member [ ] Senior Member&lt;/p&gt;
+
+&lt;h3&gt;Declaration&lt;/h3&gt;
+&lt;p&gt;I hereby apply for membership in {{association_name}} and agree to abide by its statutes and regulations.&lt;/p&gt;
+
+&lt;p&gt;Date: _________________________&lt;/p&gt;
+&lt;p&gt;Signature: _____________________&lt;/p&gt;
+            </field>
+            <field name="sample_data">{"association_name": "Vertical Association"}</field>
+        </record>
+
+        <!-- Official Letter Template -->
+        <record id="document_template_official_letter" model="vf.document.template">
+            <field name="name">Official Letter</field>
+            <field name="description">Template for official association letters</field>
+            <field name="category_id" ref="category_document_letters"/>
+            <field name="template_type">letter</field>
+            <field name="body_text">
+{{association_name}}
+{{association_address}}
+{{association_city}} {{association_zip}}
+{{association_email}}
+{{association_phone}}
+
+{{current_date}}
+
+{{recipient_name}}
+{{recipient_address}}
+{{recipient_city}} {{recipient_zip}}
+
+Subject: {{subject}}
+
+Dear {{recipient_name}},
+
+{{letter_content}}
+
+Sincerely,
+
+{{sender_name}}
+{{sender_title}}
+{{association_name}}
+            </field>
+            <field name="sample_data">{"association_name": "Vertical Association", "association_address": "123 Main Street", "association_city": "Stockholm", "association_zip": "12345", "association_email": "info@vertical.se", "association_phone": "08-123456", "current_date": "26/12/2024", "recipient_name": "John Doe", "recipient_address": "456 Member Ave", "recipient_city": "Stockholm", "recipient_zip": "12345", "subject": "Membership Renewal", "letter_content": "This is to remind you about your upcoming membership renewal.", "sender_name": "Jane Smith", "sender_title": "Secretary"}</field>
+        </record>
+    </data>
+</odoo>

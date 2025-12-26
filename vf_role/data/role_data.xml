@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Organization Level Roles -->
+        <record id="role_president" model="vf.role">
+            <field name="name">President</field>
+            <field name="code">PRESIDENT</field>
+            <field name="description">President of the association</field>
+            <field name="access_level">organization</field>
+            <field name="is_managerial">True</field>
+            <field name="requires_approval">True</field>
+            <field name="sequence">10</field>
+        </record>
+        
+        <record id="role_vice_president" model="vf.role">
+            <field name="name">Vice President</field>
+            <field name="code">VICE_PRESIDENT</field>
+            <field name="description">Vice president of the association</field>
+            <field name="access_level">organization</field>
+            <field name="is_managerial">True</field>
+            <field name="requires_approval">True</field>
+            <field name="sequence">20</field>
+        </record>
+        
+        <record id="role_secretary" model="vf.role">
+            <field name="name">Secretary</field>
+            <field name="code">SECRETARY</field>
+            <field name="description">Association secretary</field>
+            <field name="access_level">organization</field>
+            <field name="is_managerial">True</field>
+            <field name="requires_approval">True</field>
+            <field name="sequence">30</field>
+        </record>
+        
+        <record id="role_treasurer" model="vf.role">
+            <field name="name">Treasurer</field>
+            <field name="code">TREASURER</field>
+            <field name="description">Association treasurer</field>
+            <field name="access_level">organization</field>
+            <field name="is_managerial">True</field>
+            <field name="requires_approval">True</field>
+            <field name="sequence">40</field>
+        </record>
+        
+        <!-- Section Level Roles -->
+        <record id="role_section_manager" model="vf.role">
+            <field name="name">Section Manager</field>
+            <field name="code">SECTION_MANAGER</field>
+            <field name="description">Manager of a section</field>
+            <field name="access_level">section</field>
+            <field name="is_managerial">True</field>
+            <field name="requires_approval">True</field>
+            <field name="sequence">50</field>
+        </record>
+        
+        <record id="role_section_coordinator" model="vf.role">
+            <field name="name">Section Coordinator</field>
+            <field name="code">SECTION_COORD</field>
+            <field name="description">Coordinator for section activities</field>
+            <field name="access_level">section</field>
+            <field name="is_managerial">False</field>
+            <field name="requires_approval">False</field>
+            <field name="sequence">60</field>
+        </record>
+        
+        <!-- Group Level Roles -->
+        <record id="role_group_leader" model="vf.role">
+            <field name="name">Group Leader</field>
+            <field name="code">GROUP_LEADER</field>
+            <field name="description">Leader of a group or team</field>
+            <field name="access_level">group</field>
+            <field name="is_managerial">True</field>
+            <field name="requires_approval">False</field>
+            <field name="sequence">70</field>
+        </record>
+        
+        <record id="role_assistant_leader" model="vf.role">
+            <field name="name">Assistant Leader</field>
+            <field name="code">ASSISTANT_LEADER</field>
+            <field name="description">Assistant to the group leader</field>
+            <field name="access_level">group</field>
+            <field name="is_managerial">False</field>
+            <field name="requires_approval">False</field>
+            <field name="sequence">80</field>
+        </record>
+        
+        <record id="role_coach" model="vf.role">
+            <field name="name">Coach</field>
+            <field name="code">COACH</field>
+            <field name="description">Coach for a sports team</field>
+            <field name="access_level">group</field>
+            <field name="is_managerial">False</field>
+            <field name="requires_approval">False</field>
+            <field name="sequence">90</field>
+        </record>
+        
+        <record id="role_member_representative" model="vf.role">
+            <field name="name">Member Representative</field>
+            <field name="code">MEMBER_REP</field>
+            <field name="description">Represents members in meetings</field>
+            <field name="access_level">group</field>
+            <field name="is_managerial">False</field>
+            <field name="requires_approval">False</field>
+            <field name="sequence">100</field>
+        </record>
+    </data>
+</odoo>

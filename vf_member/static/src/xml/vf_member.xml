@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Member Profile Template -->
+    <t t-name="vf_member.profile">
+        <div class="vf-member-card">
+            <div class="member-header">
+                <div class="member-avatar">
+                    <i class="fa fa-user"/>
+                </div>
+                <div class="member-info">
+                    <div class="member-name" t-esc="partner.name"/>
+                    <div class="member-number" t-esc="member.membership_number"/>
+                </div>
+            </div>
+            <div class="member-details">
+                <div class="detail-row">
+                    <span class="detail-label">Email:</span>
+                    <span class="detail-value" t-esc="partner.email"/>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Phone:</span>
+                    <span class="detail-value" t-esc="partner.phone"/>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Birth Date:</span>
+                    <span class="detail-value" t-esc="partner.birth_date"/>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Age:</span>
+                    <span class="detail-value" t-esc="member.age"/>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Status:</span>
+                    <span class="detail-value" t-esc="member.status"/>
+                </div>
+            </div>
+        </div>
+    </t>
+    
+    <!-- Guardians Template -->
+    <t t-name="vf_member.guardians">
+        <div class="vf-guardians">
+            <t t-if="not guardians">
+                <p class="text-muted">No guardians registered</p>
+            </t>
+            <t t-foreach="guardians" t-as="guardian">
+                <div class="vf-guardian-card" t-att-class="guardian.is_primary ? 'primary-guardian' : ''">
+                    <div class="guardian-name" t-esc="guardian.guardian.name"/>
+                    <div class="guardian-type" t-esc="guardian.relationship_type"/>
+                    <div class="contact-info">
+                        <div class="contact-item" t-if="guardian.guardian.phone">
+                            <i class="fa fa-phone"/> <t t-esc="guardian.guardian.phone"/>
+                        </div>
+                        <div class="contact-item" t-if="guardian.guardian.email">
+                            <i class="fa fa-envelope"/> <t t-esc="guardian.guardian.email"/>
+                        </div>
+                    </div>
+                    <div class="guardian-badges" style="margin-top: 0.5rem;">
+                        <span t-if="guardian.is_primary" class="badge badge-success">Primary</span>
+                        <span t-if="guardian.is_emergency" class="badge badge-danger">Emergency</span>
+                        <span t-if="guardian.legal_custody" class="badge badge-info">Legal Custody</span>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+    
+    <!-- Household Template -->
+    <t t-name="vf_member.household">
+        <div class="vf-household-section">
+            <t t-if="household">
+                <h3 class="section-title" t-esc="household.name or 'Household'"/>
+                
+                <div class="household-address">
+                    <div t-if="household.address.street" t-esc="household.address.street"/>
+                    <div t-if="household.address.street2" t-esc="household.address.street2"/>
+                    <div>
+                        <span t-if="household.address.zip" t-esc="household.address.zip"/>
+                        <span t-if="household.address.city" t-esc="' ' + household.address.city"/>
+                    </div>
+                    <div t-if="household.address.state" t-esc="household.address.state"/>
+                    <div t-if="household.address.country" t-esc="household.address.country"/>
+                </div>
+                
+                <h4>Household Members</h4>
+                <div class="household-members">
+                    <t t-foreach="members" t-as="member">
+                        <div class="member-tile">
+                            <div class="member-avatar">
+                                <i class="fa fa-user"/>
+                            </div>
+                            <div class="member-name" t-esc="member.name"/>
+                            <div class="member-age">
+                                Age: <t t-esc="member.age"/>
+                                <t t-if="member.is_minor"> (Minor)</t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+            <t t-else="">
+                <p class="text-muted">No household information available</p>
+            </t>
+        </div>
+    </t>
+    
+    <!-- Dashboard Template -->
+    <t t-name="vf_member.dashboard">
+        <div class="vf-dashboard">
+            <div class="dashboard-header">
+                <h2 class="welcome-title">Welcome, <t t-esc="partner.name"/>!</h2>
+                <span class="member-status">
+                    Member #<t t-esc="member.membership_number"/> - <t t-esc="member.status"/>
+                </span>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3 class="card-title">
+                        <i class="fa fa-user"/> Personal Information
+                    </h3>
+                    <div class="member-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Birth Date:</span>
+                            <span class="detail-value" t-esc="partner.birth_date"/>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value" t-esc="member.age"/>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Member Since:</span>
+                            <span class="detail-value" t-esc="member.membership_date"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <h3 class="card-title">
+                        <i class="fa fa-phone"/> Contact Information
+                    </h3>
+                    <div class="member-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value" t-esc="partner.email"/>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Phone:</span>
+                            <span class="detail-value" t-esc="partner.phone"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div t-if="member.is_minor" class="dashboard-card">
+                    <h3 class="card-title">
+                        <i class="fa fa-shield"/> Guardians
+                    </h3>
+                    <div class="vf_guardians" t-att-data-member-id="member.id"/>
+                </div>
+            </div>
+        </div>
+    </t>
+    
+    <!-- Emergency Contacts Template -->
+    <t t-name="vf_member.emergency_contacts">
+        <div class="emergency-contacts">
+            <t t-if="not contacts">
+                <p class="alert alert-warning">No emergency contacts registered</p>
+            </t>
+            <t t-foreach="contacts" t-as="contact">
+                <div class="vf-guardian-card emergency-contact">
+                    <div class="guardian-name" t-esc="contact.guardian.name"/>
+                    <div class="contact-info">
+                        <div class="contact-item" t-if="contact.guardian.phone">
+                            <i class="fa fa-phone"/> <t t-esc="contact.guardian.phone"/>
+                        </div>
+                        <div class="contact-item" t-if="contact.guardian.email">
+                            <i class="fa fa-envelope"/> <t t-esc="contact.guardian.email"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

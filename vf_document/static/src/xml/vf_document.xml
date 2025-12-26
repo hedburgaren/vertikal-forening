@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Document Manager Template -->
+    <t t-name="vf_document.document_manager">
+        <div class="o_vf_document_manager">
+            <div class="document-header">
+                <h2 class="document-title" t-esc="document.name"/>
+                <div class="document-actions">
+                    <button type="button" class="btn btn-primary o_vf_upload">Upload New</button>
+                    <button type="button" class="btn btn-secondary o_vf_create_version">New Version</button>
+                    <button type="button" class="btn btn-info o_vf_download">Download</button>
+                </div>
+            </div>
+            
+            <div class="o_vf_document_content"/>
+            
+            <input type="file" class="o_vf_file_input" style="display: none;"/>
+        </div>
+    </t>
+    
+    <!-- Document Info Template -->
+    <t t-name="vf_document.document_info">
+        <div class="document-info">
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Category</div>
+                    <div class="info-value" t-esc="document.category_id[1]"/>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Date</div>
+                    <div class="info-value" t-esc="document.date"/>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Visibility</div>
+                    <div class="info-value" t-esc="document.visibility"/>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Version</div>
+                    <div class="info-value" t-esc="document.current_version"/>
+                </div>
+            </div>
+            
+            <div class="document-description" t-raw="document.description or ''"/>
+        </div>
+    </t>
+    
+    <!-- Document List Template -->
+    <t t-name="vf_document.document_list">
+        <t t-foreach="documents" t-as="doc">
+            <div class="document-item o_vf_document_item" t-att-data-document-id="doc.id">
+                <div class="document-icon" t-att-class="doc.file_type and doc.file_type.toLowerCase()">
+                    <i t-att-class="'fa fa-file-' + (doc.file_type and doc.file_type.toLowerCase() or 'text')"/>
+                </div>
+                <div class="document-info">
+                    <div class="document-title" t-esc="doc.name"/>
+                    <div class="document-meta">
+                        <span class="meta-item">
+                            <span class="badge badge-secondary" t-esc="doc.category_id[1]"/>
+                        </span>
+                        <span class="meta-item" t-esc="doc.date"/>
+                        <span class="meta-item" t-esc="doc.file_type or 'Unknown'"/>
+                    </div>
+                    <div class="document-description" t-esc="doc.description or ''"/>
+                </div>
+                <div class="document-actions">
+                    <button type="button" class="btn btn-primary btn-sm o_vf_download" 
+                            t-att-data-attachment-id="doc.attachment_id">
+                        <i class="fa fa-download"/> Download
+                    </button>
+                </div>
+            </div>
+        </t>
+    </t>
+    
+    <!-- Document Modal Template -->
+    <t t-name="vf_document.document_modal">
+        <div class="modal fade document-modal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title document-title" t-esc="document.name"/>
+                        <div class="document-date" t-esc="document.date"/>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="document-meta">
+                            <div class="meta-row">
+                                <span class="meta-label">Category:</span>
+                                <span class="meta-value" t-esc="document.category_id[1]"/>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Visibility:</span>
+                                <span class="meta-value" t-esc="document.visibility"/>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">Version:</span>
+                                <span class="meta-value" t-esc="document.current_version"/>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">File Type:</span>
+                                <span class="meta-value" t-esc="document.file_type or 'Unknown'"/>
+                            </div>
+                        </div>
+                        
+                        <div class="document-description" t-raw="document.description or ''"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary o_vf_download" 
+                                t-att-data-attachment-id="document.attachment_id">
+                            <i class="fa fa-download"/> Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

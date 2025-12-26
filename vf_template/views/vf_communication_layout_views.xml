@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Communication Layout List View -->
+        <record id="vf_communication_layout_view_tree" model="ir.ui.view">
+            <field name="name">vf.communication.layout.tree</field>
+            <field name="model">vf.communication.layout</field>
+            <field name="arch" type="xml">
+                <tree string="Communication Layouts">
+                    <field name="display_name"/>
+                    <field name="layout_type"/>
+                    <field name="category_id"/>
+                    <field name="is_default" widget="boolean_toggle"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Communication Layout Form View -->
+        <record id="vf_communication_layout_view_form" model="ir.ui.view">
+            <field name="name">vf.communication.layout.form</field>
+            <field name="model">vf.communication.layout</field>
+            <field name="arch" type="xml">
+                <form string="Communication Layout">
+                    <header>
+                        <button name="action_preview" type="object" 
+                                string="Preview Layout" class="btn-primary"/>
+                        <button name="action_test_layout" type="object" 
+                                string="Test Layout" class="btn-secondary"/>
+                        <button name="action_set_as_default" type="object" 
+                                string="Set as Default" class="btn-secondary"
+                                attrs="{'invisible': [('is_default', '=', True)]}"/>
+                        <field name="active" widget="boolean_toggle"/>
+                        <field name="is_default" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="layout_type"/>
+                            </group>
+                            <group>
+                                <field name="export_orientation" 
+                                       attrs="{'invisible': [('layout_type', 'not in', ['export_pdf', 'report'])]}"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Header &amp; Footer">
+                                <group string="Header">
+                                    <field name="header_html" widget="html" placeholder="Header content"/>
+                                </group>
+                                <group string="Footer">
+                                    <field name="footer_html" widget="html" placeholder="Footer content"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Email Settings" 
+                                  attrs="{'invisible': [('layout_type', '!=', 'email')]}">
+                                <group>
+                                    <field name="email_body_style" placeholder="body { font-family: Arial; }"/>
+                                    <field name="email_wrapper_style" 
+                                           placeholder="max-width: 600px; margin: 0 auto;"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Letter Settings" 
+                                  attrs="{'invisible': [('layout_type', '!=', 'letter')]}">
+                                <group>
+                                    <group>
+                                        <field name="letter_header_margin"/>
+                                        <field name="letter_footer_margin"/>
+                                        <field name="letter_body_margin"/>
+                                    </group>
+                                    <group>
+                                        <field name="letter_font_family"/>
+                                        <field name="letter_font_size"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Brand Customization">
+                                <group>
+                                    <group string="Colors">
+                                        <field name="primary_color" widget="color"/>
+                                        <field name="secondary_color" widget="color"/>
+                                        <field name="accent_color" widget="color"/>
+                                        <field name="background_color" widget="color"/>
+                                    </group>
+                                    <group string="Logo">
+                                        <field name="logo_id"/>
+                                        <field name="logo_max_width"/>
+                                        <field name="logo_max_height"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Variables">
+                                <field name="variable_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="variable_type"/>
+                                        <field name="description"/>
+                                        <field name="required"/>
+                                        <field name="example_value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Preview">
+                                <group>
+                                    <html>
+                                        <div style="border: 1px solid #ddd; padding: 20px;">
+                                            <field name="preview_html" readonly="1"/>
+                                        </div>
+                                    </html>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Communication Layout Kanban View -->
+        <record id="vf_communication_layout_view_kanban" model="ir.ui.view">
+            <field name="name">vf.communication.layout.kanban</field>
+            <field name="model">vf.communication.layout</field>
+            <field name="arch" type="xml">
+                <kanban string="Communication Layouts">
+                    <field name="id"/>
+                    <field name="display_name"/>
+                    <field name="layout_type"/>
+                    <field name="category_id"/>
+                    <field name="active"/>
+                    <field name="is_default"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click #{record.active.raw_value ? '' : 'oe_kanban_color_4'}">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="display_name"/>
+                                        </strong>
+                                        <div class="o_kanban_record_subtitle">
+                                            <field name="layout_type"/> / <field name="category_id"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button" href="#" tabindex="-1">
+                                            <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span t-if="record.is_default.raw_value" class="badge badge-primary">Default</span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <i class="fa fa-palette" role="img"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Communication Layout Actions -->
+        <record id="vf_communication_layout_action" model="ir.actions.act_window">
+            <field name="name">Communication Layouts</field>
+            <field name="res_model">vf.communication.layout</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first communication layout!
+                </p>
+                <p>
+                    Layouts define the visual appearance of emails, letters, and exports.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="vf_communication_layout_menu" name="Communication Layouts" 
+                  parent="vf_template_menu_main" 
+                  action="vf_communication_layout_action" sequence="40"/>
+    </data>
+</odoo>

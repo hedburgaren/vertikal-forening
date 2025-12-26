@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Member List View -->
+        <record id="vf_member_view_tree" model="ir.ui.view">
+            <field name="name">vf.member.tree</field>
+            <field name="model">vf.member</field>
+            <field name="arch" type="xml">
+                <tree string="Members">
+                    <field name="membership_number"/>
+                    <field name="partner_id"/>
+                    <field name="birth_date"/>
+                    <field name="age"/>
+                    <field name="is_minor"/>
+                    <field name="status"/>
+                    <field name="membership_date"/>
+                    <field name="household_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Member Form View -->
+        <record id="vf_member_view_form" model="ir.ui.view">
+            <field name="name">vf.member.form</field>
+            <field name="model">vf.member</field>
+            <field name="arch" type="xml">
+                <form string="Member">
+                    <header>
+                        <button name="action_activate" type="object" string="Activate" 
+                                attrs="{'invisible': [('active', '=', True)]}" class="btn-primary"/>
+                        <button name="action_archive" type="object" string="Archive" 
+                                attrs="{'invisible': [('active', '=', False)]}"/>
+                        <field name="status" widget="statusbar" 
+                               statusbar_visible="active,inactive,suspended,archived"/>
+                        <field name="active" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_guardians" type="object" 
+                                    class="oe_stat_button" icon="fa-users"
+                                    attrs="{'invisible': [('is_minor', '=', False)]}">
+                                <field name="guardian_ids" widget="statinfo" 
+                                       string="Guardians" help="Number of active guardians"/>
+                            </button>
+                            <button name="action_view_groups" type="object" 
+                                    class="oe_stat_button" icon="fa-sitemap">
+                                <field name="group_membership_ids" widget="statinfo" 
+                                       string="Groups" help="Number of group memberships"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="member_info">
+                                <field name="membership_number"/>
+                                <field name="partner_id" required="1"/>
+                                <field name="membership_date"/>
+                                <field name="birth_date"/>
+                                <field name="age" readonly="1"/>
+                                <field name="is_minor" readonly="1"/>
+                            </group>
+                            <group name="household_info">
+                                <field name="household_id"/>
+                                <field name="has_active_guardians" invisible="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Guardians" attrs="{'invisible': [('is_minor', '=', False)]}">
+                                <field name="guardian_ids">
+                                    <tree editable="bottom">
+                                        <field name="guardian_id"/>
+                                        <field name="relationship_type_id"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="is_active"/>
+                                        <field name="is_primary"/>
+                                        <field name="is_emergency"/>
+                                        <field name="legal_custody"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Family">
+                                <field name="family_relationship_ids">
+                                    <tree editable="bottom">
+                                        <field name="related_member_id"/>
+                                        <field name="relationship_type_id"/>
+                                        <field name="household_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Group Memberships">
+                                <field name="group_membership_ids">
+                                    <tree>
+                                        <field name="group_id"/>
+                                        <field name="join_date"/>
+                                        <field name="leave_date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Notes" groups="vf_base.vf_admin">
+                                <field name="notes" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Member Search View -->
+        <record id="vf_member_view_search" model="ir.ui.view">
+            <field name="name">vf.member.search</field>
+            <field name="model">vf.member</field>
+            <field name="arch" type="xml">
+                <search string="Search Members">
+                    <field name="membership_number"/>
+                    <field name="partner_id"/>
+                    <field name="household_id"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Minors" name="minors" domain="[('is_minor', '=', True)]"/>
+                    <filter string="Adults" name="adults" domain="[('is_minor', '=', False)]"/>
+                    <separator/>
+                    <filter string="No Guardians" name="no_guardians" 
+                            domain="[('is_minor', '=', True), ('has_active_guardians', '=', False)]"/>
+                    <separator/>
+                    <filter string="Created Today" name="today" 
+                            domain="[('create_date', '>=', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="Created This Week" name="week" 
+                            domain="[('create_date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <filter string="My Children" name="my_children" 
+                            domain="[('guardian_ids.guardian_id', '=', uid)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                        <filter string="Household" name="group_household" context="{'group_by': 'household_id'}"/>
+                        <filter string="Age" name="group_age" context="{'group_by': 'age'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Member Kanban View -->
+        <record id="vf_member_view_kanban" model="ir.ui.view">
+            <field name="name">vf.member.kanban</field>
+            <field name="model">vf.member</field>
+            <field name="arch" type="xml">
+                <kanban string="Members" default_group_by="status">
+                    <field name="id"/>
+                    <field name="membership_number"/>
+                    <field name="partner_id"/>
+                    <field name="age"/>
+                    <field name="is_minor"/>
+                    <field name="household_id"/>
+                    <field name="status"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="membership_number"/> - <field name="partner_id"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            Age: <field name="age"/>
+                                            <t t-if="record.is_minor.raw_value">
+                                                <span class="badge badge-warning">Minor</span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Member Action -->
+        <record id="vf_member_action" model="ir.actions.act_window">
+            <field name="name">Members</field>
+            <field name="res_model">vf.member</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first member!
+                </p>
+                <p>
+                    Members are the core of your association. Each member is linked to a person 
+                    (contact) and can have guardian relationships, family connections, and group memberships.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_member_menu" name="Members" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="10"
+                  action="vf_member_action"/>
+    </data>
+</odoo>

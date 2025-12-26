@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fee Payment List View -->
+        <record id="vf_fee_payment_view_tree" model="ir.ui.view">
+            <field name="name">vf.fee.payment.tree</field>
+            <field name="model">vf.fee.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Payments">
+                    <field name="display_name"/>
+                    <field name="fee_id"/>
+                    <field name="member_id"/>
+                    <field name="amount"/>
+                    <field name="payment_method"/>
+                    <field name="payment_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Fee Payment Form View -->
+        <record id="vf_fee_payment_view_form" model="ir.ui.view">
+            <field name="name">vf.fee.payment.form</field>
+            <field name="model">vf.fee.payment</field>
+            <field name="arch" type="xml">
+                <form string="Fee Payment">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_cancel" type="object" string="Cancel" 
+                                attrs="{'invisible': [('state', '=', 'cancelled')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,confirmed,cancelled"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="payment_info">
+                                <field name="fee_id"/>
+                                <field name="member_id" readonly="1"/>
+                                <field name="amount"/>
+                                <field name="currency_id" readonly="1"/>
+                            </group>
+                            <group name="method_info">
+                                <field name="payment_method"/>
+                                <field name="reference"/>
+                                <field name="payment_date"/>
+                                <field name="recorded_by"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Notes">
+                            <field name="notes" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Fee Payment Search View -->
+        <record id="vf_fee_payment_view_search" model="ir.ui.view">
+            <field name="name">vf.fee.payment.search</field>
+            <field name="model">vf.fee.payment</field>
+            <field name="arch" type="xml">
+                <search string="Search Payments">
+                    <field name="fee_id"/>
+                    <field name="member_id"/>
+                    <field name="reference"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <separator/>
+                    <filter string="This Week" name="this_week" 
+                            domain="[('payment_date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="This Month" name="this_month" 
+                            domain="[('payment_date', '>=', (context_today().replace(day=1)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="My Payments" name="my_payments" 
+                            domain="[('fee_id.member_id.partner_id.user_ids', 'in', user.ids)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Payment Method" name="group_method" context="{'group_by': 'payment_method'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Payment Date" name="group_date" context="{'group_by': 'payment_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Fee Payment Action -->
+        <record id="vf_fee_payment_action" model="ir.actions.act_window">
+            <field name="name">Fee Payments</field>
+            <field name="res_model">vf.fee.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No payments found.
+                </p>
+                <p>
+                    Payments are recorded when members pay their fees.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_fee_payment_menu" name="Payments" 
+                  parent="vf_membership_fees.vf_fee_menu" 
+                  sequence="10"
+                  action="vf_fee_payment_action"/>
+    </data>
+</odoo>

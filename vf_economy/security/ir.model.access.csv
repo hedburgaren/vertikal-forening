@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_economy_report_user,vf.economy.report.user,model_vf_economy_report,group_economy_user,1,0,0,0
+access_economy_report_manager,vf.economy.report.manager,model_vf_economy_report,group_economy_manager,1,1,1,1
+access_payment_view_user,vf.payment.view.user,model_vf_payment_view,group_economy_user,1,0,0,0
+access_payment_view_manager,vf.payment.view.manager,model_vf_payment_view,group_economy_manager,1,1,1,1
+access_export_access_user,vf.export.access.user,model_vf_export_access,group_economy_user,1,0,0,0
+access_export_access_manager,vf.export.access.manager,model_vf_export_access,group_economy_manager,1,1,1,1
+access_economy_report_admin,vf.economy.report.admin,model_vf_economy_report,group_economy_admin,1,1,1,1
+access_payment_view_admin,vf.payment.view.admin,model_vf_payment_view,group_economy_admin,1,1,1,1
+access_export_access_admin,vf.export.access.admin,model_vf_export_access,group_economy_admin,1,1,1,1

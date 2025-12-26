@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sponsor_user,vf.sponsor.user,model_vf_sponsor,group_sponsorship_user,1,0,0,0
+access_sponsor_manager,vf.sponsor.manager,model_vf_sponsor,group_sponsorship_manager,1,1,1,1
+access_sponsorship_level_user,vf.sponsorship.level.user,model_vf_sponsorship_level,group_sponsorship_user,1,0,0,0
+access_sponsorship_level_manager,vf.sponsorship.level.manager,model_vf_sponsorship_level,group_sponsorship_manager,1,1,1,1
+access_sponsorship_contract_user,vf.sponsorship.contract.user,model_vf_sponsorship_contract,group_sponsorship_user,1,0,0,0
+access_sponsorship_contract_manager,vf.sponsorship.contract.manager,model_vf_sponsorship_contract,group_sponsorship_manager,1,1,1,1
+access_merchandise_product_user,vf.merchandise.product.user,model_vf_merchandise_product,group_sponsorship_user,1,0,0,0
+access_merchandise_product_manager,vf.merchandise.product.manager,model_vf_merchandise_product,group_sponsorship_manager,1,1,1,1
+access_merchandise_order_user,vf.merchandise.order.user,model_vf_merchandise_order,group_sponsorship_user,1,0,0,0
+access_merchandise_order_manager,vf.merchandise.order.manager,model_vf_merchandise_order,group_sponsorship_manager,1,1,1,1
+access_sponsor_admin,vf.sponsor.admin,model_vf_sponsor,group_sponsorship_admin,1,1,1,1
+access_sponsorship_contract_admin,vf.sponsorship.contract.admin,model_vf_sponsorship_contract,group_sponsorship_admin,1,1,1,1
+access_merchandise_product_admin,vf.merchandise.product.admin,model_vf_merchandise_product,group_sponsorship_admin,1,1,1,1
+access_merchandise_order_admin,vf.merchandise.order.admin,model_vf_merchandise_order,group_sponsorship_admin,1,1,1,1

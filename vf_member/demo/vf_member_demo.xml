@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Partners -->
+        <record id="demo_partner_adult1" model="res.partner">
+            <field name="name">Anna Andersson</field>
+            <field name="birth_date">1985-03-15</field>
+            <field name="email">anna.andersson@example.com</field>
+            <field name="phone">070-1234567</field>
+            <field name="street">Storgatan 123</field>
+            <field name="zip">12345</field>
+            <field name="city">Stockholm</field>
+            <field name="country_id" ref="base.se"/>
+        </record>
+        
+        <record id="demo_partner_adult2" model="res.partner">
+            <field name="name">Erik Andersson</field>
+            <field name="birth_date">1983-07-22</field>
+            <field name="email">erik.andersson@example.com</field>
+            <field name="phone">070-2345678</field>
+            <field name="street">Storgatan 123</field>
+            <field name="zip">12345</field>
+            <field name="city">Stockholm</field>
+            <field name="country_id" ref="base.se"/>
+        </record>
+        
+        <record id="demo_partner_minor1" model="res.partner">
+            <field name="name">Maja Andersson</field>
+            <field name="birth_date">2012-09-10</field>
+            <field name="email">maja.andersson@example.com</field>
+            <field name="street">Storgatan 123</field>
+            <field name="zip">12345</field>
+            <field name="city">Stockholm</field>
+            <field name="country_id" ref="base.se"/>
+        </record>
+        
+        <record id="demo_partner_minor2" model="res.partner">
+            <field name="name">Leo Andersson</field>
+            <field name="birth_date">2015-04-25</field>
+            <field name="street">Storgatan 123</field>
+            <field name="zip">12345</field>
+            <field name="city">Stockholm</field>
+            <field name="country_id" ref="base.se"/>
+        </record>
+        
+        <record id="demo_partner_adult3" model="res.partner">
+            <field name="name">Sofia Nilsson</field>
+            <field name="birth_date">1980-11-08</field>
+            <field name="email">sofia.nilsson@example.com</field>
+            <field name="phone">070-3456789</field>
+            <field name="street">Lilla Gatan 45</field>
+            <field name="zip">54321</field>
+            <field name="city">Göteborg</field>
+            <field name="country_id" ref="base.se"/>
+        </record>
+        
+        <record id="demo_partner_minor3" model="res.partner">
+            <field name="name">Emil Nilsson</field>
+            <field name="birth_date">2014-06-18</field>
+            <field name="street">Lilla Gatan 45</field>
+            <field name="zip">54321</field>
+            <field name="city">Göteborg</field>
+            <field name="country_id" ref="base.se"/>
+        </record>
+        
+        <!-- Demo Members -->
+        <record id="demo_member_adult1" model="vf.member">
+            <field name="partner_id" ref="demo_partner_adult1"/>
+            <field name="membership_date">2020-01-15</field>
+            <field name="household_id" ref="demo_household_1"/>
+        </record>
+        
+        <record id="demo_member_adult2" model="vf.member">
+            <field name="partner_id" ref="demo_partner_adult2"/>
+            <field name="membership_date">2020-01-15</field>
+            <field name="household_id" ref="demo_household_1"/>
+        </record>
+        
+        <record id="demo_member_minor1" model="vf.member">
+            <field name="partner_id" ref="demo_partner_minor1"/>
+            <field name="membership_date">2020-01-15</field>
+            <field name="household_id" ref="demo_household_1"/>
+        </record>
+        
+        <record id="demo_member_minor2" model="vf.member">
+            <field name="partner_id" ref="demo_partner_minor2"/>
+            <field name="membership_date">2020-01-15</field>
+            <field name="household_id" ref="demo_household_1"/>
+        </record>
+        
+        <record id="demo_member_adult3" model="vf.member">
+            <field name="partner_id" ref="demo_partner_adult3"/>
+            <field name="membership_date">2021-03-10</field>
+            <field name="household_id" ref="demo_household_2"/>
+        </record>
+        
+        <record id="demo_member_minor3" model="vf.member">
+            <field name="partner_id" ref="demo_partner_minor3"/>
+            <field name="membership_date">2021-03-10</field>
+            <field name="household_id" ref="demo_household_2"/>
+        </record>
+        
+        <!-- Demo Guardian Relationships -->
+        <record id="demo_guardian_1" model="vf.guardian.relationship">
+            <field name="member_id" ref="demo_member_minor1"/>
+            <field name="guardian_id" ref="demo_partner_adult1"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_primary"/>
+            <field name="start_date">2012-09-10</field>
+            <field name="is_emergency">True</field>
+            <field name="legal_custody">True</field>
+        </record>
+        
+        <record id="demo_guardian_2" model="vf.guardian.relationship">
+            <field name="member_id" ref="demo_member_minor1"/>
+            <field name="guardian_id" ref="demo_partner_adult2"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_secondary"/>
+            <field name="start_date">2012-09-10</field>
+            <field name="is_emergency">True</field>
+            <field name="legal_custody">True</field>
+        </record>
+        
+        <record id="demo_guardian_3" model="vf.guardian.relationship">
+            <field name="member_id" ref="demo_member_minor2"/>
+            <field name="guardian_id" ref="demo_partner_adult1"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_primary"/>
+            <field name="start_date">2015-04-25</field>
+            <field name="is_emergency">True</field>
+            <field name="legal_custody">True</field>
+        </record>
+        
+        <record id="demo_guardian_4" model="vf.guardian.relationship">
+            <field name="member_id" ref="demo_member_minor2"/>
+            <field name="guardian_id" ref="demo_partner_adult2"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_secondary"/>
+            <field name="start_date">2015-04-25</field>
+            <field name="is_emergency">True</field>
+            <field name="legal_custody">True</field>
+        </record>
+        
+        <record id="demo_guardian_5" model="vf.guardian.relationship">
+            <field name="member_id" ref="demo_member_minor3"/>
+            <field name="guardian_id" ref="demo_partner_adult3"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_primary"/>
+            <field name="start_date">2014-06-18</field>
+            <field name="is_emergency">True</field>
+            <field name="legal_custody">True</field>
+        </record>
+        
+        <!-- Demo Family Relationships -->
+        <record id="demo_family_1" model="vf.family.relationship">
+            <field name="member_id" ref="demo_member_minor1"/>
+            <field name="related_member_id" ref="demo_member_minor2"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_sibling"/>
+            <field name="household_id" ref="demo_household_1"/>
+        </record>
+        
+        <record id="demo_family_2" model="vf.family.relationship">
+            <field name="member_id" ref="demo_member_minor2"/>
+            <field name="related_member_id" ref="demo_member_minor1"/>
+            <field name="relationship_type_id" ref="vf_member.relationship_type_sibling"/>
+            <field name="household_id" ref="demo_household_1"/>
+        </record>
+    </data>
+</odoo>

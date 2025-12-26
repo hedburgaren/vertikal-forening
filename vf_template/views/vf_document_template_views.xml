@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Document Template List View -->
+        <record id="vf_document_template_view_tree" model="ir.ui.view">
+            <field name="name">vf.document.template.tree</field>
+            <field name="model">vf.document.template</field>
+            <field name="arch" type="xml">
+                <tree string="Document Templates">
+                    <field name="display_name"/>
+                    <field name="template_type"/>
+                    <field name="category_id"/>
+                    <field name="active"/>
+                    <field name="usage_count" widget="integer"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Document Template Form View -->
+        <record id="vf_document_template_view_form" model="ir.ui.view">
+            <field name="name">vf.document.template.form</field>
+            <field name="model">vf.document.template</field>
+            <field name="arch" type="xml">
+                <form string="Document Template">
+                    <header>
+                        <button name="action_generate_preview" type="object" 
+                                string="Generate Preview" class="btn-primary"/>
+                        <button name="action_test_variables" type="object" 
+                                string="Test Variables" class="btn-secondary"/>
+                        <button name="action_create_document" type="object" 
+                                string="Create Document" class="btn-secondary"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="template_type"/>
+                                <field name="usage_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="pdf_font_size" 
+                                       attrs="{'invisible': [('template_type', 'not in', ['pdf_report', 'certificate', 'letter'])]}"/>
+                                <field name="pdf_margin_top" 
+                                       attrs="{'invisible': [('template_type', 'not in', ['pdf_report', 'certificate', 'letter'])]}"/>
+                                <field name="pdf_margin_bottom" 
+                                       attrs="{'invisible': [('template_type', 'not in', ['pdf_report', 'certificate', 'letter'])]}"/>
+                                <field name="pdf_margin_left" 
+                                       attrs="{'invisible': [('template_type', 'not in', ['pdf_report', 'certificate', 'letter'])]}"/>
+                                <field name="pdf_margin_right" 
+                                       attrs="{'invisible': [('template_type', 'not in', ['pdf_report', 'certificate', 'letter'])]}"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Content">
+                                <group>
+                                    <field name="body_html" widget="html" 
+                                           attrs="{'invisible': [('template_type', 'in', ['pdf_report', 'certificate'])]}"/>
+                                    <field name="body_text" 
+                                           attrs="{'invisible': [('template_type', 'not in', ['pdf_report', 'certificate'])]}"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Variables">
+                                <field name="variable_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="variable_type"/>
+                                        <field name="description"/>
+                                        <field name="required"/>
+                                        <field name="example_value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Sample Data">
+                                <group>
+                                    <field name="sample_data" placeholder='{"member_name": "John Doe", "membership_number": "VF000001"}'/>
+                                </group>
+                                <group string="Preview">
+                                    <field name="preview_attachment_id" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Document Template Kanban View -->
+        <record id="vf_document_template_view_kanban" model="ir.ui.view">
+            <field name="name">vf.document.template.kanban</field>
+            <field name="model">vf.document.template</field>
+            <field name="arch" type="xml">
+                <kanban string="Document Templates">
+                    <field name="id"/>
+                    <field name="display_name"/>
+                    <field name="template_type"/>
+                    <field name="category_id"/>
+                    <field name="active"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click #{record.active.raw_value ? '' : 'oe_kanban_color_4'}">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="display_name"/>
+                                        </strong>
+                                        <div class="o_kanban_record_subtitle">
+                                            <field name="template_type"/> / <field name="category_id"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button" href="#" tabindex="-1">
+                                            <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="usage_count"/> uses
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Document Template Actions -->
+        <record id="vf_document_template_action" model="ir.actions.act_window">
+            <field name="name">Document Templates</field>
+            <field name="res_model">vf.document.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first document template!
+                </p>
+                <p>
+                    Document templates allow you to generate consistent PDFs, certificates, and forms.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="vf_document_template_menu" name="Document Templates" 
+                  parent="vf_template_menu_main" 
+                  action="vf_document_template_action" sequence="20"/>
+    </data>
+</odoo>

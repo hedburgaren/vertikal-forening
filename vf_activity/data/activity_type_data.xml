@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Activity Types -->
+        <record id="type_training" model="vf.activity.type">
+            <field name="name">Training</field>
+            <field name="code">TRAINING</field>
+            <field name="description">Regular training sessions and practices</field>
+            <field name="sequence">10</field>
+            <field name="category">training</field>
+            <field name="color">1</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="default_duration">1.5</field>
+        </record>
+        
+        <record id="type_match" model="vf.activity.type">
+            <field name="name">Match/Game</field>
+            <field name="code">MATCH</field>
+            <field name="description">Competitive matches and games</field>
+            <field name="sequence">20</field>
+            <field name="category">sports</field>
+            <field name="color">2</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">True</field>
+            <field name="default_duration">2.0</field>
+        </record>
+        
+        <record id="type_meeting" model="vf.activity.type">
+            <field name="name">Meeting</field>
+            <field name="code">MEETING</field>
+            <field name="description">Board meetings, committee meetings, and general meetings</field>
+            <field name="sequence">30</field>
+            <field name="category">meeting</field>
+            <field name="color">3</field>
+            <field name="allow_registration">False</field>
+            <field name="require_approval">False</field>
+            <field name="default_duration">2.0</field>
+        </record>
+        
+        <record id="type_social" model="vf.activity.type">
+            <field name="name">Social Event</field>
+            <field name="code">SOCIAL</field>
+            <field name="description">Social gatherings, parties, and celebrations</field>
+            <field name="sequence">40</field>
+            <field name="category">social</field>
+            <field name="color">4</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="default_duration">3.0</field>
+        </record>
+        
+        <record id="type_competition" model="vf.activity.type">
+            <field name="name">Competition</field>
+            <field name="code">COMPETITION</field>
+            <field name="description">Tournaments and competitions</field>
+            <field name="sequence">50</field>
+            <field name="category">competition</field>
+            <field name="color">5</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">True</field>
+            <field name="default_duration">8.0</field>
+        </record>
+        
+        <record id="type_camp" model="vf.activity.type">
+            <field name="name">Camp</field>
+            <field name="code">CAMP</field>
+            <field name="description">Multi-day camps and retreats</field>
+            <field name="sequence">60</field>
+            <field name="category">camp</field>
+            <field name="color">6</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">True</field>
+            <field name="default_duration">24.0</field>
+        </record>
+        
+        <record id="type_workshop" model="vf.activity.type">
+            <field name="name">Workshop</field>
+            <field name="code">WORKSHOP</field>
+            <field name="description">Educational workshops and seminars</field>
+            <field name="sequence">70</field>
+            <field name="category">training</field>
+            <field name="color">7</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="default_duration">3.0</field>
+        </record>
+        
+        <record id="type_other" model="vf.activity.type">
+            <field name="name">Other</field>
+            <field name="code">OTHER</field>
+            <field name="description">Other types of activities</field>
+            <field name="sequence">90</field>
+            <field name="category">other</field>
+            <field name="color">0</field>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="default_duration">1.0</field>
+        </record>
+    </data>
+</odoo>

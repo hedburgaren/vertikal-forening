@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Record Rules -->
+        <!-- Sections: Leaders can see sections they manage -->
+        <record id="rule_vf_section_leader" model="ir.rule">
+            <field name="name">VF Section: Managed Sections</field>
+            <field name="model_id" ref="model_vf_section"/>
+            <field name="domain_force">[('manager_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Sections: Admins can see all -->
+        <record id="rule_vf_section_admin" model="ir.rule">
+            <field name="name">VF Section: All</field>
+            <field name="model_id" ref="model_vf_section"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Groups: Leaders can see groups in their sections -->
+        <record id="rule_vf_group_leader" model="ir.rule">
+            <field name="name">VF Group: Section Groups</field>
+            <field name="model_id" ref="model_vf_group"/>
+            <field name="domain_force">[('section_id.manager_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Groups: Group leaders can see their groups -->
+        <record id="rule_vf_group_group_leader" model="ir.rule">
+            <field name="name">VF Group: Own Groups</field>
+            <field name="model_id" ref="model_vf_group"/>
+            <field name="domain_force">[('leader_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Groups: Admins can see all -->
+        <record id="rule_vf_group_admin" model="ir.rule">
+            <field name="name">VF Group: All</field>
+            <field name="model_id" ref="model_vf_group"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Group Memberships: Members can see their own memberships -->
+        <record id="rule_vf_group_membership_own" model="ir.rule">
+            <field name="name">VF Group Membership: Own</field>
+            <field name="model_id" ref="model_vf_group_membership"/>
+            <field name="domain_force">[('member_id.partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Group Memberships: Leaders can see memberships in their groups -->
+        <record id="rule_vf_group_membership_leader" model="ir.rule">
+            <field name="name">VF Group Membership: Group Members</field>
+            <field name="model_id" ref="model_vf_group_membership"/>
+            <field name="domain_force">[('group_id.section_id.manager_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Group Memberships: Group leaders can see their group memberships -->
+        <record id="rule_vf_group_membership_group_leader" model="ir.rule">
+            <field name="name">VF Group Membership: Own Group Members</field>
+            <field name="model_id" ref="model_vf_group_membership"/>
+            <field name="domain_force">[('group_id.leader_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Group Memberships: Admins can see all -->
+        <record id="rule_vf_group_membership_admin" model="ir.rule">
+            <field name="name">VF Group Membership: All</field>
+            <field name="model_id" ref="model_vf_group_membership"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+    </data>
+</odoo>

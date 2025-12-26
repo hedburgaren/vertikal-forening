@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vf_member_user,vf.member.user,model_vf_member,group_vf_user,1,0,0,0
+access_vf_member_leader,vf.member.leader,model_vf_member,group_vf_leader,1,1,1,0
+access_vf_member_admin,vf.member.admin,model_vf_member,group_vf_admin,1,1,1,1
+access_vf_guardian_relationship_user,vf.guardian.relationship.user,model_vf_guardian_relationship,group_vf_user,1,1,1,0
+access_vf_guardian_relationship_leader,vf.guardian.relationship.leader,model_vf_guardian_relationship,group_vf_leader,1,1,1,0
+access_vf_guardian_relationship_admin,vf.guardian.relationship.admin,model_vf_guardian_relationship,group_vf_admin,1,1,1,1
+access_vf_family_relationship_user,vf.family.relationship.user,model_vf_family_relationship,group_vf_user,1,1,1,0
+access_vf_family_relationship_leader,vf.family.relationship.leader,model_vf_family_relationship,group_vf_leader,1,1,1,0
+access_vf_family_relationship_admin,vf.family.relationship.admin,model_vf_family_relationship,group_vf_admin,1,1,1,1
+access_vf_household_user,vf.household.user,model_vf_household,group_vf_user,1,1,1,0
+access_vf_household_leader,vf.household.leader,model_vf_household,group_vf_leader,1,1,1,0
+access_vf_household_admin,vf.household.admin,model_vf_household,group_vf_admin,1,1,1,1
+access_vf_relationship_type_user,vf.relationship.type.user,model_vf_relationship_type,group_vf_user,1,0,0,0
+access_vf_relationship_type_leader,vf.relationship.type.leader,model_vf_relationship_type,group_vf_leader,1,0,0,0
+access_vf_relationship_type_admin,vf.relationship.type.admin,model_vf_relationship_type,group_vf_admin,1,1,1,1

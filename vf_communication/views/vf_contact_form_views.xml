@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Contact Form List View -->
+        <record id="vf_contact_form_view_tree" model="ir.ui.view">
+            <field name="name">vf.contact.form.tree</field>
+            <field name="model">vf.contact.form</field>
+            <field name="arch" type="xml">
+                <tree string="Contact Forms">
+                    <field name="subject"/>
+                    <field name="sender_name"/>
+                    <field name="sender_email"/>
+                    <field name="mailbox_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Contact Form Form View -->
+        <record id="vf_contact_form_view_form" model="ir.ui.view">
+            <field name="name">vf.contact.form.form</field>
+            <field name="model">vf.contact.form</field>
+            <field name="arch" type="xml">
+                <form string="Contact Form">
+                    <header>
+                        <button name="action_mark_read" type="object" string="Mark as Read" 
+                                attrs="{'invisible': [('state', '!=', 'new')]}"/>
+                        <button name="action_reply" type="object" string="Reply" 
+                                class="btn-primary"/>
+                        <button name="action_create_partner" type="object" string="Create Partner"
+                                attrs="{'invisible': [('partner_id', '!=', False)]}"/>
+                        <button name="action_forward_to_mailbox" type="object" string="Forward to Mailbox"/>
+                        <button name="action_close" type="object" string="Close"
+                                attrs="{'invisible': [('state', '=', 'closed')]}"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="new,read,replied,closed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="sender_info">
+                                <field name="sender_name"/>
+                                <field name="sender_email"/>
+                                <field name="sender_phone"/>
+                                <field name="date"/>
+                            </group>
+                            <group name="target_info">
+                                <field name="mailbox_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Subject">
+                            <field name="subject" nolabel="1"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Message">
+                                <field name="message" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Internal Notes" groups="vf_base.vf_admin">
+                                <field name="internal_notes" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Contact Form Search View -->
+        <record id="vf_contact_form_view_search" model="ir.ui.view">
+            <field name="name">vf.contact.form.search</field>
+            <field name="model">vf.contact.form</field>
+            <field name="arch" type="xml">
+                <search string="Search Contact Forms">
+                    <field name="subject"/>
+                    <field name="sender_name"/>
+                    <field name="sender_email"/>
+                    <field name="mailbox_id"/>
+                    <filter string="New" name="new" domain="[('state', '=', 'new')]"/>
+                    <filter string="Read" name="read" domain="[('state', '=', 'read')]"/>
+                    <filter string="Replied" name="replied" domain="[('state', '=', 'replied')]"/>
+                    <filter string="Closed" name="closed" domain="[('state', '=', 'closed')]"/>
+                    <separator/>
+                    <filter string="This Week" name="this_week" 
+                            domain="[('date', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="This Month" name="this_month" 
+                            domain="[('date', '>=', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Mailbox" name="group_mailbox" context="{'group_by': 'mailbox_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Contact Form Action -->
+        <record id="vf_contact_form_action" model="ir.actions.act_window">
+            <field name="name">Contact Forms</field>
+            <field name="res_model">vf.contact.form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No contact forms yet.
+                </p>
+                <p>
+                    Contact forms are submitted through the website and can be
+                    forwarded to appropriate mailboxes for handling.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_contact_form_menu" name="Contact Forms" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="50"
+                  action="vf_contact_form_action"/>
+    </data>
+</odoo>

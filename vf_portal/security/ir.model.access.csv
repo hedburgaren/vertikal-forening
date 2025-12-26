@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_portal_member_user,vf.portal.member.user,model_vf_portal_member,group_portal_member,1,1,0,0
+access_portal_activity_user,vf.portal.activity.user,model_vf_portal_activity,group_portal_member,1,1,1,0
+access_portal_document_user,vf.portal.document.user,model_vf_portal_document,group_portal_member,1,0,0,0
+access_portal_payment_user,vf.portal.payment.user,model_vf_portal_payment,group_portal_member,1,1,1,0
+access_waiting_list_user,vf.activity.waiting.list.user,model_vf_activity_waiting_list,group_portal_member,1,1,1,0
+access_portal_member_manager,vf.portal.member.manager,model_vf_portal_member,group_portal_manager,1,1,1,1
+access_portal_activity_manager,vf.portal.activity.manager,model_vf_portal_activity,group_portal_manager,1,1,1,1
+access_portal_document_manager,vf.portal.document.manager,model_vf_portal_document,group_portal_manager,1,1,1,1
+access_portal_payment_manager,vf.portal.payment.manager,model_vf_portal_payment,group_portal_manager,1,1,1,1
+access_waiting_list_manager,vf.activity.waiting.list.manager,model_vf_activity_waiting_list,group_portal_manager,1,1,1,1

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Mandate List View -->
+        <record id="vf_mandate_view_tree" model="ir.ui.view">
+            <field name="name">vf.mandate.tree</field>
+            <field name="model">vf.mandate</field>
+            <field name="arch" type="xml">
+                <tree string="Mandates">
+                    <field name="display_name"/>
+                    <field name="position_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="status"/>
+                    <field name="appointed_by"/>
+                    <field name="days_remaining" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Mandate Form View -->
+        <record id="vf_mandate_view_form" model="ir.ui.view">
+            <field name="name">vf.mandate.form</field>
+            <field name="model">vf.mandate</field>
+            <field name="arch" type="xml">
+                <form string="Mandate">
+                    <header>
+                        <button name="action_activate" type="object" string="Activate" 
+                                attrs="{'invisible': [('status', '!=', 'pending')]}" class="btn-primary"/>
+                        <button name="action_revoke" type="object" string="Revoke" 
+                                attrs="{'invisible': [('status', '=', 'revoked')]}"/>
+                        <button name="action_extend" type="object" string="Extend" 
+                                attrs="{'invisible': [('status', '!=', 'active')]}"/>
+                        <field name="status" widget="statusbar" 
+                               statusbar_visible="pending,active,expired,revoked"/>
+                    </header>
+                    <sheet>
+                        <div class="alert alert-warning" 
+                             attrs="{'invisible': [('is_expiring_soon', '=', False)]}">
+                            <i class="fa fa-exclamation-triangle"/>
+                            This mandate expires in <field name="days_remaining"/> days
+                        </div>
+                        
+                        <group>
+                            <group name="mandate_info">
+                                <field name="person_id"/>
+                                <field name="position_id"/>
+                                <field name="appointed_by"/>
+                                <field name="appointment_date"/>
+                            </group>
+                            <group name="dates">
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="days_remaining" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Extensions">
+                                <field name="extension_ids">
+                                    <tree>
+                                        <field name="original_end_date"/>
+                                        <field name="new_end_date"/>
+                                        <field name="approved_by"/>
+                                        <field name="approval_date"/>
+                                        <field name="status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Notes" groups="vf_base.vf_admin">
+                                <field name="notes" nolabel="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Mandate Search View -->
+        <record id="vf_mandate_view_search" model="ir.ui.view">
+            <field name="name">vf.mandate.search</field>
+            <field name="model">vf.mandate</field>
+            <field name="arch" type="xml">
+                <search string="Search Mandates">
+                    <field name="person_id"/>
+                    <field name="position_id"/>
+                    <field name="appointed_by"/>
+                    <filter string="Active" name="active" domain="[('status', '=', 'active')]"/>
+                    <filter string="Pending" name="pending" domain="[('status', '=', 'pending')]"/>
+                    <filter string="Expired" name="expired" domain="[('status', '=', 'expired')]"/>
+                    <filter string="Revoked" name="revoked" domain="[('status', '=', 'revoked')]"/>
+                    <separator/>
+                    <filter string="Expiring Soon" name="expiring_soon" 
+                            domain="[('is_expiring_soon', '=', True)]"/>
+                    <filter string="Overdue" name="overdue" 
+                            domain="[('status', '=', 'active'), ('end_date', '&lt;', context_today())]"/>
+                    <separator/>
+                    <filter string="My Mandates" name="my_mandates" 
+                            domain="[('person_id', '=', uid)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Person" name="group_person" context="{'group_by': 'person_id'}"/>
+                        <filter string="Position" name="group_position" context="{'group_by': 'position_id'}"/>
+                        <filter string="Status" name="group_status" context="{'group_by': 'status'}"/>
+                        <filter string="End Month" name="group_end_month" context="{'group_by': 'end_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Mandate Calendar View -->
+        <record id="vf_mandate_view_calendar" model="ir.ui.view">
+            <field name="name">vf.mandate.calendar</field>
+            <field name="model">vf.mandate</field>
+            <field name="arch" type="xml">
+                <calendar string="Mandates" date_start="start_date" date_stop="end_date"
+                         color="status" mode="month">
+                    <field name="person_id"/>
+                    <field name="position_id"/>
+                    <field name="status"/>
+                </calendar>
+            </field>
+        </record>
+        
+        <!-- Mandate Action -->
+        <record id="vf_mandate_action" model="ir.actions.act_window">
+            <field name="name">Mandates</field>
+            <field name="res_model">vf.mandate</field>
+            <field name="view_mode">tree,calendar,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first mandate!
+                </p>
+                <p>
+                    Mandates are time-bound assignments of people to positions.
+                    They ensure proper continuity and tracking of responsibilities.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_mandate_menu" name="Mandates" 
+                  parent="vf_base.vf_menu_organization" 
+                  sequence="50"
+                  action="vf_mandate_action"/>
+    </data>
+</odoo>

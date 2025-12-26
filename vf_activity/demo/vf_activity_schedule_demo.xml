@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Activity Schedules -->
+        <!-- AGM Schedule -->
+        <record id="demo_schedule_agm" model="vf.activity.schedule">
+            <field name="name">Annual General Meeting</field>
+            <field name="activity_id" ref="demo_activity_agm"/>
+            <field name="start_date">2024-03-15 18:00:00</field>
+            <field name="end_date">2024-03-15 20:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="max_participants">200</field>
+            <field name="state">completed</field>
+        </record>
+        
+        <!-- Football Training Schedules (Recurring) -->
+        <record id="demo_schedule_football_monday" model="vf.activity.schedule">
+            <field name="name">Football Training - Monday</field>
+            <field name="activity_id" ref="demo_activity_football_training"/>
+            <field name="start_date">2024-03-04 16:00:00</field>
+            <field name="end_date">2024-03-04 17:30:00</field>
+            <field name="is_recurring">True</field>
+            <field name="recurrence_type">weekly</field>
+            <field name="recurrence_interval">1</field>
+            <field name="recurrence_end_date">2024-05-27</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="max_participants">20</field>
+            <field name="state">completed</field>
+        </record>
+        
+        <record id="demo_schedule_football_wednesday" model="vf.activity.schedule">
+            <field name="name">Football Training - Wednesday</field>
+            <field name="activity_id" ref="demo_activity_football_training"/>
+            <field name="start_date">2024-03-06 16:00:00</field>
+            <field name="end_date">2024-03-06 17:30:00</field>
+            <field name="is_recurring">True</field>
+            <field name="recurrence_type">weekly</field>
+            <field name="recurrence_interval">1</field>
+            <field name="recurrence_end_date">2024-05-29</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="max_participants">20</field>
+            <field name="state">completed</field>
+        </record>
+        
+        <!-- Swimming Training Schedules (Recurring) -->
+        <record id="demo_schedule_swimming_monday" model="vf.activity.schedule">
+            <field name="name">Swimming Training - Monday</field>
+            <field name="activity_id" ref="demo_activity_swimming_training"/>
+            <field name="start_date">2024-03-04 16:00:00</field>
+            <field name="end_date">2024-03-04 17:00:00</field>
+            <field name="is_recurring">True</field>
+            <field name="recurrence_type">weekly</field>
+            <field name="recurrence_interval">1</field>
+            <field name="recurrence_end_date">2024-05-27</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="max_participants">30</field>
+            <field name="state">completed</field>
+        </record>
+        
+        <record id="demo_schedule_swimming_wednesday" model="vf.activity.schedule">
+            <field name="name">Swimming Training - Wednesday</field>
+            <field name="activity_id" ref="demo_activity_swimming_training"/>
+            <field name="start_date">2024-03-06 16:00:00</field>
+            <field name="end_date">2024-03-06 17:00:00</field>
+            <field name="is_recurring">True</field>
+            <field name="recurrence_type">weekly</field>
+            <field name="recurrence_interval">1</field>
+            <field name="recurrence_end_date">2024-05-29</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="max_participants">30</field>
+            <field name="state">completed</field>
+        </record>
+        
+        <record id="demo_schedule_swimming_friday" model="vf.activity.schedule">
+            <field name="name">Swimming Training - Friday</field>
+            <field name="activity_id" ref="demo_activity_swimming_training"/>
+            <field name="start_date">2024-03-08 16:00:00</field>
+            <field name="end_date">2024-03-08 17:00:00</field>
+            <field name="is_recurring">True</field>
+            <field name="recurrence_type">weekly</field>
+            <field name="recurrence_interval">1</field>
+            <field name="recurrence_end_date">2024-05-31</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="max_participants">30</field>
+            <field name="state">completed</field>
+        </record>
+        
+        <!-- Spring Camp Schedules -->
+        <record id="demo_schedule_camp_day1" model="vf.activity.schedule">
+            <field name="name">Spring Camp - Day 1</field>
+            <field name="activity_id" ref="demo_activity_spring_camp"/>
+            <field name="start_date">2024-04-10 09:00:00</field>
+            <field name="end_date">2024-04-10 16:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="assistant_ids" eval="[(4, ref('vf_member.demo_partner_adult2')), (4, ref('vf_member.demo_partner_adult3'))]"/>
+            <field name="max_participants">50</field>
+            <field name="state">completed</field>
+            <field name="notes">Introduction day, team building activities</field>
+        </record>
+        
+        <record id="demo_schedule_camp_day2" model="vf.activity.schedule">
+            <field name="name">Spring Camp - Day 2</field>
+            <field name="activity_id" ref="demo_activity_spring_camp"/>
+            <field name="start_date">2024-04-11 09:00:00</field>
+            <field name="end_date">2024-04-11 16:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="assistant_ids" eval="[(4, ref('vf_member.demo_partner_adult1')), (4, ref('vf_member.demo_partner_adult3'))]"/>
+            <field name="max_participants">50</field>
+            <field name="state">completed</field>
+            <field name="notes">Sports activities and competitions</field>
+        </record>
+        
+        <record id="demo_schedule_camp_day3" model="vf.activity.schedule">
+            <field name="name">Spring Camp - Day 3</field>
+            <field name="activity_id" ref="demo_activity_spring_camp"/>
+            <field name="start_date">2024-04-12 09:00:00</field>
+            <field name="end_date">2024-04-12 16:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="assistant_ids" eval="[(4, ref('vf_member.demo_partner_adult1')), (4, ref('vf_member.demo_partner_adult2'))]"/>
+            <field name="max_participants">50</field>
+            <field name="state">completed</field>
+            <field name="notes">Final activities and awards ceremony</field>
+        </record>
+        
+        <!-- Coach Workshop Schedule -->
+        <record id="demo_schedule_workshop_morning" model="vf.activity.schedule">
+            <field name="name">Coach Workshop - Morning Session</field>
+            <field name="activity_id" ref="demo_activity_coach_workshop"/>
+            <field name="start_date">2024-02-17 09:00:00</field>
+            <field name="end_date">2024-02-17 12:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="max_participants">20</field>
+            <field name="state">completed</field>
+            <field name="notes">Training methodology and safety guidelines</field>
+        </record>
+        
+        <record id="demo_schedule_workshop_afternoon" model="vf.activity.schedule">
+            <field name="name">Coach Workshop - Afternoon Session</field>
+            <field name="activity_id" ref="demo_activity_coach_workshop"/>
+            <field name="start_date">2024-02-17 13:00:00</field>
+            <field name="end_date">2024-02-17 16:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="max_participants">20</field>
+            <field name="state">completed</field>
+            <field name="notes">Working with young athletes and communication skills</field>
+        </record>
+        
+        <!-- Summer Party Schedule -->
+        <record id="demo_schedule_summer_party" model="vf.activity.schedule">
+            <field name="name">Summer Celebration</field>
+            <field name="activity_id" ref="demo_activity_summer_party"/>
+            <field name="start_date">2024-06-15 17:00:00</field>
+            <field name="end_date">2024-06-15 23:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="assistant_ids" eval="[(4, ref('vf_member.demo_partner_adult1')), (4, ref('vf_member.demo_partner_adult2'))]"/>
+            <field name="max_participants">150</field>
+            <field name="state">planned</field>
+            <field name="notes">BBQ starts at 17:30, awards ceremony at 20:00</field>
+        </record>
+        
+        <!-- Board Meeting Schedule -->
+        <record id="demo_schedule_board_meeting" model="vf.activity.schedule">
+            <field name="name">Board Meeting - May</field>
+            <field name="activity_id" ref="demo_activity_board_meeting"/>
+            <field name="start_date">2024-05-20 18:00:00</field>
+            <field name="end_date">2024-05-20 20:00:00</field>
+            <field name="instructor_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="max_participants">10</field>
+            <field name="state">planned</field>
+        </record>
+    </data>
+</odoo>

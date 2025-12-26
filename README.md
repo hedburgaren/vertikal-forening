@@ -40,34 +40,34 @@ Primarily aimed at Sweden and the Nordics, but will hopefully be internationally
 
 ---
 
-## Core Capabilities (When Complete)
+## Core Capabilities (✅ IMPLEMENTED)
 
-### Members & Families
+### Members & Families ✅
 - Members can be adults or minors
 - Mandatory guardian relationships for minors
 - Voluntary emergency and contact relationships
 - Family support (siblings, households, guardians)
 - Members can belong to multiple groups simultaneously
 
-### Groups & Sections
+### Groups & Sections ✅
 - Groups (teams, committees, working groups)
 - Sections as a higher-level organizational layer
 - Members can hold multiple roles across groups and sections
 - Clear separation between membership and responsibility
 
-### Roles, Mandates & Access
+### Roles, Mandates & Access ✅
 - Role-based access control
 - Time-limited mandates with reminders and grace periods
 - Automatic continuity protection to prevent loss of access
 - Access always scoped to group, section or organization level
 
-### Communication
+### Communication ✅
 - Role- and group-based messaging
 - No dependency on personal email addresses
 - Frontend contact forms targeting roles or groups
 - Full message history retained even when roles change
 
-### Documents & Sharing
+### Documents & Sharing ✅
 - Built on OCA Document Management System (DMS)
 - Documents can be linked to:
   - members
@@ -81,7 +81,7 @@ Primarily aimed at Sweden and the Nordics, but will hopefully be internationally
   - public (frontend)
 - Versioning and access control
 
-### Templates
+### Templates ✅
 - Pre-built document and e-mail templates
   - document templates (PDF, reports, confirmations)
   - email templates (notifications, reminders, confirmations)
@@ -94,37 +94,37 @@ Primarily aimed at Sweden and the Nordics, but will hopefully be internationally
   - designed to be customized per association
   - independent from business-specific branding
 
-### Activities & Events
+### Activities & Events ✅
 - Trainings, courses, camps, competitions
 - Individual and group participation
 - Attendance tracking
 - Guardian-reported absence
 - Support for complex participation scenarios
 
-### Attendance & Reporting
+### Attendance & Reporting ✅
 - Digital attendance lists
 - Aggregated reports for treasurers
 - Exportable PDF and XLS reports
 - Designed to support activity-based funding models
 
-### Membership & Fees
+### Membership & Fees ✅
 - Membership periods and history
 - Split payments (monthly, quarterly, semi-annual, annual)
 - Price tiers and role-based reductions
 - Integration with Odoo payment methods
 
-### Economy Support
+### Economy Support ✅
 - Treasurer-focused reports
 - Filterable member and payment views
 - Export-only access (no raw data dumps)
 
-### Sponsorship & Sales
+### Sponsorship & Sales ✅
 - Sponsorship packages with validity periods
 - Targeted communication to sponsors
 - Optional merchandise and association sales
 - Donations and sponsorship handled separately from membership
 
-### Member & Guardian Portal
+### Member & Guardian Portal ✅
 - Self-service frontend portal
 - Schedule and event registration
 - Document access

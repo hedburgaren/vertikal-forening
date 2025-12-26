@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Attachments (simulated files) -->
+        <record id="demo_attachment_bylaws" model="ir.attachment">
+            <field name="name">Association_Bylaws_2024.pdf</field>
+            <field name="datas_fname">Association_Bylaws_2024.pdf</field>
+            <field name="description">Official association bylaws</field>
+            <field name="res_model">vf.document</field>
+            <field name="res_field">attachment_id</field>
+            <field name="mimetype">application/pdf</field>
+        </record>
+        
+        <record id="demo_attachment_meeting_minutes" model="ir.attachment">
+            <field name="name">AGM_Minutes_2024-03-15.pdf</field>
+            <field name="datas_fname">AGM_Minutes_2024-03-15.pdf</field>
+            <field name="description">Annual General Meeting minutes</field>
+            <field name="res_model">vf.document</field>
+            <field name="res_field">attachment_id</field>
+            <field name="mimetype">application/pdf</field>
+        </record>
+        
+        <record id="demo_attachment_membership_form" model="ir.attachment">
+            <field name="name">Membership_Application_Form.docx</field>
+            <field name="datas_fname">Membership_Application_Form.docx</field>
+            <field name="description">Membership application form template</field>
+            <field name="res_model">vf.document</field>
+            <field name="res_field">attachment_id</field>
+            <field name="mimetype">application/vnd.openxmlformats-officedocument.wordprocessingml.document</field>
+        </record>
+        
+        <record id="demo_attachment_safety_guide" model="ir.attachment">
+            <field name="name">Safety_Guidelines_2024.pdf</field>
+            <field name="datas_fname">Safety_Guidelines_2024.pdf</field>
+            <field name="description">Safety guidelines for all activities</field>
+            <field name="res_model">vf.document</field>
+            <field name="res_field">attachment_id</field>
+            <field name="mimetype">application/pdf</field>
+        </record>
+        
+        <record id="demo_attachment_financial_report" model="ir.attachment">
+            <field name="name">Annual_Report_2023.pdf</field>
+            <field name="datas_fname">Annual_Report_2023.pdf</field>
+            <field name="description">Annual financial report</field>
+            <field name="res_model">vf.document</field>
+            <field name="res_field">attachment_id</field>
+            <field name="mimetype">application/pdf</field>
+        </record>
+        
+        <record id="demo_attachment_training_manual" model="ir.attachment">
+            <field name="name">Coach_Training_Manual.pdf</field>
+            <field name="datas_fname">Coach_Training_Manual.pdf</field>
+            <field name="description">Training manual for coaches</field>
+            <field name="res_model">vf.document</field>
+            <field name="res_field">attachment_id</field>
+            <field name="mimetype">application/pdf</field>
+        </record>
+        
+        <!-- Demo Documents -->
+        <record id="demo_document_bylaws" model="vf.document">
+            <field name="name">Association Bylaws</field>
+            <field name="category_id" ref="category_policies"/>
+            <field name="attachment_id" ref="demo_attachment_bylaws"/>
+            <field name="date">2024-01-01</field>
+            <field name="state">published</field>
+            <field name="visibility">public</field>
+            <field name="description">Official bylaws governing the association</field>
+        </record>
+        
+        <record id="demo_document_agm_minutes" model="vf.document">
+            <field name="name">Annual General Meeting Minutes</field>
+            <field name="category_id" ref="category_meeting_minutes"/>
+            <field name="attachment_id" ref="demo_attachment_meeting_minutes"/>
+            <field name="date">2024-03-15</field>
+            <field name="state">published</field>
+            <field name="visibility">members</field>
+            <field name="description">Minutes from the 2024 Annual General Meeting</field>
+            <field name="section_ids" eval="[(4, ref('vf_group.demo_section_admin'))]"/>
+        </record>
+        
+        <record id="demo_document_membership_form" model="vf.document">
+            <field name="name">Membership Application Form</field>
+            <field name="category_id" ref="category_forms"/>
+            <field name="attachment_id" ref="demo_attachment_membership_form"/>
+            <field name="date">2024-01-15</field>
+            <field name="state">published</field>
+            <field name="visibility">public</field>
+            <field name="is_template">True</field>
+            <field name="description">Template for new membership applications</field>
+        </record>
+        
+        <record id="demo_document_safety_guide" model="vf.document">
+            <field name="name">Safety Guidelines</field>
+            <field name="category_id" ref="category_safety"/>
+            <field name="attachment_id" ref="demo_attachment_safety_guide"/>
+            <field name="date">2024-02-01</field>
+            <field name="state">published</field>
+            <field name="visibility">members</field>
+            <field name="description">Safety guidelines for all association activities</field>
+            <field name="group_ids" eval="[(4, ref('vf_group.demo_group_football_u12')), (4, ref('vf_group.demo_group_swimming_junior'))]"/>
+        </record>
+        
+        <record id="demo_document_financial_report" model="vf.document">
+            <field name="name">Annual Financial Report 2023</field>
+            <field name="category_id" ref="category_financial"/>
+            <field name="attachment_id" ref="demo_attachment_financial_report"/>
+            <field name="date">2024-01-31</field>
+            <field name="state">published</field>
+            <field name="visibility">leadership</field>
+            <field name="description">Annual financial report for 2023</field>
+            <field name="allowed_role_ids" eval="[(4, ref('vf_role.role_treasurer'))]"/>
+        </record>
+        
+        <record id="demo_document_training_manual" model="vf.document">
+            <field name="name">Coach Training Manual</field>
+            <field name="category_id" ref="category_training"/>
+            <field name="attachment_id" ref="demo_attachment_training_manual"/>
+            <field name="date">2024-02-15</field>
+            <field name="state">published</field>
+            <field name="visibility">members</field>
+            <field name="description">Training manual for sports coaches</field>
+            <field name="allowed_role_ids" eval="[(4, ref('vf_role.role_coach'))]"/>
+        </record>
+        
+        <!-- Draft Document -->
+        <record id="demo_document_draft_policy" model="vf.document">
+            <field name="name">Social Media Policy (Draft)</field>
+            <field name="category_id" ref="category_policies"/>
+            <field name="date">2024-03-01</field>
+            <field name="state">draft</field>
+            <field name="visibility">leadership</field>
+            <field name="description">Draft social media policy for review</field>
+        </record>
+        
+        <!-- Document created from template -->
+        <record id="demo_document_filled_form" model="vf.document">
+            <field name="name">Anna Andersson - Application</field>
+            <field name="category_id" ref="category_forms"/>
+            <field name="date">2024-03-10</field>
+            <field name="state">published</field>
+            <field name="visibility">custom</field>
+            <field name="template_id" ref="demo_document_membership_form"/>
+            <field name="description">Completed membership application</field>
+            <field name="allowed_member_ids" eval="[(4, ref('vf_member.demo_member_adult1'))]"/>
+            <field name="member_ids" eval="[(4, ref('vf_member.demo_member_adult1'))]"/>
+        </record>
+    </data>
+</odoo>

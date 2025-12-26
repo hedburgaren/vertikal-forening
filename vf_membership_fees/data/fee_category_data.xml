@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Fee Categories -->
+        <record id="category_regular" model="vf.fee.category">
+            <field name="name">Regular Membership</field>
+            <field name="code">REGULAR</field>
+            <field name="description">Standard membership fee for regular members</field>
+            <field name="sequence">10</field>
+            <field name="amount">500.00</field>
+            <field name="period_type">annual</field>
+            <field name="member_type">regular</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">1</field>
+            <field name="due_days">30</field>
+        </record>
+        
+        <record id="category_student" model="vf.fee.category">
+            <field name="name">Student Membership</field>
+            <field name="code">STUDENT</field>
+            <field name="description">Reduced fee for students with valid student ID</field>
+            <field name="sequence">20</field>
+            <field name="amount">250.00</field>
+            <field name="period_type">annual</field>
+            <field name="member_type">student</field>
+            <field name="min_age">18</field>
+            <field name="max_age">30</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">1</field>
+            <field name="due_days">30</field>
+        </record>
+        
+        <record id="category_youth" model="vf.fee.category">
+            <field name="name">Youth Membership</field>
+            <field name="code">YOUTH</field>
+            <field name="description">Membership fee for youth members (under 18)</field>
+            <field name="sequence">30</field>
+            <field name="amount">300.00</field>
+            <field name="period_type">annual</field>
+            <field name="member_type">youth</field>
+            <field name="max_age">17</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">1</field>
+            <field name="due_days">30</field>
+        </record>
+        
+        <record id="category_senior" model="vf.fee.category">
+            <field name="name">Senior Membership</field>
+            <field name="code">SENIOR</field>
+            <field name="description">Reduced fee for senior members (65+)</field>
+            <field name="sequence">40</field>
+            <field name="amount">300.00</field>
+            <field name="period_type">annual</field>
+            <field name="member_type">senior</field>
+            <field name="min_age">65</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">1</field>
+            <field name="due_days">30</field>
+        </record>
+        
+        <record id="category_family" model="vf.fee.category">
+            <field name="name">Family Membership</field>
+            <field name="code">FAMILY</field>
+            <field name="description">Family membership covering all family members</field>
+            <field name="sequence">50</field>
+            <field name="amount">1000.00</field>
+            <field name="period_type">annual</field>
+            <field name="member_type">family</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">1</field>
+            <field name="due_days">30</field>
+        </record>
+        
+        <record id="category_training" model="vf.fee.category">
+            <field name="name">Training Fee</field>
+            <field name="code">TRAINING</field>
+            <field name="description">Fee for participating in training sessions</field>
+            <field name="sequence">60</field>
+            <field name="amount">100.00</field>
+            <field name="period_type">semester</field>
+            <field name="member_type">all</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">15</field>
+            <field name="due_days">14</field>
+        </record>
+        
+        <record id="category_competition" model="vf.fee.category">
+            <field name="name">Competition Fee</field>
+            <field name="code">COMPETITION</field>
+            <field name="description">Fee for participating in competitions</field>
+            <field name="sequence">70</field>
+            <field name="amount">50.00</field>
+            <field name="period_type">one_time</field>
+            <field name="member_type">all</field>
+            <field name="auto_generate">False</field>
+            <field name="due_days">7</field>
+        </record>
+        
+        <record id="category_insurance" model="vf.fee.category">
+            <field name="name">Insurance Fee</field>
+            <field name="code">INSURANCE</field>
+            <field name="description">Mandatory insurance coverage for all members</field>
+            <field name="sequence">80</field>
+            <field name="amount">100.00</field>
+            <field name="period_type">annual</field>
+            <field name="member_type">all</field>
+            <field name="auto_generate">True</field>
+            <field name="generate_day">1</field>
+            <field name="due_days">30</field>
+        </record>
+    </data>
+</odoo>

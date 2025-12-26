@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Activity Type List View -->
+        <record id="vf_activity_type_view_tree" model="ir.ui.view">
+            <field name="name">vf.activity.type.tree</field>
+            <field name="model">vf.activity.type</field>
+            <field name="arch" type="xml">
+                <tree string="Activity Types">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="category"/>
+                    <field name="color"/>
+                    <field name="allow_registration"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Activity Type Form View -->
+        <record id="vf_activity_type_view_form" model="ir.ui.view">
+            <field name="name">vf.activity.type.form</field>
+            <field name="model">vf.activity.type</field>
+            <field name="arch" type="xml">
+                <form string="Activity Type">
+                    <sheet>
+                        <group>
+                            <group name="type_info">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="sequence"/>
+                                <field name="category"/>
+                            </group>
+                            <group name="configuration">
+                                <field name="color" widget="color"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Registration Settings">
+                                <group>
+                                    <field name="allow_registration"/>
+                                    <field name="require_approval"/>
+                                    <field name="max_participants"/>
+                                    <field name="default_duration"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Activity Type Action -->
+        <record id="vf_activity_type_action" model="ir.actions.act_window">
+            <field name="name">Activity Types</field>
+            <field name="res_model">vf.activity.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first activity type!
+                </p>
+                <p>
+                    Activity types help categorize and configure default settings
+                    for different kinds of activities.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_activity_type_menu" name="Activity Types" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="70"
+                  action="vf_activity_type_action"/>
+    </data>
+</odoo>

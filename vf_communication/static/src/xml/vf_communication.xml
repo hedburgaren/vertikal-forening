@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Message Composer Template -->
+    <t t-name="vf_communication.message_composer">
+        <div class="o_vf_message_composer">
+            <div class="form-group">
+                <label>Subject</label>
+                <input type="text" class="form-control o_vf_subject" placeholder="Enter subject"/>
+            </div>
+            
+            <div class="form-group">
+                <label>Recipients</label>
+                <div class="o_vf_recipient_controls">
+                    <select class="form-control o_vf_recipient_type">
+                        <option value="partner">Individual</option>
+                        <option value="group">Group</option>
+                        <option value="section">Section</option>
+                        <option value="role">Role</option>
+                        <option value="position">Position</option>
+                    </select>
+                    <select class="form-control o_vf_recipient_select partner">
+                        <option value="">Select member...</option>
+                        <t t-foreach="partners" t-as="partner">
+                            <option t-att-value="partner.id">
+                                <t t-esc="partner.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <select class="form-control o_vf_recipient_select group">
+                        <option value="">Select group...</option>
+                        <t t-foreach="groups" t-as="group">
+                            <option t-att-value="group.id">
+                                <t t-esc="group.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <select class="form-control o_vf_recipient_select section">
+                        <option value="">Select section...</option>
+                        <t t-foreach="sections" t-as="section">
+                            <option t-att-value="section.id">
+                                <t t-esc="section.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <select class="form-control o_vf_recipient_select role">
+                        <option value="">Select role...</option>
+                        <t t-foreach="roles" t-as="role">
+                            <option t-att-value="role.id">
+                                <t t-esc="role.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <select class="form-control o_vf_recipient_select position">
+                        <option value="">Select position...</option>
+                        <t t-foreach="positions" t-as="position">
+                            <option t-att-value="position.id">
+                                <t t-esc="position.display_name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <button type="button" class="btn btn-secondary o_vf_add_recipient">Add</button>
+                </div>
+                <div class="o_vf_recipients"/>
+            </div>
+            
+            <div class="form-group">
+                <label>Message</label>
+                <textarea class="form-control o_vf_body" rows="10" placeholder="Enter your message..."/>
+            </div>
+            
+            <div class="o_vf_options">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input o_vf_send_email" id="send_email"/>
+                    <label class="form-check-label" for="send_email">Send email copy</label>
+                </div>
+            </div>
+            
+            <div class="text-right">
+                <button type="button" class="btn btn-primary o_vf_send">Send Message</button>
+            </div>
+        </div>
+    </t>
+    
+    <!-- Message List Template -->
+    <t t-name="vf_communication.message_list">
+        <t t-if="messages.length == 0">
+            <div class="text-muted text-center p-3">No messages</div>
+        </t>
+        <t t-else="">
+            <t t-foreach="messages" t-as="message">
+                <div class="o_vf_message" t-att-data-message-id="message.id">
+                    <div class="message-subject" t-esc="message.subject"/>
+                    <div class="message-sender" t-esc="message.sender"/>
+                    <div class="message-date" t-esc="message.date"/>
+                </div>
+            </t>
+        </t>
+    </t>
+    
+    <!-- Message Detail Template -->
+    <t t-name="vf_communication.message_detail">
+        <div class="message-header">
+            <div class="message-subject" t-esc="message.subject"/>
+            <div class="message-meta">
+                <span class="meta-item">
+                    <strong>From:</strong> <t t-esc="message.sender_id[1]"/>
+                </span>
+                <span class="meta-item">
+                    <strong>Date:</strong> <t t-esc="message.date"/>
+                </span>
+            </div>
+        </div>
+        <div class="message-body">
+            <t t-raw="message.body"/>
+        </div>
+    </t>
+</templates>

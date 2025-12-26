@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Main Association Menu -->
+        <menuitem id="vf_menu_association" name="Association" 
+                  web_icon="vf_base,static/description/icon.png"
+                  sequence="50"/>
+        
+        <!-- Organization Submenu -->
+        <menuitem id="vf_menu_organization" name="Organization" 
+                  parent="vf_menu_association" 
+                  sequence="10"/>
+        
+        <!-- Members Submenu -->
+        <menuitem id="vf_menu_members" name="Members" 
+                  parent="vf_menu_association" 
+                  sequence="20"/>
+    </data>
+</odoo>

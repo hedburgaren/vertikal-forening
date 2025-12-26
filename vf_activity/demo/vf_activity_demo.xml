@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Activities -->
+        <record id="demo_activity_agm" model="vf.activity">
+            <field name="name">Annual General Meeting 2024</field>
+            <field name="activity_type_id" ref="type_meeting"/>
+            <field name="description">
+                <![CDATA[
+<p>The Annual General Meeting for 2024. All members are welcome to attend.</p>
+<p><strong>Agenda:</strong></p>
+<ul>
+<li>Approval of previous year's minutes</li>
+<li>Annual report presentation</li>
+<li>Financial report</li>
+<li>Election of board members</li>
+<li>Other business</li>
+</ul>
+                ]]>
+            </field>
+            <field name="start_date">2024-03-15 18:00:00</field>
+            <field name="end_date">2024-03-15 20:00:00</field>
+            <field name="location">Main Hall</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="section_id" ref="vf_group.demo_section_admin"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="max_participants">200</field>
+            <field name="registration_deadline">2024-03-14 18:00:00</field>
+            <field name="state">completed</field>
+            <field name="visibility">public</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_main_hall'))]"/>
+        </record>
+        
+        <record id="demo_activity_football_training" model="vf.activity">
+            <field name="name">Football Training - Spring Season</field>
+            <field name="activity_type_id" ref="type_training"/>
+            <field name="description">
+                <![CDATA[
+<p>Regular football training for the spring season.</p>
+<p><strong>Equipment needed:</strong></p>
+<ul>
+<li>Football boots</li>
+<li>Shin guards</li>
+<li>Water bottle</li>
+<li>Sports clothes</li>
+</ul>
+                ]]>
+            </field>
+            <field name="start_date">2024-03-01 16:00:00</field>
+            <field name="end_date">2024-05-31 17:30:00</field>
+            <field name="location">Football Field</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="group_id" ref="vf_group.demo_group_football_u12"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="max_participants">20</field>
+            <field name="state">completed</field>
+            <field name="visibility">members</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_football_kits'))]"/>
+        </record>
+        
+        <record id="demo_activity_swimming_training" model="vf.activity">
+            <field name="name">Swimming Training - Junior Team</field>
+            <field name="activity_type_id" ref="type_training"/>
+            <field name="description">
+                <![CDATA[
+<p>Swimming training for junior team members.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>Swimsuit</li>
+<li>Goggles</li>
+<li>Swimming cap</li>
+<li>Towel</li>
+</ul>
+                ]]>
+            </field>
+            <field name="start_date">2024-03-01 16:00:00</field>
+            <field name="end_date">2024-05-31 17:00:00</field>
+            <field name="location">Swimming Pool</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="group_id" ref="vf_group.demo_group_swimming_junior"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="max_participants">30</field>
+            <field name="state">completed</field>
+            <field name="visibility">members</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_swimming_pool'))]"/>
+        </record>
+        
+        <record id="demo_activity_spring_camp" model="vf.activity">
+            <field name="name">Spring Sports Camp</field>
+            <field name="activity_type_id" ref="type_camp"/>
+            <field name="description">
+                <![CDATA[
+<p>A 3-day sports camp during spring break with multiple activities.</p>
+<p><strong>Activities include:</strong></p>
+<ul>
+<li>Football training</li>
+<li>Swimming lessons</li>
+<li>Team games</li>
+<li>Outdoor activities</li>
+</ul>
+<p><strong>Price:</strong> 500 SEK for members, 600 SEK for non-members</p>
+                ]]>
+            </field>
+            <field name="start_date">2024-04-10 09:00:00</field>
+            <field name="end_date">2024-04-12 16:00:00</field>
+            <field name="location">Association Facilities</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="section_id" ref="vf_group.demo_section_youth"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">True</field>
+            <field name="max_participants">50</field>
+            <field name="registration_deadline">2024-04-01 18:00:00</field>
+            <field name="state">completed</field>
+            <field name="visibility">public</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_gym')), (4, ref('demo_resource_swimming_pool')), (4, ref('demo_resource_minibus'))]"/>
+        </record>
+        
+        <record id="demo_activity_coach_workshop" model="vf.activity">
+            <field name="name">Coach Training Workshop</field>
+            <field name="activity_type_id" ref="type_workshop"/>
+            <field name="description">
+                <![CDATA[
+<p>Workshop for new and experienced coaches.</p>
+<p><strong>Topics:</strong></p>
+<ul>
+<li>Training methodology</li>
+<li>Safety guidelines</li>
+<li>Working with young athletes</li>
+<li>Communication skills</li>
+</ul>
+                ]]>
+            </field>
+            <field name="start_date">2024-02-17 09:00:00</field>
+            <field name="end_date">2024-02-17 16:00:00</field>
+            <field name="location">Meeting Room 1</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="section_id" ref="vf_group.demo_section_sports"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="max_participants">20</field>
+            <field name="state">completed</field>
+            <field name="visibility">members</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_meeting_room1')), (4, ref('demo_resource_projector'))]"/>
+        </record>
+        
+        <record id="demo_activity_summer_party" model="vf.activity">
+            <field name="name">Summer Celebration Party</field>
+            <field name="activity_type_id" ref="type_social"/>
+            <field name="description">
+                <![CDATA[
+<p>Join us for our annual summer celebration!</p>
+<p><strong>Activities:</strong></p>
+<ul>
+<li>BBQ dinner</li>
+<li>Music and dancing</li>
+<li>Games for all ages</li>
+<li>Awards ceremony</li>
+</ul>
+<p><strong>Price:</strong> 100 SEK per person (children under 12 free)</p>
+                ]]>
+            </field>
+            <field name="start_date">2024-06-15 17:00:00</field>
+            <field name="end_date">2024-06-15 23:00:00</field>
+            <field name="location">Main Hall & Garden</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">False</field>
+            <field name="max_participants">150</field>
+            <field name="registration_deadline">2024-06-10 18:00:00</field>
+            <field name="state">planned</field>
+            <field name="visibility">public</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_main_hall')), (4, ref('demo_resource_sound_system'))]"/>
+        </record>
+        
+        <record id="demo_activity_board_meeting" model="vf.activity">
+            <field name="name">Board Meeting - May</field>
+            <field name="activity_type_id" ref="type_meeting"/>
+            <field name="description">Regular monthly board meeting</field>
+            <field name="start_date">2024-05-20 18:00:00</field>
+            <field name="end_date">2024-05-20 20:00:00</field>
+            <field name="location">Meeting Room 2</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="section_id" ref="vf_group.demo_section_admin"/>
+            <field name="allow_registration">False</field>
+            <field name="require_approval">False</field>
+            <field name="state">planned</field>
+            <field name="visibility">custom</field>
+            <field name="allowed_member_ids" eval="[(4, ref('vf_member.demo_member_adult1')), (4, ref('vf_member.demo_member_adult2')), (4, ref('vf_member.demo_member_adult3'))]"/>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_meeting_room2'))]"/>
+        </record>
+        
+        <!-- Upcoming Activity -->
+        <record id="demo_activity_autumn_tournament" model="vf.activity">
+            <field name="name">Autumn Football Tournament</field>
+            <field name="activity_type_id" ref="type_competition"/>
+            <field name="description">
+                <![CDATA[
+<p>Annual football tournament for youth teams.</p>
+<p><strong>Categories:</strong></p>
+<ul>
+<li>U12 (7-9 players per team)</li>
+<li>U14 (7-9 players per team)</li>
+<li>U16 (11 players per team)</li>
+</ul>
+<p><strong>Registration fee:</strong> 300 SEK per team</p>
+<p><strong>Prizes:</strong> Medals for top 3 teams in each category</p>
+                ]]>
+            </field>
+            <field name="start_date">2024-09-21 09:00:00</field>
+            <field name="end_date">2024-09-21 18:00:00</field>
+            <field name="location">Football Fields</field>
+            <field name="organizer_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="section_id" ref="vf_group.demo_section_sports"/>
+            <field name="allow_registration">True</field>
+            <field name="require_approval">True</field>
+            <field name="max_participants">200</field>
+            <field name="registration_deadline">2024-09-01 18:00:00</field>
+            <field name="state">draft</field>
+            <field name="visibility">public</field>
+            <field name="resource_ids" eval="[(4, ref('demo_resource_gym')), (4, ref('demo_resource_football_kits')), (4, ref('demo_resource_sound_system'))]"/>
+        </record>
+    </data>
+</odoo>

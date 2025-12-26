@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vf_template_category_user,vf.template.category.user,model_vf_template_category,vf_base.vf_user,1,0,0,0
+access_vf_template_category_manager,vf.template.category.manager,model_vf_template_category,vf_template_manager,1,1,1,1
+access_vf_template_category_admin,vf.template.category.admin,model_vf_template_category,vf_template_admin,1,1,1,1
+access_vf_document_template_user,vf.document.template.user,model_vf_document_template,vf_base.vf_user,1,0,0,0
+access_vf_document_template_manager,vf.document.template.manager,model_vf_document_template,vf_template_manager,1,1,1,1
+access_vf_document_template_admin,vf.document.template.admin,model_vf_document_template,vf_template_admin,1,1,1,1
+access_vf_email_template_user,vf.email.template.user,model_vf_email_template,vf_base.vf_user,1,0,0,0
+access_vf_email_template_manager,vf.email.template.manager,model_vf_email_template,vf_template_manager,1,1,1,1
+access_vf_email_template_admin,vf.email.template.admin,model_vf_email_template,vf_template_admin,1,1,1,1
+access_vf_communication_layout_user,vf.communication.layout.user,model_vf_communication_layout,vf_base.vf_user,1,0,0,0
+access_vf_communication_layout_manager,vf.communication.layout.manager,model_vf_communication_layout,vf_template_manager,1,1,1,1
+access_vf_communication_layout_admin,vf.communication.layout.admin,model_vf_communication_layout,vf_template_admin,1,1,1,1
+access_vf_template_variable_manager,vf.template.variable.manager,model_vf_template_variable,vf_template_manager,1,1,1,1
+access_vf_template_variable_admin,vf.template.variable.admin,model_vf_template_variable,vf_template_admin,1,1,1,1

@@ -1,0 +1,302 @@
+// VF Communication Frontend Styles
+
+// Contact Form
+.o_vf_contact_form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .o_vf_mailbox_description {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+    
+    .o_vf_error {
+        color: #dc3545;
+        margin-top: 10px;
+        display: none;
+    }
+    
+    .o_vf_success {
+        padding: 20px;
+        background-color: #d4edda;
+        color: #155724;
+        border-radius: 4px;
+        display: none;
+    }
+}
+
+// Mailbox Page
+.o_vf_mailbox_page {
+    .mailbox-header {
+        background-color: #f8f9fa;
+        padding: 30px;
+        margin-bottom: 30px;
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .mailbox-email {
+            font-size: 1.2em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .mailbox-holders {
+            color: #495057;
+        }
+    }
+    
+    .mailbox-actions {
+        .btn {
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+// Message Inbox
+.o_vf_message_inbox {
+    display: flex;
+    height: 600px;
+    
+    .o_vf_message_list {
+        width: 300px;
+        border-right: 1px solid #dee2e6;
+        overflow-y: auto;
+        
+        .o_vf_message {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            cursor: pointer;
+            
+            &:hover {
+                background-color: #f8f9fa;
+            }
+            
+            &.active {
+                background-color: #e9ecef;
+                border-left: 3px solid #007bff;
+            }
+            
+            .message-subject {
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+            
+            .message-sender {
+                color: #6c757d;
+                font-size: 0.9em;
+            }
+            
+            .message-date {
+                color: #6c757d;
+                font-size: 0.8em;
+            }
+        }
+    }
+    
+    .o_vf_message_content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        
+        .message-header {
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            
+            .message-subject {
+                font-size: 1.5em;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+            
+            .message-meta {
+                color: #6c757d;
+                
+                .meta-item {
+                    margin-right: 20px;
+                }
+            }
+        }
+        
+        .message-body {
+            line-height: 1.6;
+            
+            p {
+                margin-bottom: 15px;
+            }
+        }
+    }
+    
+    .o_vf_refresh {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        
+        &.fa-spin {
+            animation: spin 1s linear infinite;
+        }
+    }
+}
+
+// Message Composer
+.o_vf_message_composer {
+    .o_vf_recipients {
+        margin-bottom: 20px;
+        min-height: 50px;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        
+        .o_vf_recipient_badge {
+            margin: 2px;
+            
+            a {
+                margin-left: 5px;
+                text-decoration: none;
+                color: white;
+                
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    
+    .o_vf_recipient_controls {
+        display: flex;
+        margin-bottom: 10px;
+        
+        .o_vf_recipient_type {
+            margin-right: 10px;
+        }
+        
+        .o_vf_recipient_select {
+            display: none;
+            flex: 1;
+            
+            &.partner { display: block; }
+            &.group { display: none; }
+            &.section { display: none; }
+            &.role { display: none; }
+            &.position { display: none; }
+        }
+    }
+    
+    .o_vf_options {
+        margin-top: 20px;
+        
+        .form-check {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+// Communication Dashboard
+.vf_communication_dashboard {
+    .stats-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        
+        .stats-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .stats-label {
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    }
+    
+    .recent-messages {
+        .message-item {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            
+            &:last-child {
+                border-bottom: none;
+            }
+            
+            .message-preview {
+                color: #6c757d;
+                margin-top: 5px;
+            }
+        }
+    }
+    
+    .mailbox-list {
+        .mailbox-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+            
+            &:last-child {
+                border-bottom: none;
+            }
+            
+            .mailbox-info {
+                .mailbox-name {
+                    font-weight: 600;
+                }
+                
+                .mailbox-email {
+                    color: #6c757d;
+                    font-size: 0.9em;
+                }
+            }
+            
+            .mailbox-badge {
+                .badge {
+                    font-size: 0.8em;
+                }
+            }
+        }
+    }
+}
+
+// Animations
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .o_vf_message_inbox {
+        flex-direction: column;
+        height: auto;
+        
+        .o_vf_message_list {
+            width: 100%;
+            height: 300px;
+        }
+        
+        .o_vf_message_content {
+            height: 400px;
+        }
+    }
+    
+    .vf_communication_dashboard {
+        .stats-card {
+            margin-bottom: 15px;
+        }
+    }
+}

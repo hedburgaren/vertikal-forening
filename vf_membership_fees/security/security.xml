@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Record Rules -->
+        <!-- Fees: Users can see their own fees -->
+        <record id="rule_vf_fee_own" model="ir.rule">
+            <field name="name">VF Fee: Own Fees</field>
+            <field name="model_id" ref="model_vf_fee"/>
+            <field name="domain_force">[('member_id.partner_id.user_ids', 'in', user.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Fees: Parents can see children's fees -->
+        <record id="rule_vf_fee_children" model="ir.rule">
+            <field name="name">VF Fee: Children Fees</field>
+            <field name="model_id" ref="model_vf_fee"/>
+            <field name="domain_force">[('member_id.guardian_ids.partner_id.user_ids', 'in', user.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Fees: Leaders can see fees in their scope -->
+        <record id="rule_vf_fee_leader" model="ir.rule">
+            <field name="name">VF Fee: Scope Fees</field>
+            <field name="model_id" ref="model_vf_fee"/>
+            <field name="domain_force">['|', ('member_id.group_ids.leader_id', '=', user.partner_id.id), ('member_id.section_ids.manager_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Fees: Admins can see all -->
+        <record id="rule_vf_fee_admin" model="ir.rule">
+            <field name="name">VF Fee: All</field>
+            <field name="model_id" ref="model_vf_fee"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Payments: Inherit from fee rules -->
+        <record id="rule_vf_fee_payment_user" model="ir.rule">
+            <field name="name">VF Fee Payment: Own</field>
+            <field name="model_id" ref="model_vf_fee_payment"/>
+            <field name="domain_force">[('fee_id.member_id.partner_id.user_ids', 'in', user.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <record id="rule_vf_fee_payment_admin" model="ir.rule">
+            <field name="name">VF Fee Payment: All</field>
+            <field name="model_id" ref="model_vf_fee_payment"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Waivers: Users can see their own waivers -->
+        <record id="rule_vf_fee_waiver_own" model="ir.rule">
+            <field name="name">VF Fee Waiver: Own Waivers</field>
+            <field name="model_id" ref="model_vf_fee_waiver"/>
+            <field name="domain_force">[('fee_id.member_id.partner_id.user_ids', 'in', user.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Waivers: Admins can see all -->
+        <record id="rule_vf_fee_waiver_admin" model="ir.rule">
+            <field name="name">VF Fee Waiver: All</field>
+            <field name="model_id" ref="model_vf_fee_waiver"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Fee Categories: Everyone can read, only admins can write -->
+        <record id="rule_vf_fee_category_admin" model="ir.rule">
+            <field name="name">VF Fee Category: Admin Only</field>
+            <field name="model_id" ref="model_vf_fee_category"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+    </data>
+</odoo>

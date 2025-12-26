@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo roles are already created in data/role_data.xml -->
+    </data>
+</odoo>

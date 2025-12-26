@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fee Category List View -->
+        <record id="vf_fee_category_view_tree" model="ir.ui.view">
+            <field name="name">vf.fee.category.tree</field>
+            <field name="model">vf.fee.category</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Categories">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="amount"/>
+                    <field name="period_type"/>
+                    <field name="member_type"/>
+                    <field name="auto_generate"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Fee Category Form View -->
+        <record id="vf_fee_category_view_form" model="ir.ui.view">
+            <field name="name">vf.fee.category.form</field>
+            <field name="model">vf.fee.category</field>
+            <field name="arch" type="xml">
+                <form string="Fee Category">
+                    <sheet>
+                        <group>
+                            <group name="category_info">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="sequence"/>
+                                <field name="active"/>
+                            </group>
+                            <group name="pricing">
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="period_type"/>
+                                <field name="member_type"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Age Restrictions">
+                            <field name="min_age"/>
+                            <field name="max_age"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Applicability">
+                                <group string="Group/Section Restrictions">
+                                    <p class="text-muted">
+                                        Leave empty to apply to all groups/sections
+                                    </p>
+                                    <field name="group_ids" widget="many2many_tags"/>
+                                    <field name="section_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Auto Generation">
+                                <group>
+                                    <field name="auto_generate"/>
+                                    <group attrs="{'invisible': [('auto_generate', '=', False)]}">
+                                        <field name="generate_day"/>
+                                        <field name="due_days"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="allow_partial_payment"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Fee Category Action -->
+        <record id="vf_fee_category_action" model="ir.actions.act_window">
+            <field name="name">Fee Categories</field>
+            <field name="res_model">vf.fee.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first fee category!
+                </p>
+                <p>
+                    Fee categories define different types of membership fees
+                    with their own pricing and rules.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_fee_category_menu" name="Fee Categories" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="75"
+                  action="vf_fee_category_action"/>
+    </data>
+</odoo>

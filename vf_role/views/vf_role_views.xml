@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Role List View -->
+        <record id="vf_role_view_tree" model="ir.ui.view">
+            <field name="name">vf.role.tree</field>
+            <field name="model">vf.role</field>
+            <field name="arch" type="xml">
+                <tree string="Roles">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="access_level"/>
+                    <field name="is_managerial"/>
+                    <field name="requires_approval"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Role Form View -->
+        <record id="vf_role_view_form" model="ir.ui.view">
+            <field name="name">vf.role.form</field>
+            <field name="model">vf.role</field>
+            <field name="arch" type="xml">
+                <form string="Role">
+                    <sheet>
+                        <group>
+                            <group name="role_info">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="sequence"/>
+                            </group>
+                            <group name="configuration">
+                                <field name="access_level"/>
+                                <field name="is_managerial"/>
+                                <field name="requires_approval"/>
+                                <field name="active"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Odoo Groups">
+                                <field name="group_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="category_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Role Action -->
+        <record id="vf_role_action" model="ir.actions.act_window">
+            <field name="name">Roles</field>
+            <field name="res_model">vf.role</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first role!
+                </p>
+                <p>
+                    Roles define positions and permissions within the association.
+                    They can be assigned to sections, groups, or the entire organization.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_role_menu" name="Roles" 
+                  parent="vf_base.vf_menu_organization" 
+                  sequence="30"
+                  action="vf_role_action"/>
+    </data>
+</odoo>

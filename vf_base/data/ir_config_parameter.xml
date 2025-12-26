@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default configuration parameters -->
+        <record id="param_membership_sequence_prefix" model="ir.config_parameter">
+            <field name="key">vf.membership.sequence.prefix</field>
+            <field name="value">VF</field>
+        </record>
+        
+        <record id="param_membership_sequence_padding" model="ir.config_parameter">
+            <field name="key">vf.membership.sequence.padding</field>
+            <field name="value">6</field>
+        </record>
+        
+        <record id="param_minor_age_limit" model="ir.config_parameter">
+            <field name="key">vf.minor.age.limit</field>
+            <field name="value">18</field>
+        </record>
+    </data>
+</odoo>

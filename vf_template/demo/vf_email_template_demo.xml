@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Welcome Email Template -->
+        <record id="email_template_welcome" model="vf.email.template">
+            <field name="name">Welcome New Member</field>
+            <field name="description">Welcome email for new members</field>
+            <field name="category_id" ref="category_email_welcome"/>
+            <field name="email_type">welcome</field>
+            <field name="subject">Welcome to {{association_name}}!</field>
+            <field name="body_html">
+&lt;div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;"&gt;
+    &lt;h2 style="color: #003366;"&gt;Welcome to {{association_name}}!&lt;/h2&gt;
+    &lt;p&gt;Dear {{member_name}},&lt;/p&gt;
+    &lt;p&gt;We are delighted to welcome you as a new member of {{association_name}}. Your membership number is &lt;strong&gt;{{membership_number}}&lt;/strong&gt;.&lt;/p&gt;
+    
+    &lt;h3&gt;What's Next?&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Explore our website: {{website_url}}&lt;/li&gt;
+        &lt;li&gt;Join our member portal: {{portal_url}}&lt;/li&gt;
+        &lt;li&gt;Check out upcoming activities&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;p&gt;If you have any questions, please don't hesitate to contact us at {{contact_email}} or call {{contact_phone}}.&lt;/p&gt;
+    
+    &lt;p&gt;We look forward to seeing you at our upcoming events!&lt;/p&gt;
+    
+    &lt;p&gt;Best regards,&lt;br&gt;
+    The {{association_name}} Team&lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="body_text">Welcome to {{association_name}}!
+
+Dear {{member_name}},
+
+We are delighted to welcome you as a new member of {{association_name}}. Your membership number is {{membership_number}}.
+
+What's Next?
+- Explore our website: {{website_url}}
+- Join our member portal: {{portal_url}}
+- Check out upcoming activities
+
+If you have any questions, please don't hesitate to contact us at {{contact_email}} or call {{contact_phone}}.
+
+We look forward to seeing you at our upcoming events!
+
+Best regards,
+The {{association_name}} Team</field>
+            <field name="sample_data">{"member_name": "John Doe", "membership_number": "VF000001", "association_name": "Vertical Association", "website_url": "https://vertical.se", "portal_url": "https://portal.vertical.se", "contact_email": "info@vertical.se", "contact_phone": "08-123456"}</field>
+        </record>
+
+        <!-- Payment Reminder Template -->
+        <record id="email_template_payment_reminder" model="vf.email.template">
+            <field name="name">Payment Reminder</field>
+            <field name="description">Reminder for membership fee payment</field>
+            <field name="category_id" ref="category_email_reminders"/>
+            <field name="email_type">reminder</field>
+            <field name="subject">Payment Reminder: Membership Fee {{fee_year}}</field>
+            <field name="body_html">
+&lt;div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;"&gt;
+    &lt;h2 style="color: #ff6600;"&gt;Payment Reminder&lt;/h2&gt;
+    &lt;p&gt;Dear {{member_name}},&lt;/p&gt;
+    
+    &lt;p&gt;This is a friendly reminder that your membership fee for {{fee_year}} is due on {{due_date}}.&lt;/p&gt;
+    
+    &lt;div style="background: #f5f5f5; padding: 15px; margin: 20px 0;"&gt;
+        &lt;h3&gt;Payment Details&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Amount:&lt;/strong&gt; {{amount}} {{currency}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Due Date:&lt;/strong&gt; {{due_date}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Membership Number:&lt;/strong&gt; {{membership_number}}&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;h3&gt;Payment Options&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Pay online: {{payment_url}}&lt;/li&gt;
+        &lt;li&gt;Bank transfer to: {{bank_account}}&lt;/li&gt;
+        &lt;li&gt;Swish to: {{swish_number}}&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;p&gt;If you have already paid, please disregard this reminder.&lt;/p&gt;
+    
+    &lt;p&gt;Thank you for your continued membership!&lt;/p&gt;
+    
+    &lt;p&gt;Best regards,&lt;br&gt;
+    {{association_name}}&lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="sample_data">{"member_name": "John Doe", "fee_year": "2024", "due_date": "31/01/2024", "amount": "500", "currency": "SEK", "membership_number": "VF000001", "payment_url": "https://vertical.se/pay", "bank_account": "123-4567", "swish_number": "123456789", "association_name": "Vertical Association"}</field>
+        </record>
+
+        <!-- Event Registration Confirmation -->
+        <record id="email_template_event_confirmation" model="vf.email.template">
+            <field name="name">Event Registration Confirmation</field>
+            <field name="description">Confirmation for event registration</field>
+            <field name="category_id" ref="category_email_confirmations"/>
+            <field name="email_type">confirmation</field>
+            <field name="subject">Registration Confirmed: {{event_name}}</field>
+            <field name="body_html">
+&lt;div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;"&gt;
+    &lt;h2 style="color: #003366;"&gt;Registration Confirmed!&lt;/h2&gt;
+    &lt;p&gt;Dear {{member_name}},&lt;/p&gt;
+    
+    &lt;p&gt;Your registration for &lt;strong&gt;{{event_name}}&lt;/strong&gt; has been confirmed!&lt;/p&gt;
+    
+    &lt;div style="background: #f5f5f5; padding: 15px; margin: 20px 0;"&gt;
+        &lt;h3&gt;Event Details&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Event:&lt;/strong&gt; {{event_name}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Date:&lt;/strong&gt; {{event_date}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Time:&lt;/strong&gt; {{event_time}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Location:&lt;/strong&gt; {{event_location}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Registration Number:&lt;/strong&gt; {{registration_number}}&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;h3&gt;What to Bring&lt;/h3&gt;
+    &lt;p&gt;{{what_to_bring}}&lt;/p&gt;
+    
+    &lt;h3&gt;Additional Information&lt;/h3&gt;
+    &lt;p&gt;{{additional_info}}&lt;/p&gt;
+    
+    &lt;p&gt;If you need to cancel your registration, please do so at least 48 hours before the event.&lt;/p&gt;
+    
+    &lt;p&gt;We look forward to seeing you there!&lt;/p&gt;
+    
+    &lt;p&gt;Best regards,&lt;br&gt;
+    The {{association_name}} Team&lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="sample_data">{"member_name": "John Doe", "event_name": "Annual Meeting 2024", "event_date": "15/03/2024", "event_time": "18:00", "event_location": "Association Hall", "registration_number": "REG-2024-001", "what_to_bring": "Please bring your membership card and a pen.", "additional_info": "Coffee and refreshments will be served.", "association_name": "Vertical Association"}</field>
+        </record>
+
+        <!-- Invoice Email Template -->
+        <record id="email_template_invoice" model="vf.email.template">
+            <field name="name">Invoice Notification</field>
+            <field name="description">Email template for sending invoices</field>
+            <field name="category_id" ref="category_email_invoices"/>
+            <field name="email_type">invoice</field>
+            <field name="subject">Invoice {{invoice_number}} from {{association_name}}</field>
+            <field name="body_html">
+&lt;div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;"&gt;
+    &lt;h2 style="color: #003366;"&gt;Invoice {{invoice_number}}&lt;/h2&gt;
+    &lt;p&gt;Dear {{member_name}},&lt;/p&gt;
+    
+    &lt;p&gt;Please find attached invoice {{invoice_number}} for {{invoice_description}}.&lt;/p&gt;
+    
+    &lt;div style="background: #f5f5f5; padding: 15px; margin: 20px 0;"&gt;
+        &lt;h3&gt;Invoice Summary&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Invoice Number:&lt;/strong&gt; {{invoice_number}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Amount Due:&lt;/strong&gt; {{amount}} {{currency}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Due Date:&lt;/strong&gt; {{due_date}}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Membership Number:&lt;/strong&gt; {{membership_number}}&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;h3&gt;Payment Options&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Pay online: {{payment_url}}&lt;/li&gt;
+        &lt;li&gt;Bank transfer to: {{bank_account}}&lt;/li&gt;
+        &lt;li&gt;Swish to: {{swish_number}}&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;p&gt;Please reference invoice number {{invoice_number}} when making payment.&lt;/p&gt;
+    
+    &lt;p&gt;Thank you for your prompt payment!&lt;/p&gt;
+    
+    &lt;p&gt;Best regards,&lt;br&gt;
+    {{association_name}}&lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="sample_data">{"member_name": "John Doe", "invoice_number": "INV-2024-001", "invoice_description": "Membership Fee 2024", "amount": "500", "currency": "SEK", "due_date": "31/01/2024", "membership_number": "VF000001", "payment_url": "https://vertical.se/pay", "bank_account": "123-4567", "swish_number": "123456789", "association_name": "Vertical Association"}</field>
+        </record>
+    </data>
+</odoo>

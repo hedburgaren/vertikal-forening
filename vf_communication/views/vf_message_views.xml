@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Message List View -->
+        <record id="vf_message_view_tree" model="ir.ui.view">
+            <field name="name">vf.message.tree</field>
+            <field name="model">vf.message</field>
+            <field name="arch" type="xml">
+                <tree string="Messages">
+                    <field name="subject"/>
+                    <field name="sender_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="recipient_count"/>
+                    <field name="priority"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Message Form View -->
+        <record id="vf_message_view_form" model="ir.ui.view">
+            <field name="name">vf.message.form</field>
+            <field name="model">vf.message</field>
+            <field name="arch" type="xml">
+                <form string="Message">
+                    <header>
+                        <button name="action_send" type="object" string="Send" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_cancel" type="object" string="Cancel" 
+                                attrs="{'invisible': [('state', '=', 'cancelled')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '!=', 'cancelled')]}"/>
+                        <button name="action_view_recipients" type="object" string="View Recipients"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,sent,cancelled"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="message_info">
+                                <field name="subject"/>
+                                <field name="sender_id"/>
+                                <field name="date"/>
+                                <field name="priority"/>
+                            </group>
+                            <group name="options">
+                                <field name="allow_reply"/>
+                                <field name="send_email"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Message">
+                                <field name="body" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Recipients">
+                                <group string="Individual Recipients">
+                                    <field name="recipient_ids" widget="many2many_tags"/>
+                                </group>
+                                <group string="Group Recipients">
+                                    <field name="recipient_group_ids" widget="many2many_tags"/>
+                                    <field name="recipient_section_ids" widget="many2many_tags"/>
+                                    <field name="recipient_role_ids" widget="many2many_tags"/>
+                                    <field name="recipient_position_ids" widget="many2many_tags"/>
+                                </group>
+                                <group string="Summary">
+                                    <field name="recipient_count" readonly="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Attachments">
+                                <field name="attachment_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="file_size"/>
+                                        <field name="mimetype"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Message Search View -->
+        <record id="vf_message_view_search" model="ir.ui.view">
+            <field name="name">vf.message.search</field>
+            <field name="model">vf.message</field>
+            <field name="arch" type="xml">
+                <search string="Search Messages">
+                    <field name="subject"/>
+                    <field name="sender_id"/>
+                    <field name="recipient_ids"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Sent" name="sent" domain="[('state', '=', 'sent')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <separator/>
+                    <filter string="My Messages" name="my_messages" 
+                            domain="[('sender_id', '=', user.partner_id.id)]"/>
+                    <filter string="To Me" name="to_me" 
+                            domain="[('recipient_ids', 'in', user.partner_id.id)]"/>
+                    <separator/>
+                    <filter string="High Priority" name="high_priority" 
+                            domain="[('priority', 'in', ['high', 'urgent'])]"/>
+                    <filter string="Urgent" name="urgent" 
+                            domain="[('priority', '=', 'urgent')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Sender" name="group_sender" context="{'group_by': 'sender_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Priority" name="group_priority" context="{'group_by': 'priority'}"/>
+                        <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Message Action -->
+        <record id="vf_message_action" model="ir.actions.act_window">
+            <field name="name">Messages</field>
+            <field name="res_model">vf.message</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first message!
+                </p>
+                <p>
+                    Send messages to individual members, groups, sections, or roles.
+                    Messages can be sent internally or forwarded to email addresses.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_message_menu" name="Messages" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="30"
+                  action="vf_message_action"/>
+    </data>
+</odoo>

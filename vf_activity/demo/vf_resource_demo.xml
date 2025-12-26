@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Resources -->
+        <!-- Rooms -->
+        <record id="demo_resource_main_hall" model="vf.resource">
+            <field name="name">Main Hall</field>
+            <field name="code">MAIN_HALL</field>
+            <field name="description">Large hall for meetings and events</field>
+            <field name="resource_type">room</field>
+            <field name="location">Building A, Floor 1</field>
+            <field name="capacity">200</field>
+            <field name="requires_approval">True</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="min_booking_duration">1.0</field>
+            <field name="max_booking_duration">8.0</field>
+        </record>
+        
+        <record id="demo_resource_meeting_room1" model="vf.resource">
+            <field name="name">Meeting Room 1</field>
+            <field name="code">MEETING_1</field>
+            <field name="description">Small meeting room for committee meetings</field>
+            <field name="resource_type">room</field>
+            <field name="location">Building A, Floor 2</field>
+            <field name="capacity">20</field>
+            <field name="requires_approval">False</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="min_booking_duration">0.5</field>
+            <field name="max_booking_duration">4.0</field>
+        </record>
+        
+        <record id="demo_resource_meeting_room2" model="vf.resource">
+            <field name="name">Meeting Room 2</field>
+            <field name="code">MEETING_2</field>
+            <field name="description">Medium meeting room</field>
+            <field name="resource_type">room</field>
+            <field name="location">Building A, Floor 2</field>
+            <field name="capacity">40</field>
+            <field name="requires_approval">False</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="min_booking_duration">0.5</field>
+            <field name="max_booking_duration">4.0</field>
+        </record>
+        
+        <record id="demo_resource_gym" model="vf.resource">
+            <field name="name">Gymnasium</field>
+            <field name="code">GYM</field>
+            <field name="description">Indoor sports gymnasium</field>
+            <field name="resource_type">facility</field>
+            <field name="location">Building B</field>
+            <field name="capacity">100</field>
+            <field name="requires_approval">True</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="min_booking_duration">1.0</field>
+            <field name="max_booking_duration">4.0</field>
+        </record>
+        
+        <record id="demo_resource_swimming_pool" model="vf.resource">
+            <field name="name">Swimming Pool</field>
+            <field name="code">POOL</field>
+            <field name="description">25-meter swimming pool</field>
+            <field name="resource_type">facility</field>
+            <field name="location">Building C</field>
+            <field name="capacity">50</field>
+            <field name="requires_approval">True</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="min_booking_duration">1.0</field>
+            <field name="max_booking_duration">3.0</field>
+        </record>
+        
+        <!-- Equipment -->
+        <record id="demo_resource_projector" model="vf.resource">
+            <field name="name">Projector 1</field>
+            <field name="code">PROJECTOR_1</field>
+            <field name="description">Portable projector with HDMI cable</field>
+            <field name="resource_type">equipment</field>
+            <field name="location">Storage Room A</field>
+            <field name="capacity">1</field>
+            <field name="requires_approval">False</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="min_booking_duration">0.5</field>
+            <field name="max_booking_duration">8.0</field>
+        </record>
+        
+        <record id="demo_resource_sound_system" model="vf.resource">
+            <field name="name">Sound System</field>
+            <field name="code">SOUND_SYSTEM</field>
+            <field name="description">Portable PA system with microphones</field>
+            <field name="resource_type">equipment</field>
+            <field name="location">Storage Room A</field>
+            <field name="capacity">1</field>
+            <field name="requires_approval">True</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="min_booking_duration">1.0</field>
+            <field name="max_booking_duration">8.0</field>
+        </record>
+        
+        <record id="demo_resource_football_kits" model="vf.resource">
+            <field name="name">Football Kits</field>
+            <field name="code">FOOTBALL_KITS</field>
+            <field name="description">20 sets of football jerseys and shorts</field>
+            <field name="resource_type">equipment</field>
+            <field name="location">Sports Equipment Room</field>
+            <field name="capacity">20</field>
+            <field name="requires_approval">False</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="min_booking_duration">1.0</field>
+            <field name="max_booking_duration">4.0</field>
+        </record>
+        
+        <!-- Vehicles -->
+        <record id="demo_resource_minibus" model="vf.resource">
+            <field name="name">Minibus</field>
+            <field name="code">MINIBUS_1</field>
+            <field name="description">16-seater minibus for transportation</field>
+            <field name="resource_type">vehicle</field>
+            <field name="location">Parking Lot A</field>
+            <field name="capacity">16</field>
+            <field name="requires_approval">True</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="min_booking_duration">2.0</field>
+            <field name="max_booking_duration">24.0</field>
+        </record>
+        
+        <record id="demo_resource_van" model="vf.resource">
+            <field name="name">Cargo Van</field>
+            <field name="code">VAN_1</field>
+            <field name="description">Cargo van for equipment transport</field>
+            <field name="resource_type">vehicle</field>
+            <field name="location">Parking Lot B</field>
+            <field name="capacity">3</field>
+            <field name="requires_approval">True</field>
+            <field name="manager_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="min_booking_duration">1.0</field>
+            <field name="max_booking_duration">12.0</field>
+        </record>
+    </data>
+</odoo>

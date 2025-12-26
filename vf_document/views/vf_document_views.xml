@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Document List View -->
+        <record id="vf_document_view_tree" model="ir.ui.view">
+            <field name="name">vf.document.tree</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <tree string="Documents">
+                    <field name="display_name"/>
+                    <field name="category_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="visibility"/>
+                    <field name="file_type"/>
+                    <field name="current_version"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Document Form View -->
+        <record id="vf_document_view_form" model="ir.ui.view">
+            <field name="name">vf.document.form</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <form string="Document">
+                    <header>
+                        <button name="action_publish" type="object" string="Publish" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_archive" type="object" string="Archive" 
+                                attrs="{'invisible': [('state', '=', 'archived')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <button name="action_view_versions" type="object" string="Versions"/>
+                        <button name="action_create_from_template" type="object" string="Create from Template" 
+                                attrs="{'invisible': [('is_template', '=', False)]}" class="btn-secondary"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,published,archived"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_download" type="object" 
+                                    class="oe_stat_button" icon="fa-download">
+                                <span>Download</span>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="document_info">
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="date"/>
+                                <field name="is_template"/>
+                                <field name="template_id" attrs="{'invisible': [('is_template', '=', True)]}"/>
+                            </group>
+                            <group name="status_info">
+                                <field name="visibility"/>
+                                <field name="current_version"/>
+                                <field name="file_size" readonly="1"/>
+                                <field name="file_type" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <group string="File">
+                            <field name="attachment_id" widget="many2many_binary"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Visibility" attrs="{'invisible': [('visibility', '!=', 'custom')]}">
+                                <group string="Custom Visibility">
+                                    <p class="text-muted">
+                                        Grant access to specific members, groups, sections, or roles.
+                                    </p>
+                                    <group>
+                                        <field name="allowed_member_ids" widget="many2many_tags"/>
+                                        <field name="allowed_group_ids" widget="many2many_tags"/>
+                                        <field name="allowed_section_ids" widget="many2many_tags"/>
+                                        <field name="allowed_role_ids" widget="many2many_tags"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Related Entities">
+                                <group string="Related Members">
+                                    <field name="member_ids" widget="many2many_tags"/>
+                                </group>
+                                <group string="Related Groups">
+                                    <field name="group_ids" widget="many2many_tags"/>
+                                </group>
+                                <group string="Related Sections">
+                                    <field name="section_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Templates" attrs="{'invisible': [('is_template', '=', True)]}">
+                                <group string="Template Information">
+                                    <field name="template_id"/>
+                                    <div class="oe_mt16">
+                                        <p class="text-muted">
+                                            Documents created from this template:
+                                        </p>
+                                        <field name="template_document_ids">
+                                            <tree>
+                                                <field name="name"/>
+                                                <field name="date"/>
+                                                <field name="state"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Document Search View -->
+        <record id="vf_document_view_search" model="ir.ui.view">
+            <field name="name">vf.document.search</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <search string="Search Documents">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="description"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Published" name="published" domain="[('state', '=', 'published')]"/>
+                    <filter string="Archived" name="archived" domain="[('state', '=', 'archived')]"/>
+                    <separator/>
+                    <filter string="Public" name="public" domain="[('visibility', '=', 'public')]"/>
+                    <filter string="Members Only" name="members" domain="[('visibility', '=', 'members')]"/>
+                    <filter string="Leadership Only" name="leadership" domain="[('visibility', '=', 'leadership')]"/>
+                    <filter string="Custom" name="custom" domain="[('visibility', '=', 'custom')]"/>
+                    <separator/>
+                    <filter string="Templates" name="templates" domain="[('is_template', '=', True)]"/>
+                    <filter string="My Documents" name="my_documents" 
+                            domain="[('created_by', '=', user.partner_id.id)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Visibility" name="group_visibility" context="{'group_by': 'visibility'}"/>
+                        <filter string="Date" name="group_date" context="{'group_by': 'date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Document Kanban View -->
+        <record id="vf_document_view_kanban" model="ir.ui.view">
+            <field name="name">vf.document.kanban</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <kanban string="Documents" default_group_by="category_id">
+                    <field name="id"/>
+                    <field name="display_name"/>
+                    <field name="category_id"/>
+                    <field name="state"/>
+                    <field name="visibility"/>
+                    <field name="file_type"/>
+                    <field name="current_version"/>
+                    <field name="attachment_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="display_name"/>
+                                        </strong>
+                                    </div>
+                                    <div class="o_kanban_manage_button_section">
+                                        <a class="o_kanban_manage_toggle_button" href="#" tabindex="-1">
+                                            <i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <span class="badge badge-<t t-if='record.state.raw_value == &quot;published&quot;'>success<t t-elif='record.state.raw_value == &quot;archived&quot;'>secondary<t t-else/>warning</t>">
+                                                <field name="state"/>
+                                            </span>
+                                            <span class="badge badge-info">
+                                                <field name="visibility"/>
+                                            </span>
+                                            <span class="badge badge-light">
+                                                <field name="file_type"/>
+                                            </span>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <img t-att-src="kanban_image('ir.attachment', 'datas', record.attachment_id.raw_value)" 
+                                                 t-att-title="record.display_name.value" 
+                                                 t-att-alt="record.display_name.value" 
+                                                 class="oe_kanban_avatar"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Document Action -->
+        <record id="vf_document_action" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">vf.document</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first document!
+                </p>
+                <p>
+                    Upload and organize documents with controlled visibility.
+                    Documents can be linked to members, groups, and sections.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_document_menu" name="Documents" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="55"
+                  action="vf_document_action"/>
+    </data>
+</odoo>

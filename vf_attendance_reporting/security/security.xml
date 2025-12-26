@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Record Rules -->
+        <!-- Attendance Reports: Users can see reports for their scope -->
+        <record id="rule_vf_attendance_report_user" model="ir.rule">
+            <field name="name">VF Attendance Report: Own</field>
+            <field name="model_id" ref="model_vf_attendance_report"/>
+            <field name="domain_force">['|', ('member_ids.partner_id.user_ids', 'in', user.id), '|', ('group_ids.leader_id', '=', user.partner_id.id), ('section_ids.manager_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Attendance Reports: Admins can see all -->
+        <record id="rule_vf_attendance_report_admin" model="ir.rule">
+            <field name="name">VF Attendance Report: All</field>
+            <field name="model_id" ref="model_vf_attendance_report"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Attendance Summaries: Users can see their own summaries -->
+        <record id="rule_vf_attendance_summary_user" model="ir.rule">
+            <field name="name">VF Attendance Summary: Own</field>
+            <field name="model_id" ref="model_vf_attendance_summary"/>
+            <field name="domain_force">[('member_id.partner_id.user_ids', 'in', user.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Attendance Summaries: Parents can see children's summaries -->
+        <record id="rule_vf_attendance_summary_parent" model="ir.rule">
+            <field name="name">VF Attendance Summary: Children</field>
+            <field name="model_id" ref="model_vf_attendance_summary"/>
+            <field name="domain_force">[('member_id.guardian_ids.partner_id.user_ids', 'in', user.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Attendance Summaries: Leaders can see summaries in their scope -->
+        <record id="rule_vf_attendance_summary_leader" model="ir.rule">
+            <field name="name">VF Attendance Summary: Scope</field>
+            <field name="model_id" ref="model_vf_attendance_summary"/>
+            <field name="domain_force">['|', ('member_id.group_ids.leader_id', '=', user.partner_id.id), ('member_id.section_ids.manager_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Attendance Summaries: Admins can see all -->
+        <record id="rule_vf_attendance_summary_admin" model="ir.rule">
+            <field name="name">VF Attendance Summary: All</field>
+            <field name="model_id" ref="model_vf_attendance_summary"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vf_base.group_vf_admin'))]"/>
+        </record>
+    </data>
+</odoo>

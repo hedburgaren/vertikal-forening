@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fee Waiver List View -->
+        <record id="vf_fee_waiver_view_tree" model="ir.ui.view">
+            <field name="name">vf.fee.waiver.tree</field>
+            <field name="model">vf.fee.waiver</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Waivers">
+                    <field name="display_name"/>
+                    <field name="fee_id"/>
+                    <field name="member_id"/>
+                    <field name="waiver_type"/>
+                    <field name="amount"/>
+                    <field name="request_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Fee Waiver Form View -->
+        <record id="vf_fee_waiver_view_form" model="ir.ui.view">
+            <field name="name">vf.fee.waiver.form</field>
+            <field name="model">vf.fee.waiver</field>
+            <field name="arch" type="xml">
+                <form string="Fee Waiver">
+                    <header>
+                        <button name="action_request" type="object" string="Submit Request" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_approve" type="object" string="Approve" 
+                                attrs="{'invisible': [('state', '!=', 'requested')]}" class="btn-success"/>
+                        <button name="action_reject" type="object" string="Reject" 
+                                attrs="{'invisible': [('state', '!=', 'requested')]}" class="btn-danger"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,requested,approved,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="waiver_info">
+                                <field name="fee_id"/>
+                                <field name="member_id" readonly="1"/>
+                                <field name="waiver_type"/>
+                            </group>
+                            <group name="amount_info">
+                                <field name="amount"/>
+                                <field name="percentage" attrs="{'invisible': [('waiver_type', '!=', 'discount')]}"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Request Information">
+                            <field name="request_date"/>
+                            <field name="decision_date" readonly="1"/>
+                            <field name="approved_by" readonly="1"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Reason">
+                                <field name="reason" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Rejection" attrs="{'invisible': [('state', '!=', 'rejected')]}">
+                                <field name="rejection_reason" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Supporting Documents">
+                                <field name="document_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="file_size"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Fee Waiver Search View -->
+        <record id="vf_fee_waiver_view_search" model="ir.ui.view">
+            <field name="name">vf.fee.waiver.search</field>
+            <field name="model">vf.fee.waiver</field>
+            <field name="arch" type="xml">
+                <search string="Search Waivers">
+                    <field name="fee_id"/>
+                    <field name="member_id"/>
+                    <field name="reason"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Requested" name="requested" domain="[('state', '=', 'requested')]"/>
+                    <filter string="Approved" name="approved" domain="[('state', '=', 'approved')]"/>
+                    <filter string="Rejected" name="rejected" domain="[('state', '=', 'rejected')]"/>
+                    <separator/>
+                    <filter string="My Requests" name="my_requests" 
+                            domain="[('fee_id.member_id.partner_id.user_ids', 'in', user.ids)]"/>
+                    <filter string="This Month" name="this_month" 
+                            domain="[('request_date', '>=', (context_today().replace(day=1)).strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Waiver Type" name="group_type" context="{'group_by': 'waiver_type'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Request Date" name="group_date" context="{'group_by': 'request_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Fee Waiver Action -->
+        <record id="vf_fee_waiver_action" model="ir.actions.act_window">
+            <field name="name">Fee Waivers</field>
+            <field name="res_model">vf.fee.waiver</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No waiver requests found.
+                </p>
+                <p>
+                    Waiver requests allow members to request fee reductions
+                    or exemptions based on special circumstances.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_fee_waiver_menu" name="Waivers" 
+                  parent="vf_membership_fees.vf_fee_menu" 
+                  sequence="20"
+                  action="vf_fee_waiver_action"/>
+    </data>
+</odoo>

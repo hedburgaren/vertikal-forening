@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- User Groups -->
+        <record id="group_vf_user" model="res.groups">
+            <field name="name">Vertical Association - User</field>
+            <field name="comment">Basic member access</field>
+            <field name="category_id" ref="base.module_category_association"/>
+        </record>
+        
+        <record id="group_vf_leader" model="res.groups">
+            <field name="name">Vertical Association - Leader</field>
+            <field name="comment">Group/section leaders</field>
+            <field name="implied_ids" eval="[(4, ref('group_vf_user'))]"/>
+            <field name="category_id" ref="base.module_category_association"/>
+        </record>
+        
+        <record id="group_vf_admin" model="res.groups">
+            <field name="name">Vertical Association - Administrator</field>
+            <field name="comment">Association administrators</field>
+            <field name="implied_ids" eval="[(4, ref('group_vf_leader'))]"/>
+            <field name="category_id" ref="base.module_category_association"/>
+        </record>
+        
+        <record id="group_vf_treasurer" model="res.groups">
+            <field name="name">Vertical Association - Treasurer</field>
+            <field name="comment">Financial access and reporting</field>
+            <field name="implied_ids" eval="[(4, ref('group_vf_leader'))]"/>
+            <field name="category_id" ref="base.module_category_association"/>
+        </record>
+    </data>
+</odoo>

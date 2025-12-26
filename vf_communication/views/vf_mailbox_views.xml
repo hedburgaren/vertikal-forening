@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Mailbox List View -->
+        <record id="vf_mailbox_view_tree" model="ir.ui.view">
+            <field name="name">vf.mailbox.tree</field>
+            <field name="model">vf.mailbox</field>
+            <field name="arch" type="xml">
+                <tree string="Mailboxes">
+                    <field name="display_name"/>
+                    <field name="code"/>
+                    <field name="email"/>
+                    <field name="current_holders"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Mailbox Form View -->
+        <record id="vf_mailbox_view_form" model="ir.ui.view">
+            <field name="name">vf.mailbox.form</field>
+            <field name="model">vf.mailbox</field>
+            <field name="arch" type="xml">
+                <form string="Mailbox">
+                    <header>
+                        <button name="action_send_message" type="object" string="Send Message" 
+                                class="btn-primary"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="mailbox_info">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="email" readonly="1"/>
+                            </group>
+                            <group name="configuration">
+                                <field name="forward_to_personal"/>
+                                <field name="require_membership"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Scope">
+                            <field name="position_id"/>
+                            <field name="group_id" 
+                                   attrs="{'invisible': [('position_id', '!=', False)]}"/>
+                            <field name="section_id" 
+                                   attrs="{'invisible': [('position_id', '!=', False), ('group_id', '!=', False)]}"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Current Holders">
+                                <group>
+                                    <field name="current_holders" nolabel="1" readonly="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Access Control">
+                                <group string="Allowed Senders">
+                                    <field name="allowed_sender_ids" widget="many2many_tags"/>
+                                    <p class="text-muted">
+                                        Leave empty to allow all members to send to this mailbox.
+                                    </p>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Mailbox Search View -->
+        <record id="vf_mailbox_view_search" model="ir.ui.view">
+            <field name="name">vf.mailbox.search</field>
+            <field name="model">vf.mailbox</field>
+            <field name="arch" type="xml">
+                <search string="Search Mailboxes">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="position_id"/>
+                    <field name="group_id"/>
+                    <field name="section_id"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Position Mailboxes" name="positions" 
+                            domain="[('position_id', '!=', False)]"/>
+                    <filter string="Group Mailboxes" name="groups" 
+                            domain="[('group_id', '!=', False)]"/>
+                    <filter string="Section Mailboxes" name="sections" 
+                            domain="[('section_id', '!=', False)]"/>
+                    <filter string="Accessible" name="accessible" 
+                            domain="[('id', 'in', user.partner_id.mailbox_ids.ids)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Position" name="group_position" context="{'group_by': 'position_id'}"/>
+                        <filter string="Group" name="group_group" context="{'group_by': 'group_id'}"/>
+                        <filter string="Section" name="group_section" context="{'group_by': 'section_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Mailbox Action -->
+        <record id="vf_mailbox_action" model="ir.actions.act_window">
+            <field name="name">Mailboxes</field>
+            <field name="res_model">vf.mailbox</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first mailbox!
+                </p>
+                <p>
+                    Mailboxes provide role-based email addresses that don't depend on
+                    personal email addresses. Messages can be forwarded to current holders.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_mailbox_menu" name="Mailboxes" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="40"
+                  action="vf_mailbox_action"/>
+    </data>
+</odoo>

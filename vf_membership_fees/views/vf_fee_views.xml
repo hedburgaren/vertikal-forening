@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Fee List View -->
+        <record id="vf_fee_view_tree" model="ir.ui.view">
+            <field name="name">vf.fee.tree</field>
+            <field name="model">vf.fee</field>
+            <field name="arch" type="xml">
+                <tree string="Membership Fees" decoration-danger="is_overdue">
+                    <field name="display_name"/>
+                    <field name="category_id"/>
+                    <field name="amount"/>
+                    <field name="paid_amount"/>
+                    <field name="remaining_amount"/>
+                    <field name="due_date"/>
+                    <field name="state"/>
+                    <field name="is_overdue" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Fee Form View -->
+        <record id="vf_fee_view_form" model="ir.ui.view">
+            <field name="name">vf.fee.form</field>
+            <field name="model">vf.fee</field>
+            <field name="arch" type="xml">
+                <form string="Membership Fee">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirm" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_mark_paid" type="object" string="Mark Paid" 
+                                attrs="{'invisible': [('state', 'not in', ['pending', 'overdue'])]}"/>
+                        <button name="action_mark_overdue" type="object" string="Mark Overdue" 
+                                attrs="{'invisible': [('state', '!=', 'pending')]}"/>
+                        <button name="action_cancel" type="object" string="Cancel" 
+                                attrs="{'invisible': [('state', '=', 'cancelled')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <button name="action_waive" type="object" string="Waive Fee" 
+                                attrs="{'invisible': [('state', 'not in', ['pending', 'overdue'])]}"/>
+                        <button name="action_send_reminder" type="object" string="Send Reminder" 
+                                attrs="{'invisible': [('state', 'not in', ['pending', 'overdue'])]}"/>
+                        <button name="action_view_payments" type="object" string="View Payments"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,pending,overdue,paid,cancelled,waived"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_payments" type="object" 
+                                    class="oe_stat_button" icon="fa-money">
+                                <field name="paid_amount" widget="statinfo" 
+                                       string="Paid" options="{'currency_field': 'currency_id'}"/>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-calculator" 
+                                    attrs="{'invisible': [('remaining_amount', '=', 0)]}">
+                                <field name="remaining_amount" widget="statinfo" 
+                                       string="Remaining" options="{'currency_field': 'currency_id'}"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="fee_info">
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="member_id"/>
+                            </group>
+                            <group name="amount_info">
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="waived_amount" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group name="period_info">
+                                <field name="period_start"/>
+                                <field name="period_end"/>
+                                <field name="generate_date"/>
+                                <field name="due_date"/>
+                            </group>
+                            <group name="status_info">
+                                <field name="is_overdue" readonly="1"/>
+                                <field name="days_overdue" readonly="1"/>
+                                <field name="waiver_id" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Fee Search View -->
+        <record id="vf_fee_view_search" model="ir.ui.view">
+            <field name="name">vf.fee.search</field>
+            <field name="model">vf.fee</field>
+            <field name="arch" type="xml">
+                <search string="Search Fees">
+                    <field name="member_id"/>
+                    <field name="category_id"/>
+                    <field name="name"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Pending" name="pending" domain="[('state', '=', 'pending')]"/>
+                    <filter string="Overdue" name="overdue" domain="[('state', '=', 'overdue')]"/>
+                    <filter string="Paid" name="paid" domain="[('state', '=', 'paid')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <filter string="Waived" name="waived" domain="[('state', '=', 'waived')]"/>
+                    <separator/>
+                    <filter string="Overdue" name="is_overdue" domain="[('is_overdue', '=', True)]"/>
+                    <filter string="This Month" name="this_month" 
+                            domain="[('due_date', '>=', (context_today().replace(day=1)).strftime('%Y-%m-%d')), ('due_date', '<=', (context_today() + datetime.timedelta(days=31)).strftime('%Y-%m-%d'))]"/>
+                    <filter string="My Fees" name="my_fees" 
+                            domain="[('member_id.partner_id.user_ids', 'in', user.ids)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Member" name="group_member" context="{'group_by': 'member_id'}"/>
+                        <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Due Month" name="group_due_month" context="{'group_by': 'due_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Fee Action -->
+        <record id="vf_fee_action" model="ir.actions.act_window">
+            <field name="name">Membership Fees</field>
+            <field name="res_model">vf.fee</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No fees found.
+                </p>
+                <p>
+                    Membership fees are generated based on fee categories
+                    and member eligibility.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_fee_menu" name="Membership Fees" 
+                  parent="vf_base.vf_menu_association" 
+                  sequence="80"
+                  action="vf_fee_action"/>
+    </data>
+</odoo>

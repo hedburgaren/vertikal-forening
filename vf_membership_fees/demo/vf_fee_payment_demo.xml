@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Fee Payments -->
+        <!-- Adult Member 1 - 2024 Regular Membership Payment -->
+        <record id="demo_payment_adult1_2024" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_adult1_2024"/>
+            <field name="amount">500.00</field>
+            <field name="payment_method">bank_transfer</field>
+            <field name="payment_date">2024-01-25</field>
+            <field name="reference">BK20240125001</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult1"/>
+        </record>
+        
+        <!-- Adult Member 2 - 2024 Student Membership Payment -->
+        <record id="demo_payment_adult2_2024" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_adult2_2024"/>
+            <field name="amount">250.00</field>
+            <field name="payment_method">card</field>
+            <field name="payment_date">2024-01-20</field>
+            <field name="reference">CARD20240120001</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult2"/>
+        </record>
+        
+        <!-- Adult Member 3 - 2024 Senior Membership Payment -->
+        <record id="demo_payment_adult3_2024" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_adult3_2024"/>
+            <field name="amount">300.00</field>
+            <field name="payment_method">cash</field>
+            <field name="payment_date">2024-01-15</field>
+            <field name="reference">CASH20240115001</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult3"/>
+        </record>
+        
+        <!-- Youth Member 1 - 2024 Youth Membership Payment -->
+        <record id="demo_payment_minor1_2024" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_minor1_2024"/>
+            <field name="amount">300.00</field>
+            <field name="payment_method">bank_transfer</field>
+            <field name="payment_date">2024-01-18</field>
+            <field name="reference">BK20240118002</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult1"/>
+        </record>
+        
+        <!-- Youth Member 1 - Spring Training Payment -->
+        <record id="demo_payment_training_spring" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_training_spring"/>
+            <field name="amount">100.00</field>
+            <field name="payment_method">online</field>
+            <field name="payment_date">2024-01-20</field>
+            <field name="reference">ONLINE20240120001</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult1"/>
+        </record>
+        
+        <!-- Youth Member 1 - Competition Fee Payment -->
+        <record id="demo_payment_competition1" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_competition1"/>
+            <field name="amount">50.00</field>
+            <field name="payment_method">cash</field>
+            <field name="payment_date">2024-03-05</field>
+            <field name="reference">CASH20240305001</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult1"/>
+        </record>
+        
+        <!-- Youth Member 1 - Insurance 2024 Payment -->
+        <record id="demo_payment_insurance1" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_insurance1"/>
+            <field name="amount">100.00</field>
+            <field name="payment_method">bank_transfer</field>
+            <field name="payment_date">2024-01-22</field>
+            <field name="reference">BK20240122003</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult1"/>
+        </record>
+        
+        <!-- Partial payment for Adult Member 2 2025 (overdue) -->
+        <record id="demo_payment_adult2_2025_partial" model="vf.fee.payment">
+            <field name="fee_id" ref="demo_fee_adult2_2025"/>
+            <field name="amount">100.00</field>
+            <field name="payment_method">online</field>
+            <field name="payment_date">2025-02-15</field>
+            <field name="reference">ONLINE20250215001</field>
+            <field name="state">confirmed</field>
+            <field name="recorded_by" ref="vf_member.demo_partner_adult2"/>
+            <field name="notes">Partial payment, remaining balance due</field>
+        </record>
+    </data>
+</odoo>

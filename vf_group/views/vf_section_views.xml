@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Section List View -->
+        <record id="vf_section_view_tree" model="ir.ui.view">
+            <field name="name">vf.section.tree</field>
+            <field name="model">vf.section</field>
+            <field name="arch" type="xml">
+                <tree string="Sections">
+                    <field name="display_name"/>
+                    <field name="manager_id"/>
+                    <field name="group_count"/>
+                    <field name="member_count"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Section Form View -->
+        <record id="vf_section_view_form" model="ir.ui.view">
+            <field name="name">vf.section.form</field>
+            <field name="model">vf.section</field>
+            <field name="arch" type="xml">
+                <form string="Section">
+                    <header>
+                        <field name="is_active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_groups" type="object" 
+                                    class="oe_stat_button" icon="fa-sitemap">
+                                <field name="group_count" widget="statinfo" 
+                                       string="Groups"/>
+                            </button>
+                            <button name="action_view_members" type="object" 
+                                    class="oe_stat_button" icon="fa-users">
+                                <field name="member_count" widget="statinfo" 
+                                       string="Members"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="section_info">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="manager_id"/>
+                            </group>
+                            <group name="hierarchy">
+                                <field name="parent_id"/>
+                                <field name="level" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Child Sections">
+                                <field name="child_ids">
+                                    <tree>
+                                        <field name="display_name"/>
+                                        <field name="manager_id"/>
+                                        <field name="group_count"/>
+                                        <field name="member_count"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Section Search View -->
+        <record id="vf_section_view_search" model="ir.ui.view">
+            <field name="name">vf.section.search</field>
+            <field name="model">vf.section</field>
+            <field name="arch" type="xml">
+                <search string="Search Sections">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="manager_id"/>
+                    <filter string="Active" name="active" domain="[('is_active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('is_active', '=', False)]"/>
+                    <filter string="Top Level" name="top_level" domain="[('parent_id', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Manager" name="group_manager" context="{'group_by': 'manager_id'}"/>
+                        <filter string="Parent Section" name="group_parent" context="{'group_by': 'parent_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Section Action -->
+        <record id="vf_section_action" model="ir.actions.act_window">
+            <field name="name">Sections</field>
+            <field name="res_model">vf.section</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first section!
+                </p>
+                <p>
+                    Sections are the highest organizational level in your association.
+                    They contain groups and help structure your organization.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_section_menu" name="Sections" 
+                  parent="vf_base.vf_menu_organization" 
+                  sequence="10"
+                  action="vf_section_action"/>
+    </data>
+</odoo>
