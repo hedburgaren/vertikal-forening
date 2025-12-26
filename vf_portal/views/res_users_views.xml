@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Users Form View Extension -->
+        <record id="res_users_view_form_portal" model="ir.ui.view">
+            <field name="name">res.users.form.portal</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Association Portal" attrs="{'invisible': [('is_portal_member', '=', False)]}">
+                        <group>
+                            <field name="vf_member_id"/>
+                            <field name="is_portal_member"/>
+                            <field name="portal_member_settings_id"/>
+                        </group>
+                        
+                        <group string="Portal Actions">
+                            <button name="action_view_member_profile" type="object" string="View Member Profile" 
+                                    class="btn-primary" attrs="{'invisible': [('vf_member_id', '=', False)]}"/>
+                            <button name="action_view_portal_dashboard" type="object" string="Open Portal Dashboard" 
+                                    class="btn-secondary" attrs="{'invisible': [('vf_member_id', '=', False)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

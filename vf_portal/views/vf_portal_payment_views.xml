@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Portal Payment Tree View -->
+        <record id="vf_portal_payment_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.payment.tree</field>
+            <field name="model">vf.portal.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Portal Payments">
+                    <field name="fee_id"/>
+                    <field name="payment_method"/>
+                    <field name="amount"/>
+                    <field name="payment_date"/>
+                    <field name="payment_status"/>
+                    <field name="paid_via_portal"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Payment Form View -->
+        <record id="vf_portal_payment_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.payment.form</field>
+            <field name="model">vf.portal.payment</field>
+            <field name="arch" type="xml">
+                <form string="Portal Payment">
+                    <sheet>
+                        <group>
+                            <group name="payment_info">
+                                <field name="fee_id" required="1"/>
+                                <field name="payment_method" required="1"/>
+                                <field name="amount" required="1"/>
+                                <field name="payment_date"/>
+                            </group>
+                            <group name="status_info">
+                                <field name="paid_via_portal"/>
+                                <field name="payment_status" readonly="1"/>
+                                <field name="transaction_id" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Refund" attrs="{'invisible': [('payment_status', '!=', 'completed')]}">
+                                <group>
+                                    <field name="refund_amount"/>
+                                    <field name="refund_reason"/>
+                                    <field name="refund_date"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Payment Plan Tree View -->
+        <record id="vf_portal_payment_plan_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.payment.plan.tree</field>
+            <field name="model">vf.portal.payment.plan</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Plans">
+                    <field name="name"/>
+                    <field name="member_id"/>
+                    <field name="total_amount"/>
+                    <field name="remaining_amount"/>
+                    <field name="payment_count"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Payment Plan Form View -->
+        <record id="vf_portal_payment_plan_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.payment.plan.form</field>
+            <field name="model">vf.portal.payment.plan</field>
+            <field name="arch" type="xml">
+                <form string="Payment Plan">
+                    <header>
+                        <button name="action_activate" type="object" string="Activate Plan" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="plan_info">
+                                <field name="name" required="1"/>
+                                <field name="member_id" required="1"/>
+                                <field name="payment_count" required="1"/>
+                                <field name="payment_frequency" required="1"/>
+                            </group>
+                            <group name="amount_info">
+                                <field name="payment_amount" required="1"/>
+                                <field name="total_amount" readonly="1"/>
+                                <field name="paid_amount" readonly="1"/>
+                                <field name="remaining_amount" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Schedule">
+                                <group>
+                                    <field name="start_date" required="1"/>
+                                    <field name="end_date" readonly="1"/>
+                                </group>
+                                <field name="payment_ids">
+                                    <tree>
+                                        <field name="payment_number"/>
+                                        <field name="due_date"/>
+                                        <field name="amount"/>
+                                        <field name="paid"/>
+                                        <field name="paid_date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Payment Plan Line Form View -->
+        <record id="vf_portal_payment_plan_line_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.payment.plan.line.form</field>
+            <field name="model">vf.portal.payment.plan.line</field>
+            <field name="arch" type="xml">
+                <form string="Payment Plan Line">
+                    <sheet>
+                        <group>
+                            <group name="line_info">
+                                <field name="plan_id" readonly="1"/>
+                                <field name="payment_number" readonly="1"/>
+                                <field name="due_date" readonly="1"/>
+                                <field name="amount" readonly="1"/>
+                            </group>
+                            <group name="payment_info">
+                                <field name="paid"/>
+                                <field name="paid_date" readonly="1"/>
+                                <field name="payment_id" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Actions -->
+        <record id="vf_portal_payment_action" model="ir.actions.act_window">
+            <field name="name">Portal Payments</field>
+            <field name="res_model">vf.portal.payment</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="vf_portal_payment_plan_action" model="ir.actions.act_window">
+            <field name="name">Payment Plans</field>
+            <field name="res_model">vf.portal.payment.plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_portal_payment_menu" name="Payments" parent="vf_portal_menu_root" sequence="40"/>
+        <menuitem id="vf_portal_payment_list_menu" name="Payments" parent="vf_portal_payment_menu" 
+                  action="vf_portal_payment_action" sequence="10"/>
+        <menuitem id="vf_portal_payment_plan_menu" name="Payment Plans" parent="vf_portal_payment_menu" 
+                  action="vf_portal_payment_plan_action" sequence="20"/>
+    </data>
+</odoo>

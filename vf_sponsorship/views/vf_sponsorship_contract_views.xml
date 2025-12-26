@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sponsorship Contract Tree View -->
+        <record id="vf_sponsorship_contract_view_tree" model="ir.ui.view">
+            <field name="name">vf.sponsorship.contract.tree</field>
+            <field name="model">vf.sponsorship.contract</field>
+            <field name="arch" type="xml">
+                <tree string="Sponsorship Contracts">
+                    <field name="contract_number"/>
+                    <field name="sponsor_id"/>
+                    <field name="type"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Sponsorship Contract Form View -->
+        <record id="vf_sponsorship_contract_view_form" model="ir.ui.view">
+            <field name="name">vf.sponsorship.contract.form</field>
+            <field name="model">vf.sponsorship.contract</field>
+            <field name="arch" type="xml">
+                <form string="Sponsorship Contract">
+                    <header>
+                        <button name="action_send_for_signature" type="object" string="Send for Signature" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_mark_signed" type="object" string="Mark Signed" 
+                                attrs="{'invisible': [('state', '!=', 'sent')]}" class="btn-secondary"/>
+                        <button name="action_activate" type="object" string="Activate" 
+                                attrs="{'invisible': [('state', '!=', 'signed')]}" class="btn-success"/>
+                        <button name="action_cancel" type="object" string="Cancel" 
+                                attrs="{'invisible': [('state', '=', 'cancelled')]}" class="btn-warning"/>
+                        <button name="action_create_invoice" type="object" string="Create Invoice" 
+                                attrs="{'invisible': [('state', '!=', 'active')]}" class="btn-info"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="contract_info">
+                                <field name="contract_number" readonly="1"/>
+                                <field name="sponsor_id" required="1"/>
+                                <field name="type"/>
+                            </group>
+                            <group name="dates_info">
+                                <field name="start_date" required="1"/>
+                                <field name="end_date" required="1"/>
+                                <field name="signed_date"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group name="financial_info">
+                                <field name="amount" required="1"/>
+                                <field name="currency_id"/>
+                                <field name="payment_term_id"/>
+                                <field name="payment_schedule"/>
+                            </group>
+                            <group name="totals">
+                                <field name="total_amount" readonly="1"/>
+                                <field name="paid_amount" readonly="1"/>
+                                <field name="remaining_amount" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Documents">
+                                <group>
+                                    <field name="contract_document_id"/>
+                                    <field name="signed_document_id"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Invoices">
+                                <field name="invoice_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="invoice_date"/>
+                                        <field name="amount_total"/>
+                                        <field name="amount_paid"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Sponsorship Contract Search View -->
+        <record id="vf_sponsorship_contract_view_search" model="ir.ui.view">
+            <field name="name">vf.sponsorship.contract.search</field>
+            <field name="model">vf.sponsorship.contract</field>
+            <field name="arch" type="xml">
+                <search string="Sponsorship Contracts">
+                    <field name="contract_number"/>
+                    <field name="sponsor_id"/>
+                    <field name="type"/>
+                    <field name="state"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Active" name="active" domain="[('state', '=', 'active')]"/>
+                    <filter string="Expired" name="expired" domain="[('state', '=', 'expired')]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Sponsor" name="group_sponsor" context="{'group_by': 'sponsor_id'}"/>
+                        <filter string="Type" name="group_type" context="{'group_by': 'type'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Sponsorship Contract Action -->
+        <record id="vf_sponsorship_contract_action" model="ir.actions.act_window">
+            <field name="name">Sponsorship Contracts</field>
+            <field name="res_model">vf.sponsorship.contract</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first sponsorship contract
+                </p>
+                <p>
+                    Manage sponsorship contracts with automated invoicing.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_sponsorship_contract_menu" name="Contracts" parent="vf_sponsorship_menu_root" sequence="30"/>
+        <menuitem id="vf_sponsorship_contract_menu_list" name="All Contracts" parent="vf_sponsorship_contract_menu" 
+                  action="vf_sponsorship_contract_action" sequence="10"/>
+    </data>
+</odoo>

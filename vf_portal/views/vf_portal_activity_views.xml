@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Portal Activity Tree View -->
+        <record id="vf_portal_activity_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.activity.tree</field>
+            <field name="model">vf.portal.activity</field>
+            <field name="arch" type="xml">
+                <tree string="Portal Activity Registrations">
+                    <field name="schedule_id"/>
+                    <field name="member_id"/>
+                    <field name="date_registered"/>
+                    <field name="state"/>
+                    <field name="confirmation_sent"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Activity Form View -->
+        <record id="vf_portal_activity_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.activity.form</field>
+            <field name="model">vf.portal.activity</field>
+            <field name="arch" type="xml">
+                <form string="Portal Activity Registration">
+                    <header>
+                        <button name="action_cancel_via_portal" type="object" string="Cancel Registration" 
+                                attrs="{'invisible': [('state', 'in', ['cancelled', 'attended'])]}" class="btn-warning"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="registration_info">
+                                <field name="schedule_id" required="1"/>
+                                <field name="member_id" required="1"/>
+                                <field name="date_registered" readonly="1"/>
+                            </group>
+                            <group name="confirmation_info">
+                                <field name="confirmation_sent" readonly="1"/>
+                                <field name="confirmation_date" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes"/>
+                                <field name="portal_notes"/>
+                            </page>
+                            
+                            <page string="Waiting List" attrs="{'invisible': [('waiting_list_position', '=', 0)]}">
+                                <group>
+                                    <field name="waiting_list_position"/>
+                                    <field name="auto_register_if_available"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Waiting List Tree View -->
+        <record id="vf_activity_waiting_list_view_tree" model="ir.ui.view">
+            <field name="name">vf.activity.waiting.list.tree</field>
+            <field name="model">vf.activity.waiting.list</field>
+            <field name="arch" type="xml">
+                <tree string="Activity Waiting List">
+                    <field name="activity_id"/>
+                    <field name="member_id"/>
+                    <field name="position"/>
+                    <field name="date_added"/>
+                    <field name="auto_register_if_available"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Waiting List Form View -->
+        <record id="vf_activity_waiting_list_view_form" model="ir.ui.view">
+            <field name="name">vf.activity.waiting.list.form</field>
+            <field name="model">vf.activity.waiting.list</field>
+            <field name="arch" type="xml">
+                <form string="Activity Waiting List">
+                    <sheet>
+                        <group>
+                            <group name="waiting_info">
+                                <field name="activity_id" required="1"/>
+                                <field name="member_id" required="1"/>
+                                <field name="position" readonly="1"/>
+                                <field name="date_added" readonly="1"/>
+                            </group>
+                            <group name="preferences">
+                                <field name="auto_register_if_available"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Actions -->
+        <record id="vf_portal_activity_action" model="ir.actions.act_window">
+            <field name="name">Portal Registrations</field>
+            <field name="res_model">vf.portal.activity</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="vf_activity_waiting_list_action" model="ir.actions.act_window">
+            <field name="name">Waiting Lists</field>
+            <field name="res_model">vf.activity.waiting.list</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_portal_activity_menu" name="Activities" parent="vf_portal_menu_root" sequence="20"/>
+        <menuitem id="vf_portal_activity_registration_menu" name="Registrations" parent="vf_portal_activity_menu" 
+                  action="vf_portal_activity_action" sequence="10"/>
+        <menuitem id="vf_portal_waiting_list_menu" name="Waiting Lists" parent="vf_portal_activity_menu" 
+                  action="vf_activity_waiting_list_action" sequence="20"/>
+    </data>
+</odoo>

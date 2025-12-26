@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Portal Member Tree View -->
+        <record id="vf_portal_member_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.member.tree</field>
+            <field name="model">vf.portal.member</field>
+            <field name="arch" type="xml">
+                <tree string="Portal Members">
+                    <field name="member_id"/>
+                    <field name="user_id"/>
+                    <field name="email_notifications"/>
+                    <field name="last_login"/>
+                    <field name="login_count"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Member Form View -->
+        <record id="vf_portal_member_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.member.form</field>
+            <field name="model">vf.portal.member</field>
+            <field name="arch" type="xml">
+                <form string="Portal Member Settings">
+                    <sheet>
+                        <group>
+                            <group name="member_info">
+                                <field name="member_id" required="1"/>
+                                <field name="user_id" required="1"/>
+                            </group>
+                            <group name="login_info">
+                                <field name="last_login" readonly="1"/>
+                                <field name="login_count" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Permissions">
+                                <group>
+                                    <field name="allow_self_registration"/>
+                                    <field name="allow_document_access"/>
+                                    <field name="allow_payment_view"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Notifications">
+                                <group>
+                                    <field name="email_notifications"/>
+                                    <field name="sms_notifications"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Privacy">
+                                <group>
+                                    <field name="show_profile"/>
+                                    <field name="show_contact_info"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Dashboard">
+                                <group>
+                                    <field name="dashboard_layout"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Portal Member Search View -->
+        <record id="vf_portal_member_view_search" model="ir.ui.view">
+            <field name="name">vf.portal.member.search</field>
+            <field name="model">vf.portal.member</field>
+            <field name="arch" type="xml">
+                <search string="Portal Members">
+                    <field name="member_id"/>
+                    <field name="user_id"/>
+                    <filter string="Email Notifications" name="email" domain="[('email_notifications', '=', True)]"/>
+                    <filter string="SMS Notifications" name="sms" domain="[('sms_notifications', '=', True)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Dashboard Layout" name="group_layout" context="{'group_by': 'dashboard_layout'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Portal Member Action -->
+        <record id="vf_portal_member_action" model="ir.actions.act_window">
+            <field name="name">Portal Members</field>
+            <field name="res_model">vf.portal.member</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Configure portal member settings
+                </p>
+                <p>
+                    Manage member portal access and preferences.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_portal_menu_root" name="Portal" parent="vf_base.vf_association_menu" sequence="80"/>
+        <menuitem id="vf_portal_member_menu" name="Portal Members" parent="vf_portal_menu_root" sequence="10"/>
+        <menuitem id="vf_portal_member_menu_list" name="All Members" parent="vf_portal_member_menu" 
+                  action="vf_portal_member_action" sequence="10"/>
+    </data>
+</odoo>

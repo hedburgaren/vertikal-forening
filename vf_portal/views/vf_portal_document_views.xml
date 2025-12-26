@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Portal Document Access Tree View -->
+        <record id="vf_portal_document_access_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.document.access.tree</field>
+            <field name="model">vf.portal.document.access</field>
+            <field name="arch" type="xml">
+                <tree string="Document Access">
+                    <field name="document_id"/>
+                    <field name="member_id"/>
+                    <field name="access_granted"/>
+                    <field name="date_granted"/>
+                    <field name="expires_on"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Document Access Form View -->
+        <record id="vf_portal_document_access_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.document.access.form</field>
+            <field name="model">vf.portal.document.access</field>
+            <field name="arch" type="xml">
+                <form string="Document Access">
+                    <sheet>
+                        <group>
+                            <group name="access_info">
+                                <field name="document_id" required="1"/>
+                                <field name="member_id" required="1"/>
+                                <field name="access_granted"/>
+                            </group>
+                            <group name="date_info">
+                                <field name="date_granted" readonly="1"/>
+                                <field name="expires_on"/>
+                                <field name="granted_by" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Portal Document Category Tree View -->
+        <record id="vf_portal_document_category_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.document.category.tree</field>
+            <field name="model">vf.portal.document.category</field>
+            <field name="arch" type="xml">
+                <tree string="Portal Document Categories">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                    <field name="document_count"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Document Category Form View -->
+        <record id="vf_portal_document_category_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.document.category.form</field>
+            <field name="model">vf.portal.document.category</field>
+            <field name="arch" type="xml">
+                <form string="Portal Document Category">
+                    <sheet>
+                        <group>
+                            <group name="category_info">
+                                <field name="name" required="1"/>
+                                <field name="parent_id"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Document Access Log Tree View -->
+        <record id="vf_portal_document_log_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.document.log.tree</field>
+            <field name="model">vf.portal.document.log</field>
+            <field name="arch" type="xml">
+                <tree string="Document Access Log">
+                    <field name="document_id"/>
+                    <field name="member_id"/>
+                    <field name="action"/>
+                    <field name="date"/>
+                    <field name="ip_address"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Actions -->
+        <record id="vf_portal_document_access_action" model="ir.actions.act_window">
+            <field name="name">Document Access</field>
+            <field name="res_model">vf.portal.document.access</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="vf_portal_document_category_action" model="ir.actions.act_window">
+            <field name="name">Document Categories</field>
+            <field name="res_model">vf.portal.document.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="vf_portal_document_log_action" model="ir.actions.act_window">
+            <field name="name">Access Log</field>
+            <field name="res_model">vf.portal.document.log</field>
+            <field name="view_mode">tree</field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_portal_document_menu" name="Documents" parent="vf_portal_menu_root" sequence="30"/>
+        <menuitem id="vf_portal_document_access_menu" name="Access Control" parent="vf_portal_document_menu" 
+                  action="vf_portal_document_access_action" sequence="10"/>
+        <menuitem id="vf_portal_document_category_menu" name="Categories" parent="vf_portal_document_menu" 
+                  action="vf_portal_document_category_action" sequence="20"/>
+        <menuitem id="vf_portal_document_log_menu" name="Access Log" parent="vf_portal_document_menu" 
+                  action="vf_portal_document_log_action" sequence="30"/>
+    </data>
+</odoo>

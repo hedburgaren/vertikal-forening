@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Economy Report Views -->
+        <record id="vf_economy_report_revenue" model="vf.economy.report">
+            <field name="name">Revenue Report 2024</field>
+            <field name="report_type">revenue</field>
+            <field name="date_from">2024-01-01</field>
+            <field name="date_to">2024-12-31</field>
+            <field name="generated_by" ref="base.user_admin"/>
+            <field name="state">generated</field>
+        </record>
+        
+        <!-- Payment Views -->
+        <record id="vf_payment_view_overdue" model="vf.payment.view">
+            <field name="name">Overdue Payments</field>
+            <field name="description">View of all overdue payments</field>
+            <field name="show_overdue_only">True</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Export Access -->
+        <record id="vf_export_access_treasurer" model="vf.export.access">
+            <field name="name">Treasurer Monthly Export</field>
+            <field name="description">Monthly financial export for treasurer</field>
+            <field name="report_type">payment_status</field>
+            <field name="is_scheduled">True</field>
+            <field name="schedule_frequency">monthly</field>
+            <field name="allowed_group_ids" eval="[(4, ref('vf_base.group_treasurer'))]"/>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>
