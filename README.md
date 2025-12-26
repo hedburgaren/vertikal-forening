@@ -1,50 +1,159 @@
+# Vertical Association (Odoo 18 CE)
 
-[![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/vertical-association&target_branch=18.0)
-[![Pre-commit Status](https://github.com/OCA/vertical-association/actions/workflows/pre-commit.yml/badge.svg?branch=18.0)](https://github.com/OCA/vertical-association/actions/workflows/pre-commit.yml?query=branch%3A18.0)
-[![Build Status](https://github.com/OCA/vertical-association/actions/workflows/test.yml/badge.svg?branch=18.0)](https://github.com/OCA/vertical-association/actions/workflows/test.yml?query=branch%3A18.0)
-[![codecov](https://codecov.io/gh/OCA/vertical-association/branch/18.0/graph/badge.svg)](https://codecov.io/gh/OCA/vertical-association)
-[![Translation Status](https://translation.odoo-community.org/widgets/vertical-association-18-0/-/svg-badge.svg)](https://translation.odoo-community.org/engage/vertical-association-18-0/?utm_source=widget)
+**Vertical Association** is a complete, open and long-term sustainable association management solution for **Odoo 18 Community Edition**.
 
-<!-- /!\ do not modify above this line -->
+The project is built on top of **OCA vertical-association** and extended to support the operational needs of modern associations, clubs and non-profit organizations.
 
-# vertical-association
+The focus is not on sales or CRM pipelines, but on:
+- people
+- relationships
+- responsibility
+- continuity
+- safety
 
-vertical-association
+This repository aims to provide a shared, open foundation for association management within the Odoo ecosystem.
 
-<!-- /!\ do not modify below this line -->
+---
 
-<!-- prettier-ignore-start -->
+## Purpose
 
-[//]: # (addons)
+Associations often rely on fragmented tools, personal email accounts and undocumented processes.  
+Vertical Association exists to replace that with a structured, role-based and transparent system that can be maintained over time - even when people change.
 
-Available addons
-----------------
-addon | version | maintainers | summary
---- | --- | --- | ---
-[contract_membership_delegated_partner](contract_membership_delegated_partner/) | 18.0.1.0.1 |  | Set delegate membership on the contract
-[membership_delegated_partner](membership_delegated_partner/) | 18.0.1.0.0 |  | Delegate membership on a specific partner
-[membership_extension](membership_extension/) | 18.0.1.0.0 |  | Improves user experience of membership addon
-[membership_initial_fee](membership_initial_fee/) | 18.0.1.0.0 | <a href='https://github.com/rafaelbn'><img src='https://github.com/rafaelbn.png' width='32' height='32' style='border-radius:50%;' alt='rafaelbn'/></a> <a href='https://github.com/edlopen'><img src='https://github.com/edlopen.png' width='32' height='32' style='border-radius:50%;' alt='edlopen'/></a> | Initial fee for memberships
-[membership_prorate](membership_prorate/) | 18.0.1.0.0 |  | Prorate membership fee
-[membership_prorate_variable_period](membership_prorate_variable_period/) | 18.0.1.0.1 | <a href='https://github.com/rafaelbn'><img src='https://github.com/rafaelbn.png' width='32' height='32' style='border-radius:50%;' alt='rafaelbn'/></a> <a href='https://github.com/edlopen'><img src='https://github.com/edlopen.png' width='32' height='32' style='border-radius:50%;' alt='edlopen'/></a> | Prorate membership fee for variable periods
-[membership_variable_period](membership_variable_period/) | 18.0.1.0.0 |  | Variable period for memberships
-[membership_withdrawal](membership_withdrawal/) | 18.0.1.0.1 |  | Log membership withdrawal reason and date of request
-[website_membership_gamification](website_membership_gamification/) | 18.0.1.0.0 |  | Show badges assigned to users on website
-[website_membership_random_order](website_membership_random_order/) | 18.0.1.0.0 | <a href='https://github.com/pedrobaeza'><img src='https://github.com/pedrobaeza.png' width='32' height='32' style='border-radius:50%;' alt='pedrobaeza'/></a> | Online Members Directory - Random order
+The system is designed to be:
+- safe for children and families
+- resilient to board and role changes
+- compliant with data protection regulations
+- understandable for non-technical users
 
-[//]: # (end addons)
+---
 
-<!-- prettier-ignore-end -->
+## Target Organizations
 
-## Licenses
+- Sports clubs
+- Youth organizations
+- Cultural associations
+- Non-profit organizations
+- Membership-based communities
 
-This repository is licensed under [AGPL-3.0](LICENSE).
+Primarily aimed at Sweden and the Nordics, but will hopefully be internationally usable.
 
-However, each module can have a totally different license, as long as they adhere to Odoo Community Association (OCA)
-policy. Consult each module's `__manifest__.py` file, which contains a `license` key
-that explains its license.
+---
 
-----
-OCA, or the [Odoo Community Association](http://odoo-community.org/), is a nonprofit
-organization whose mission is to support the collaborative development of Odoo features
-and promote its widespread use.
+## Core Capabilities (When Complete)
+
+### Members & Families
+- Members can be adults or minors
+- Mandatory guardian relationships for minors
+- Voluntary emergency and contact relationships
+- Family support (siblings, households, guardians)
+- Members can belong to multiple groups simultaneously
+
+### Groups & Sections
+- Groups (teams, committees, working groups)
+- Sections as a higher-level organizational layer
+- Members can hold multiple roles across groups and sections
+- Clear separation between membership and responsibility
+
+### Roles, Mandates & Access
+- Role-based access control
+- Time-limited mandates with reminders and grace periods
+- Automatic continuity protection to prevent loss of access
+- Access always scoped to group, section or organization level
+
+### Communication
+- Role- and group-based messaging
+- No dependency on personal email addresses
+- Frontend contact forms targeting roles or groups
+- Full message history retained even when roles change
+
+### Documents & Sharing
+- Built on OCA Document Management System (DMS)
+- Documents can be linked to:
+  - members
+  - groups
+  - sections
+  - events
+- Visibility levels:
+  - individual
+  - group
+  - section
+  - public (frontend)
+- Versioning and access control
+
+## Templates
+- Pre-built document and e-mail templates
+  - document templates (PDF, reports, confirmations)
+  - email templates (notifications, reminders, confirmations)
+  - communication layouts
+  - export formats
+
+- Templates are:
+  - neutral and reusable
+  - fully translatable
+  - designed to be customized per association
+  - independent from business-specific branding
+
+### Activities & Events
+- Trainings, courses, camps, competitions
+- Individual and group participation
+- Attendance tracking
+- Guardian-reported absence
+- Support for complex participation scenarios
+
+### Attendance & Reporting
+- Digital attendance lists
+- Aggregated reports for treasurers
+- Exportable PDF and XLS reports
+- Designed to support activity-based funding models
+
+### Membership & Fees
+- Membership periods and history
+- Split payments (monthly, quarterly, semi-annual, annual)
+- Price tiers and role-based reductions
+- Integration with Odoo payment methods
+
+### Economy Support
+- Treasurer-focused reports
+- Filterable member and payment views
+- Export-only access (no raw data dumps)
+
+### Sponsorship & Sales
+- Sponsorship packages with validity periods
+- Targeted communication to sponsors
+- Optional merchandise and association sales
+- Donations and sponsorship handled separately from membership
+
+### Member & Guardian Portal
+- Self-service frontend portal
+- Schedule and event registration
+- Document access
+- Contact and consent management
+- Reduced administrative workload
+
+---
+
+## Design Principles
+
+- Built for Odoo 18 Community Edition only
+- OCA-compatible architecture and standards
+- Modular design — no monoliths
+- Role-based access everywhere
+- Security and privacy by default
+- Archiving instead of deletion
+- Long-term maintainability over short-term shortcuts
+
+---
+
+## Attribution
+
+This project builds on the work of the **Odoo Community Association (OCA)** and the `vertical-association` project.
+
+Further development and coordination have been contributed by **ARC Gruppen AB** and Chrille Hedberg, as part of an effort to strengthen association support within the Odoo ecosystem.
+
+---
+
+## License
+
+AGPL-3.0  
+See `LICENSE` for details.
