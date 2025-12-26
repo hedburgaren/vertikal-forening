@@ -75,7 +75,7 @@
             <field name="state">published</field>
             <field name="visibility">members</field>
             <field name="description">Minutes from the 2024 Annual General Meeting</field>
-            <field name="section_ids" eval="[(4, ref('vf_group.demo_section_admin'))]"/>
+            <field name="section_ids" eval="[(4, ref('demo_section_admin'))]"/>
         </record>
         
         <record id="demo_document_membership_form" model="vf.document">
@@ -97,7 +97,7 @@
             <field name="state">published</field>
             <field name="visibility">members</field>
             <field name="description">Safety guidelines for all association activities</field>
-            <field name="group_ids" eval="[(4, ref('vf_group.demo_group_football_u12')), (4, ref('vf_group.demo_group_swimming_junior'))]"/>
+            <field name="group_ids" eval="[(4, ref('demo_group_football_u12')), (4, ref('demo_group_swimming_junior'))]"/>
         </record>
         
         <record id="demo_document_financial_report" model="vf.document">
@@ -108,7 +108,7 @@
             <field name="state">published</field>
             <field name="visibility">leadership</field>
             <field name="description">Annual financial report for 2023</field>
-            <field name="allowed_role_ids" eval="[(4, ref('vf_role.role_treasurer'))]"/>
+            <field name="allowed_role_ids" eval="[(4, ref('role_treasurer'))]"/>
         </record>
         
         <record id="demo_document_training_manual" model="vf.document">
@@ -119,7 +119,7 @@
             <field name="state">published</field>
             <field name="visibility">members</field>
             <field name="description">Training manual for sports coaches</field>
-            <field name="allowed_role_ids" eval="[(4, ref('vf_role.role_coach'))]"/>
+            <field name="allowed_role_ids" eval="[(4, ref('role_coach'))]"/>
         </record>
         
         <!-- Draft Document -->
@@ -141,8 +141,8 @@
             <field name="visibility">custom</field>
             <field name="template_id" ref="demo_document_membership_form"/>
             <field name="description">Completed membership application</field>
-            <field name="allowed_member_ids" eval="[(4, ref('vf_member.demo_member_adult1'))]"/>
-            <field name="member_ids" eval="[(4, ref('vf_member.demo_member_adult1'))]"/>
+            <field name="allowed_member_ids" eval="[(4, ref('vertical_association_sweden.demo_member_adult1'))]"/>
+            <field name="member_ids" eval="[(4, ref('vertical_association_sweden.demo_member_adult1'))]"/>
         </record>
     </data>
 </odoo>

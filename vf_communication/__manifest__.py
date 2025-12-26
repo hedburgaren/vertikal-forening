@@ -31,6 +31,8 @@
     "demo": [
         "demo/vf_message_demo.xml",
         "demo/vf_mailbox_demo.xml",
+        "demo/vf_communication_layout_demo.xml",
+        "demo/vf_email_template_demo.xml",
     ],
     "qweb": [
         "static/src/xml/vf_communication.xml",

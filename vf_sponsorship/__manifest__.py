@@ -37,9 +37,7 @@
         "report/sponsorship_report_views.xml",
     ],
     "demo": [
-        "demo/vf_sponsor_demo.xml",
-        "demo/vf_sponsorship_package_demo.xml",
-        "demo/vf_merchandise_product_demo.xml",
+        "demo/vf_sponsorship_demo.xml",
     ],
     "qweb": [
         "static/src/xml/vf_sponsorship.xml",

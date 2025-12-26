@@ -64,14 +64,14 @@
         </record>
         
         <!-- Demo Members -->
-        <record id="demo_member_adult1" model="vf.member">
-            <field name="partner_id" ref="demo_partner_adult1"/>
+        <record id="vertical_association_sweden.demo_member_adult1" model="vf.member">
+            <field name="partner_id" ref="vertical_association_sweden.demo_partner_adult1"/>
             <field name="membership_date">2020-01-15</field>
             <field name="household_id" ref="demo_household_1"/>
         </record>
         
-        <record id="demo_member_adult2" model="vf.member">
-            <field name="partner_id" ref="demo_partner_adult2"/>
+        <record id="vertical_association_sweden.demo_member_adult2" model="vf.member">
+            <field name="partner_id" ref="vertical_association_sweden.demo_partner_adult2"/>
             <field name="membership_date">2020-01-15</field>
             <field name="household_id" ref="demo_household_1"/>
         </record>
@@ -88,8 +88,8 @@
             <field name="household_id" ref="demo_household_1"/>
         </record>
         
-        <record id="demo_member_adult3" model="vf.member">
-            <field name="partner_id" ref="demo_partner_adult3"/>
+        <record id="vertical_association_sweden.demo_member_adult3" model="vf.member">
+            <field name="partner_id" ref="vertical_association_sweden.demo_partner_adult3"/>
             <field name="membership_date">2021-03-10</field>
             <field name="household_id" ref="demo_household_2"/>
         </record>
@@ -102,45 +102,45 @@
         
         <!-- Demo Guardian Relationships -->
         <record id="demo_guardian_1" model="vf.guardian.relationship">
-            <field name="member_id" ref="demo_member_minor1"/>
-            <field name="guardian_id" ref="demo_partner_adult1"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_primary"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor1"/>
+            <field name="guardian_id" ref="vertical_association_sweden.demo_partner_adult1"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_primary"/>
             <field name="start_date">2012-09-10</field>
             <field name="is_emergency">True</field>
             <field name="legal_custody">True</field>
         </record>
         
         <record id="demo_guardian_2" model="vf.guardian.relationship">
-            <field name="member_id" ref="demo_member_minor1"/>
-            <field name="guardian_id" ref="demo_partner_adult2"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_secondary"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor1"/>
+            <field name="guardian_id" ref="vertical_association_sweden.demo_partner_adult2"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_secondary"/>
             <field name="start_date">2012-09-10</field>
             <field name="is_emergency">True</field>
             <field name="legal_custody">True</field>
         </record>
         
         <record id="demo_guardian_3" model="vf.guardian.relationship">
-            <field name="member_id" ref="demo_member_minor2"/>
-            <field name="guardian_id" ref="demo_partner_adult1"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_primary"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor2"/>
+            <field name="guardian_id" ref="vertical_association_sweden.demo_partner_adult1"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_primary"/>
             <field name="start_date">2015-04-25</field>
             <field name="is_emergency">True</field>
             <field name="legal_custody">True</field>
         </record>
         
         <record id="demo_guardian_4" model="vf.guardian.relationship">
-            <field name="member_id" ref="demo_member_minor2"/>
-            <field name="guardian_id" ref="demo_partner_adult2"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_secondary"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor2"/>
+            <field name="guardian_id" ref="vertical_association_sweden.demo_partner_adult2"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_secondary"/>
             <field name="start_date">2015-04-25</field>
             <field name="is_emergency">True</field>
             <field name="legal_custody">True</field>
         </record>
         
         <record id="demo_guardian_5" model="vf.guardian.relationship">
-            <field name="member_id" ref="demo_member_minor3"/>
-            <field name="guardian_id" ref="demo_partner_adult3"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_primary"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor3"/>
+            <field name="guardian_id" ref="vertical_association_sweden.demo_partner_adult3"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_primary"/>
             <field name="start_date">2014-06-18</field>
             <field name="is_emergency">True</field>
             <field name="legal_custody">True</field>
@@ -148,16 +148,16 @@
         
         <!-- Demo Family Relationships -->
         <record id="demo_family_1" model="vf.family.relationship">
-            <field name="member_id" ref="demo_member_minor1"/>
-            <field name="related_member_id" ref="demo_member_minor2"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_sibling"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor1"/>
+            <field name="related_member_id" ref="vertical_association_sweden.demo_member_minor2"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_sibling"/>
             <field name="household_id" ref="demo_household_1"/>
         </record>
         
         <record id="demo_family_2" model="vf.family.relationship">
-            <field name="member_id" ref="demo_member_minor2"/>
-            <field name="related_member_id" ref="demo_member_minor1"/>
-            <field name="relationship_type_id" ref="vf_member.relationship_type_sibling"/>
+            <field name="member_id" ref="vertical_association_sweden.demo_member_minor2"/>
+            <field name="related_member_id" ref="vertical_association_sweden.demo_member_minor1"/>
+            <field name="relationship_type_id" ref="vertical_association_sweden.relationship_type_sibling"/>
             <field name="household_id" ref="demo_household_1"/>
         </record>
     </data>

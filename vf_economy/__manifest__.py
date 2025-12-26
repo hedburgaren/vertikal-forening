@@ -33,7 +33,7 @@
         "wizard/vf_payment_reminder_wizard_views.xml",
     ],
     "demo": [
-        "demo/vf_economy_report_demo.xml",
+        "demo/vf_economy_demo.xml",
     ],
     "qweb": [
         "static/src/xml/vf_economy.xml",

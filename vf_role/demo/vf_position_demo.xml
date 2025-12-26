@@ -25,14 +25,14 @@
         <record id="demo_position_sports_manager" model="vf.position">
             <field name="name">Sports Manager</field>
             <field name="role_id" ref="role_section_manager"/>
-            <field name="section_id" ref="vf_group.demo_section_sports"/>
+            <field name="section_id" ref="demo_section_sports"/>
             <field name="max_holders">1</field>
         </record>
         
         <record id="demo_position_youth_manager" model="vf.position">
             <field name="name">Youth Activities Manager</field>
             <field name="role_id" ref="role_section_manager"/>
-            <field name="section_id" ref="vf_group.demo_section_youth"/>
+            <field name="section_id" ref="demo_section_youth"/>
             <field name="max_holders">1</field>
         </record>
         
@@ -40,35 +40,35 @@
         <record id="demo_position_football_u12_coach" model="vf.position">
             <field name="name">Coach</field>
             <field name="role_id" ref="role_coach"/>
-            <field name="group_id" ref="vf_group.demo_group_football_u12"/>
+            <field name="group_id" ref="demo_group_football_u12"/>
             <field name="max_holders">2</field>
         </record>
         
         <record id="demo_position_football_u12_leader" model="vf.position">
             <field name="name">Group Leader</field>
             <field name="role_id" ref="role_group_leader"/>
-            <field name="group_id" ref="vf_group.demo_group_football_u12"/>
+            <field name="group_id" ref="demo_group_football_u12"/>
             <field name="max_holders">1</field>
         </record>
         
         <record id="demo_position_youth_club_leader" model="vf.position">
             <field name="name">Youth Club Leader</field>
             <field name="role_id" ref="role_group_leader"/>
-            <field name="group_id" ref="vf_group.demo_group_youth_club"/>
+            <field name="group_id" ref="demo_group_youth_club"/>
             <field name="max_holders">1</field>
         </record>
         
         <record id="demo_position_swimming_junior_coach" model="vf.position">
             <field name="name">Swimming Coach</field>
             <field name="role_id" ref="role_coach"/>
-            <field name="group_id" ref="vf_group.demo_group_swimming_junior"/>
+            <field name="group_id" ref="demo_group_swimming_junior"/>
             <field name="max_holders">2</field>
         </record>
         
         <record id="demo_position_board_member" model="vf.position">
             <field name="name">Board Member</field>
             <field name="role_id" ref="role_member_representative"/>
-            <field name="group_id" ref="vf_group.demo_group_board"/>
+            <field name="group_id" ref="demo_group_board"/>
             <field name="max_holders">10</field>
         </record>
     </data>

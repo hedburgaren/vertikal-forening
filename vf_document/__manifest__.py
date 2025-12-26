@@ -30,6 +30,7 @@
     "demo": [
         "demo/vf_document_category_demo.xml",
         "demo/vf_document_demo.xml",
+        "demo/vf_document_template_demo.xml",
     ],
     "qweb": [
         "static/src/xml/vf_document.xml",

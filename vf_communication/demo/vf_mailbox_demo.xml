@@ -6,7 +6,7 @@
         <record id="demo_mailbox_president" model="vf.mailbox">
             <field name="name">President</field>
             <field name="code">president</field>
-            <field name="position_id" ref="vf_role.demo_position_president"/>
+            <field name="position_id" ref="vertical_association_sweden.demo_position_president"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">True</field>
         </record>
@@ -14,7 +14,7 @@
         <record id="demo_mailboard_secretary" model="vf.mailbox">
             <field name="name">Secretary</field>
             <field name="code">secretary</field>
-            <field name="position_id" ref="vf_role.demo_position_secretary"/>
+            <field name="position_id" ref="vertical_association_sweden.demo_position_secretary"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">True</field>
         </record>
@@ -22,7 +22,7 @@
         <record id="demo_mailbox_treasurer" model="vf.mailbox">
             <field name="name">Treasurer</field>
             <field name="code">treasurer</field>
-            <field name="position_id" ref="vf_role.demo_position_treasurer"/>
+            <field name="position_id" ref="vertical_association_sweden.demo_position_treasurer"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">True</field>
         </record>
@@ -31,7 +31,7 @@
         <record id="demo_mailbox_sports" model="vf.mailbox">
             <field name="name">Sports Section</field>
             <field name="code">sports</field>
-            <field name="section_id" ref="vf_group.demo_section_sports"/>
+            <field name="section_id" ref="demo_section_sports"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">True</field>
         </record>
@@ -39,7 +39,7 @@
         <record id="demo_mailbox_youth" model="vf.mailbox">
             <field name="name">Youth Activities</field>
             <field name="code">youth</field>
-            <field name="section_id" ref="vf_group.demo_section_youth"/>
+            <field name="section_id" ref="demo_section_youth"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">False</field>
         </record>
@@ -48,7 +48,7 @@
         <record id="demo_mailbox_football_u12" model="vf.mailbox">
             <field name="name">Football U12</field>
             <field name="code">football-u12</field>
-            <field name="group_id" ref="vf_group.demo_group_football_u12"/>
+            <field name="group_id" ref="demo_group_football_u12"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">True</field>
         </record>
@@ -56,7 +56,7 @@
         <record id="demo_mailbox_youth_club" model="vf.mailbox">
             <field name="name">Youth Club</field>
             <field name="code">youth-club</field>
-            <field name="group_id" ref="vf_group.demo_group_youth_club"/>
+            <field name="group_id" ref="demo_group_youth_club"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">False</field>
         </record>
@@ -64,7 +64,7 @@
         <record id="demo_mailbox_swimming_junior" model="vf.mailbox">
             <field name="name">Swimming Junior</field>
             <field name="code">swimming-junior</field>
-            <field name="group_id" ref="vf_group.demo_group_swimming_junior"/>
+            <field name="group_id" ref="demo_group_swimming_junior"/>
             <field name="forward_to_personal">True</field>
             <field name="require_membership">True</field>
         </record>

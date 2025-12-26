@@ -11,7 +11,7 @@
 <p>Please take a moment to familiarize yourself with our activities and groups.</p>
 <p>Best regards,<br/>The Board</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult1"/>
             <field name="date">2024-01-15 09:00:00</field>
             <field name="state">sent</field>
             <field name="send_email">True</field>
@@ -27,7 +27,7 @@
 <p>Your attendance is important!</p>
 <p>Best regards,<br/>The Secretary</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult3"/>
             <field name="date">2024-01-20 10:00:00</field>
             <field name="state">sent</field>
             <field name="send_email">True</field>
@@ -43,7 +43,7 @@
 <p>Training schedules will be posted next week.</p>
 <p>Best regards,<br/>Sports Manager</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult2"/>
             <field name="date">2024-02-01 14:00:00</field>
             <field name="state">sent</field>
             <field name="send_email">True</field>
@@ -63,7 +63,7 @@
 <p>Sign up at the office or online.</p>
 <p>Best regards,<br/>Youth Activities Manager</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult1"/>
             <field name="date">2024-02-10 11:00:00</field>
             <field name="state">sent</field>
             <field name="send_email">True</field>
@@ -86,7 +86,7 @@
 <p>Looking forward to seeing everyone there!</p>
 <p>Best regards,<br/>Coach Erik</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult2"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult2"/>
             <field name="date">2024-02-15 16:30:00</field>
             <field name="state">sent</field>
             <field name="send_email">True</field>
@@ -103,7 +103,7 @@
 <p>Don't forget your swimsuits and towels!</p>
 <p>Best regards,<br/>Coach Sofia</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult3"/>
             <field name="date">2024-02-20 09:00:00</field>
             <field name="state">sent</field>
             <field name="send_email">True</field>
@@ -118,7 +118,7 @@
 <p>We're excited to announce our summer camp program!</p>
 <p>[Draft - dates and prices to be confirmed]</p>
             ]]></field>
-            <field name="sender_id" ref="vf_member.demo_partner_adult1"/>
+            <field name="sender_id" ref="vertical_association_sweden.demo_partner_adult1"/>
             <field name="date">2024-02-25 13:00:00</field>
             <field name="state">draft</field>
             <field name="priority">normal</field>

@@ -21,8 +21,8 @@
             <field name="start_date">2024-03-15 18:00:00</field>
             <field name="end_date">2024-03-15 20:00:00</field>
             <field name="location">Main Hall</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult1"/>
-            <field name="section_id" ref="vf_group.demo_section_admin"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult1"/>
+            <field name="section_id" ref="demo_section_admin"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">False</field>
             <field name="max_participants">200</field>
@@ -50,8 +50,8 @@
             <field name="start_date">2024-03-01 16:00:00</field>
             <field name="end_date">2024-05-31 17:30:00</field>
             <field name="location">Football Field</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult2"/>
-            <field name="group_id" ref="vf_group.demo_group_football_u12"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult2"/>
+            <field name="group_id" ref="demo_group_football_u12"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">False</field>
             <field name="max_participants">20</field>
@@ -78,8 +78,8 @@
             <field name="start_date">2024-03-01 16:00:00</field>
             <field name="end_date">2024-05-31 17:00:00</field>
             <field name="location">Swimming Pool</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult3"/>
-            <field name="group_id" ref="vf_group.demo_group_swimming_junior"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult3"/>
+            <field name="group_id" ref="demo_group_swimming_junior"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">False</field>
             <field name="max_participants">30</field>
@@ -107,8 +107,8 @@
             <field name="start_date">2024-04-10 09:00:00</field>
             <field name="end_date">2024-04-12 16:00:00</field>
             <field name="location">Association Facilities</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult1"/>
-            <field name="section_id" ref="vf_group.demo_section_youth"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult1"/>
+            <field name="section_id" ref="demo_section_youth"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">True</field>
             <field name="max_participants">50</field>
@@ -136,8 +136,8 @@
             <field name="start_date">2024-02-17 09:00:00</field>
             <field name="end_date">2024-02-17 16:00:00</field>
             <field name="location">Meeting Room 1</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult2"/>
-            <field name="section_id" ref="vf_group.demo_section_sports"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult2"/>
+            <field name="section_id" ref="demo_section_sports"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">False</field>
             <field name="max_participants">20</field>
@@ -165,7 +165,7 @@
             <field name="start_date">2024-06-15 17:00:00</field>
             <field name="end_date">2024-06-15 23:00:00</field>
             <field name="location">Main Hall & Garden</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult3"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult3"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">False</field>
             <field name="max_participants">150</field>
@@ -182,13 +182,13 @@
             <field name="start_date">2024-05-20 18:00:00</field>
             <field name="end_date">2024-05-20 20:00:00</field>
             <field name="location">Meeting Room 2</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult1"/>
-            <field name="section_id" ref="vf_group.demo_section_admin"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult1"/>
+            <field name="section_id" ref="demo_section_admin"/>
             <field name="allow_registration">False</field>
             <field name="require_approval">False</field>
             <field name="state">planned</field>
             <field name="visibility">custom</field>
-            <field name="allowed_member_ids" eval="[(4, ref('vf_member.demo_member_adult1')), (4, ref('vf_member.demo_member_adult2')), (4, ref('vf_member.demo_member_adult3'))]"/>
+            <field name="allowed_member_ids" eval="[(4, ref('vertical_association_sweden.demo_member_adult1')), (4, ref('vertical_association_sweden.demo_member_adult2')), (4, ref('vertical_association_sweden.demo_member_adult3'))]"/>
             <field name="resource_ids" eval="[(4, ref('demo_resource_meeting_room2'))]"/>
         </record>
         
@@ -212,8 +212,8 @@
             <field name="start_date">2024-09-21 09:00:00</field>
             <field name="end_date">2024-09-21 18:00:00</field>
             <field name="location">Football Fields</field>
-            <field name="organizer_id" ref="vf_member.demo_partner_adult2"/>
-            <field name="section_id" ref="vf_group.demo_section_sports"/>
+            <field name="organizer_id" ref="vertical_association_sweden.demo_partner_adult2"/>
+            <field name="section_id" ref="demo_section_sports"/>
             <field name="allow_registration">True</field>
             <field name="require_approval">True</field>
             <field name="max_participants">200</field>
