@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Economy Report Tree View -->
+        <record id="vf_economy_report_view_tree" model="ir.ui.view">
+            <field name="name">vf.economy.report.tree</field>
+            <field name="model">vf.economy.report</field>
+            <field name="arch" type="xml">
+                <tree string="Economy Reports">
+                    <field name="name"/>
+                    <field name="report_type"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="date_generated"/>
+                    <field name="generated_by"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Economy Report Form View -->
+        <record id="vf_economy_report_view_form" model="ir.ui.view">
+            <field name="name">vf.economy.report.form</field>
+            <field name="model">vf.economy.report</field>
+            <field name="arch" type="xml">
+                <form string="Economy Report">
+                    <header>
+                        <button name="action_generate" type="object" string="Generate Report" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_export" type="object" string="Export" 
+                                attrs="{'invisible': [('state', '!=', 'generated')]}" class="btn-secondary"/>
+                        <button name="action_archive" type="object" string="Archive" 
+                                attrs="{'invisible': [('state', '=', 'archived')]}" class="btn-warning"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="report_info">
+                                <field name="name"/>
+                                <field name="report_type"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                            </group>
+                            <group name="generation_info">
+                                <field name="date_generated" readonly="1"/>
+                                <field name="generated_by" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Filters">
+                                <group>
+                                    <group string="Date Filters">
+                                        <field name="include_unpaid"/>
+                                        <field name="include_overdue"/>
+                                        <field name="include_paid"/>
+                                    </group>
+                                    <group string="Member Filters">
+                                        <field name="section_ids" widget="many2many_tags"/>
+                                        <field name="group_ids" widget="many2many_tags"/>
+                                        <field name="member_category_ids" widget="many2many_tags"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Report Data">
+                                <field name="report_data" nolabel="1" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Economy Report Search View -->
+        <record id="vf_economy_report_view_search" model="ir.ui.view">
+            <field name="name">vf.economy.report.search</field>
+            <field name="model">vf.economy.report</field>
+            <field name="arch" type="xml">
+                <search string="Search Economy Reports">
+                    <field name="name"/>
+                    <field name="report_type"/>
+                    <field name="generated_by"/>
+                    <field name="date_generated"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Generated" name="generated" domain="[('state', '=', 'generated')]"/>
+                    <filter string="Archived" name="archived" domain="[('state', '=', 'archived')]"/>
+                    <filter string="Fee Summary" name="fee_summary" domain="[('report_type', '=', 'fee_summary')]"/>
+                    <filter string="Payment Report" name="payment_report" domain="[('report_type', '=', 'payment_report')]"/>
+                    <filter string="Overdue Report" name="overdue_report" domain="[('report_type', '=', 'overdue_report')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Report Type" name="group_type" context="{'group_by': 'report_type'}"/>
+                        <filter string="Generated By" name="group_generator" context="{'group_by': 'generated_by'}"/>
+                        <filter string="Date Generated" name="group_date" context="{'group_by': 'date_generated:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Economy Report Action -->
+        <record id="vf_economy_report_action" model="ir.actions.act_window">
+            <field name="name">Economy Reports</field>
+            <field name="res_model">vf.economy.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first economy report!
+                </p>
+                <p>
+                    Economy reports provide financial summaries and analysis
+                    for membership fees, payments, and outstanding balances.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_economy_report_menu" name="Economy Reports" 
+                  parent="vertical_association_sweden.vf_menu_economy" 
+                  sequence="10"
+                  action="vf_economy_report_action"/>
+    </data>
+</odoo>

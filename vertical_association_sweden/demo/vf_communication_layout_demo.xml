@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default Email Layout -->
+        <record id="layout_email_default" model="vf.communication.layout">
+            <field name="name">Default Email Layout</field>
+            <field name="description">Clean and professional default email layout</field>
+            <field name="category_id" ref="category_layout_email"/>
+            <field name="layout_type">email</field>
+            <field name="is_default" eval="True"/>
+            <field name="primary_color">#003366</field>
+            <field name="secondary_color">#666666</field>
+            <field name="accent_color">#ff6600</field>
+            <field name="background_color">#ffffff</field>
+            <field name="header_html">
+&lt;div style="background-color: #003366; padding: 20px; text-align: center;"&gt;
+    &lt;img src="{{logo_url}}" alt="{{association_name}}" style="max-width: 200px; max-height: 100px;" /&gt;
+    &lt;h1 style="color: white; margin: 10px 0 0 0; font-size: 24px;"&gt;{{association_name}}&lt;/h1&gt;
+&lt;/div&gt;
+            </field>
+            <field name="footer_html">
+&lt;div style="background-color: #f5f5f5; padding: 20px; margin-top: 30px;"&gt;
+    &lt;table style="width: 100%;"&gt;
+        &lt;tr&gt;
+            &lt;td style="vertical-align: top; width: 50%;"&gt;
+                &lt;h4 style="color: #003366; margin: 0 0 10px 0;"&gt;{{association_name}}&lt;/h4&gt;
+                &lt;p style="margin: 5px 0;"&gt;{{association_address}}&lt;/p&gt;
+                &lt;p style="margin: 5px 0;"&gt;{{association_city}} {{association_zip}}&lt;/p&gt;
+                &lt;p style="margin: 5px 0;"&gt;Phone: {{association_phone}}&lt;/p&gt;
+                &lt;p style="margin: 5px 0;"&gt;Email: {{association_email}}&lt;/p&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; width: 50%; text-align: right;"&gt;
+                &lt;p style="margin: 5px 0;"&gt;
+                    &lt;a href="{{website_url}}" style="color: #003366; text-decoration: none;"&gt;Website&lt;/a&gt;
+                &lt;/p&gt;
+                &lt;p style="margin: 5px 0;"&gt;
+                    &lt;a href="{{portal_url}}" style="color: #003366; text-decoration: none;"&gt;Member Portal&lt;/a&gt;
+                &lt;/p&gt;
+                &lt;p style="margin: 5px 0;"&gt;
+                    &lt;a href="{{facebook_url}}" style="color: #003366; text-decoration: none;"&gt;Facebook&lt;/a&gt;
+                &lt;/p&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" /&gt;
+    &lt;p style="text-align: center; color: #666; font-size: 12px; margin: 0;"&gt;
+        © {{current_year}} {{association_name}}. All rights reserved.
+    &lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="email_wrapper_style">max-width: 600px; margin: 0 auto; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);</field>
+            <field name="email_body_style">padding: 30px; font-family: Arial, sans-serif; line-height: 1.6;</field>
+        </record>
+
+        <!-- Official Letter Layout -->
+        <record id="layout_letter_official" model="vf.communication.layout">
+            <field name="name">Official Letter Layout</field>
+            <field name="description">Formal layout for official association letters</field>
+            <field name="category_id" ref="category_layout_letters"/>
+            <field name="layout_type">letter</field>
+            <field name="is_default" eval="True"/>
+            <field name="letter_header_margin">2.5</field>
+            <field name="letter_footer_margin">2.5</field>
+            <field name="letter_body_margin">3.0</field>
+            <field name="letter_font_family">Times New Roman</field>
+            <field name="letter_font_size">12</field>
+            <field name="export_orientation">portrait</field>
+        </record>
+
+        <!-- PDF Report Layout -->
+        <record id="layout_export_pdf" model="vf.communication.layout">
+            <field name="name">PDF Report Layout</field>
+            <field name="description">Clean layout for PDF reports and exports</field>
+            <field name="category_id" ref="category_layout_exports"/>
+            <field name="layout_type">export_pdf</field>
+            <field name="is_default" eval="True"/>
+            <field name="primary_color">#003366</field>
+            <field name="secondary_color">#666666</field>
+            <field name="export_orientation">portrait</field>
+            <field name="header_html">
+&lt;div style="text-align: center; margin-bottom: 30px;"&gt;
+    &lt;h1 style="color: #003366; margin: 0;"&gt;{{association_name}}&lt;/h1&gt;
+    &lt;h2 style="color: #666; margin: 5px 0 0 0; font-weight: normal;"&gt;{{report_title}}&lt;/h2&gt;
+    &lt;p style="color: #666; margin: 5px 0 0 0;"&gt;{{report_date}}&lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="footer_html">
+&lt;div style="position: fixed; bottom: 20px; left: 0; right: 0; text-align: center; color: #666; font-size: 10px;"&gt;
+    Page {{page_number}} of {{total_pages}} - {{association_name}}
+&lt;/div&gt;
+            </field>
+        </record>
+
+        <!-- Modern Email Layout -->
+        <record id="layout_email_modern" model="vf.communication.layout">
+            <field name="name">Modern Email Layout</field>
+            <field name="description">Modern and colorful email layout with gradients</field>
+            <field name="category_id" ref="category_layout_email"/>
+            <field name="layout_type">email</field>
+            <field name="primary_color">#4a90e2</field>
+            <field name="secondary_color">#7b68ee</field>
+            <field name="accent_color">#ff6b6b</field>
+            <field name="background_color">#f8f9fa</field>
+            <field name="header_html">
+&lt;div style="background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 100%); padding: 30px; text-align: center;"&gt;
+    &lt;img src="{{logo_url}}" alt="{{association_name}}" style="max-width: 200px; max-height: 100px; filter: brightness(0) invert(1);" /&gt;
+    &lt;h1 style="color: white; margin: 15px 0 0 0; font-size: 28px; font-weight: 300;"&gt;{{association_name}}&lt;/h1&gt;
+&lt;/div&gt;
+            </field>
+            <field name="footer_html">
+&lt;div style="background: linear-gradient(135deg, #7b68ee 0%, #4a90e2 100%); padding: 30px; margin-top: 30px; text-align: center;"&gt;
+    &lt;h4 style="color: white; margin: 0 0 15px 0;"&gt;Follow Us&lt;/h4&gt;
+    &lt;p style="margin: 0;"&gt;
+        &lt;a href="{{website_url}}" style="color: white; text-decoration: none; margin: 0 10px;"&gt;Website&lt;/a&gt;
+        &lt;a href="{{facebook_url}}" style="color: white; text-decoration: none; margin: 0 10px;"&gt;Facebook&lt;/a&gt;
+        &lt;a href="{{instagram_url}}" style="color: white; text-decoration: none; margin: 0 10px;"&gt;Instagram&lt;/a&gt;
+    &lt;/p&gt;
+    &lt;p style="color: rgba(255,255,255,0.8); font-size: 12px; margin: 20px 0 0 0;"&gt;
+        © {{current_year}} {{association_name}}. All rights reserved.
+    &lt;/p&gt;
+&lt;/div&gt;
+            </field>
+            <field name="email_wrapper_style">max-width: 600px; margin: 20px auto; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);</field>
+            <field name="email_body_style">padding: 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8;</field>
+        </record>
+
+        <!-- Newsletter Layout -->
+        <record id="layout_email_newsletter" model="vf.communication.layout">
+            <field name="name">Newsletter Layout</field>
+            <field name="description">Two-column layout for newsletters and updates</field>
+            <field name="category_id" ref="category_layout_email"/>
+            <field name="layout_type">email</field>
+            <field name="primary_color">#2c3e50</field>
+            <field name="secondary_color">#34495e</field>
+            <field name="accent_color">#e74c3c</field>
+            <field name="background_color">#ecf0f1</field>
+            <field name="header_html">
+&lt;div style="background-color: #2c3e50; padding: 20px;"&gt;
+    &lt;table style="width: 100%;"&gt;
+        &lt;tr&gt;
+            &lt;td style="width: 200px;"&gt;
+                &lt;img src="{{logo_url}}" alt="{{association_name}}" style="max-width: 180px;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="text-align: right;"&gt;
+                &lt;h1 style="color: white; margin: 0; font-size: 24px;"&gt;{{newsletter_title}}&lt;/h1&gt;
+                &lt;p style="color: #bdc3c7; margin: 5px 0 0 0;"&gt;{{newsletter_date}}&lt;/p&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+            </field>
+            <field name="footer_html">
+&lt;div style="background-color: #34495e; padding: 20px; margin-top: 30px;"&gt;
+    &lt;table style="width: 100%;"&gt;
+        &lt;tr&gt;
+            &lt;td style="width: 50%;"&gt;
+                &lt;h4 style="color: white; margin: 0 0 10px 0;"&gt;{{association_name}}&lt;/h4&gt;
+                &lt;p style="color: #bdc3c7; margin: 5px 0; font-size: 12px;"&gt;{{association_address}}&lt;/p&gt;
+            &lt;/td&gt;
+            &lt;td style="width: 50%; text-align: right;"&gt;
+                &lt;p style="margin: 0;"&gt;
+                    &lt;a href="{{unsubscribe_url}}" style="color: #e74c3c; text-decoration: none; font-size: 12px;"&gt;Unsubscribe&lt;/a&gt;
+                &lt;/p&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+            </field>
+            <field name="email_wrapper_style">max-width: 700px; margin: 0 auto; background: white;</field>
+            <field name="email_body_style">padding: 0; font-family: Arial, sans-serif;</field>
+        </record>
+    </data>
+</odoo>

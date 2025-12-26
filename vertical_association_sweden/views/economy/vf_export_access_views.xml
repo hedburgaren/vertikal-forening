@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Export Access Tree View -->
+        <record id="vf_export_access_view_tree" model="ir.ui.view">
+            <field name="name">vf.export.access.tree</field>
+            <field name="model">vf.export.access</field>
+            <field name="arch" type="xml">
+                <tree string="Export Access">
+                    <field name="name"/>
+                    <field name="report_type"/>
+                    <field name="is_scheduled"/>
+                    <field name="last_export_date"/>
+                    <field name="last_export_user_id"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Export Access Form View -->
+        <record id="vf_export_access_view_form" model="ir.ui.view">
+            <field name="name">vf.export.access.form</field>
+            <field name="model">vf.export.access</field>
+            <field name="arch" type="xml">
+                <form string="Export Access">
+                    <header>
+                        <button name="action_export_now" type="object" string="Export Now" class="btn-primary"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="export_info">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="report_type"/>
+                            </group>
+                            <group name="schedule_info">
+                                <field name="is_scheduled"/>
+                                <field name="schedule_frequency" attrs="{'invisible': [('is_scheduled', '=', False)]}"/>
+                                <field name="next_export_date" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Access Control">
+                                <group>
+                                    <field name="allowed_user_ids" widget="many2many_tags"/>
+                                    <field name="allowed_group_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Export Settings">
+                                <group>
+                                    <field name="export_format"/>
+                                    <field name="auto_email"/>
+                                    <field name="email_recipients" widget="many2many_tags" 
+                                           attrs="{'invisible': [('auto_email', '=', False)]}"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Schedule Settings" 
+                                   attrs="{'invisible': [('is_scheduled', '=', False)]}">
+                                <group>
+                                    <field name="schedule_day"/>
+                                    <field name="schedule_time"/>
+                                    <field name="last_export_date" readonly="1"/>
+                                    <field name="last_export_user_id" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Export Access Search View -->
+        <record id="vf_export_access_view_search" model="ir.ui.view">
+            <field name="name">vf.export.access.search</field>
+            <field name="model">vf.export.access</field>
+            <field name="arch" type="xml">
+                <search string="Search Export Access">
+                    <field name="name"/>
+                    <field name="report_type"/>
+                    <field name="description"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Scheduled" name="scheduled" domain="[('is_scheduled', '=', True)]"/>
+                    <filter string="Manual Only" name="manual" domain="[('is_scheduled', '=', False)]"/>
+                    <filter string="My Access" name="my_access" 
+                            domain="[('allowed_user_ids', 'in', uid)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Report Type" name="group_type" context="{'group_by': 'report_type'}"/>
+                        <filter string="Schedule" name="group_schedule" context="{'group_by': 'is_scheduled'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Export Access Action -->
+        <record id="vf_export_access_action" model="ir.actions.act_window">
+            <field name="name">Export Access</field>
+            <field name="res_model">vf.export.access</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first export access configuration!
+                </p>
+                <p>
+                    Export access controls who can export reports and data
+                    from the association system.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_export_access_menu" name="Export Access" 
+                  parent="vertical_association_sweden.vf_menu_economy" 
+                  sequence="30"
+                  action="vf_export_access_action"/>
+    </data>
+</odoo>

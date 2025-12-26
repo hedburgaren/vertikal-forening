@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Activity Schedule List View -->
+        <record id="vf_activity_schedule_view_tree" model="ir.ui.view">
+            <field name="name">vf.activity.schedule.tree</field>
+            <field name="model">vf.activity.schedule</field>
+            <field name="arch" type="xml">
+                <tree string="Activity Schedule">
+                    <field name="display_name"/>
+                    <field name="activity_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="instructor_id"/>
+                    <field name="state"/>
+                    <field name="participant_count"/>
+                    <field name="available_spots"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Activity Schedule Form View -->
+        <record id="vf_activity_schedule_view_form" model="ir.ui.view">
+            <field name="name">vf.activity.schedule.form</field>
+            <field name="model">vf.activity.schedule</field>
+            <field name="arch" type="xml">
+                <form string="Activity Schedule">
+                    <header>
+                        <button name="action_plan" type="object" string="Plan" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_confirm" type="object" string="Confirm" 
+                                attrs="{'invisible': [('state', 'not in', ['draft', 'planned'])]}"/>
+                        <button name="action_complete" type="object" string="Complete" 
+                                attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                        <button name="action_cancel" type="object" string="Cancel" 
+                                attrs="{'invisible': [('state', '=', 'cancelled')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <button name="action_view_registrations" type="object" string="Registrations"/>
+                        <button name="action_take_attendance" type="object" string="Take Attendance"/>
+                        <button name="generate_recurrences" type="object" string="Generate Recurrences" 
+                                attrs="{'invisible': [('is_recurring', '=', False)]}"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,planned,confirmed,completed,cancelled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_registrations" type="object" 
+                                    class="oe_stat_button" icon="fa-users">
+                                <field name="participant_count" widget="statinfo" 
+                                       string="Participants"/>
+                            </button>
+                            <button name="action_take_attendance" type="object" 
+                                    class="oe_stat_button" icon="fa-check">
+                                <field name="attendance_count" widget="statinfo" 
+                                       string="Attended"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="schedule_info">
+                                <field name="activity_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="all_day"/>
+                            </group>
+                            <group name="instructor">
+                                <field name="instructor_id"/>
+                                <field name="assistant_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Location">
+                                <group>
+                                    <field name="location"/>
+                                    <field name="address"/>
+                                    <field name="resource_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Recurrence" 
+                                   attrs="{'invisible': [('is_recurring', '=', False)]}">
+                                <group>
+                                    <group string="Recurrence Pattern">
+                                        <field name="is_recurring"/>
+                                        <field name="recurrence_type"/>
+                                        <field name="recurrence_interval"/>
+                                        <field name="recurrence_end"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <page string="Registrations">
+                                <field name="registration_ids">
+                                    <tree>
+                                        <field name="member_id"/>
+                                        <field name="registration_date"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                            <page string="Attendance">
+                                <field name="attendance_ids">
+                                    <tree>
+                                        <field name="member_id"/>
+                                        <field name="check_in"/>
+                                        <field name="check_out"/>
+                                        <field name="status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Activity Schedule Search View -->
+        <record id="vf_activity_schedule_view_search" model="ir.ui.view">
+            <field name="name">vf.activity.schedule.search</field>
+            <field name="model">vf.activity.schedule</field>
+            <field name="arch" type="xml">
+                <search string="Search Activity Schedules">
+                    <field name="activity_id"/>
+                    <field name="instructor_id"/>
+                    <field name="location"/>
+                    <field name="start_date"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Planned" name="planned" domain="[('state', '=', 'planned')]"/>
+                    <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                    <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]"/>
+                    <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <filter string="Today" name="today" 
+                            domain="[('start_date', '>=', context_today()), ('start_date', '<=', context_today() + datetime.timedelta(days=1))]"/>
+                    <filter string="This Week" name="this_week" 
+                            domain="[('start_date', '>=', context_today()), ('start_date', '<=', context_today() + datetime.timedelta(days=7))]"/>
+                    <filter string="My Schedules" name="my_schedules" 
+                            domain="[('instructor_id', '=', uid)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Activity" name="group_activity" context="{'group_by': 'activity_id'}"/>
+                        <filter string="Instructor" name="group_instructor" context="{'group_by': 'instructor_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Activity Schedule Action -->
+        <record id="vf_activity_schedule_action" model="ir.actions.act_window">
+            <field name="name">Activity Schedules</field>
+            <field name="res_model">vf.activity.schedule</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_confirmed': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first activity schedule!
+                </p>
+                <p>
+                    Activity schedules define when and where activities take place.
+                    They track registrations and attendance for specific sessions.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_activity_schedule_menu" name="Schedules" parent="vf_activity_menu" 
+                  sequence="20" action="vf_activity_schedule_action"/>
+    </data>
+</odoo>

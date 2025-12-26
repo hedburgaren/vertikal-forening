@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Partner Form View Extension -->
+        <record id="view_res_partner_form_inherit_vf_activity" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.vf.activity</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <group name="vf_activity_info" string="Activities" 
+                           attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="activity_count" readonly="1"/>
+                        <field name="upcoming_activities" readonly="1"/>
+                        <button name="action_view_activities" type="object" string="View Activities" 
+                                class="btn-link"/>
+                        <button name="action_register_activity" type="object" string="Register for Activity" 
+                                class="btn-link"/>
+                    </group>
+                </xpath>
+                
+                <xpath expr="//notebook" position="inside">
+                    <page string="Activities" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <group string="Organized Activities">
+                            <field name="organized_activity_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="state"/>
+                                    <field name="participant_count"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                        <group string="Instructed Sessions">
+                            <field name="instructed_schedule_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="participant_count"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                        
+                        <group string="Registration History">
+                            <field name="registration_ids">
+                                <tree>
+                                    <field name="schedule_id"/>
+                                    <field name="registration_date"/>
+                                    <field name="state"/>
+                                    <field name="attended"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

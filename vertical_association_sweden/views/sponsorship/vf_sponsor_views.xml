@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Sponsor Tree View -->
+        <record id="vf_sponsor_view_tree" model="ir.ui.view">
+            <field name="name">vf.sponsor.tree</field>
+            <field name="model">vf.sponsor</field>
+            <field name="arch" type="xml">
+                <tree string="Sponsors">
+                    <field name="display_name"/>
+                    <field name="sponsorship_level_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="annual_amount"/>
+                    <field name="state"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Sponsor Form View -->
+        <record id="vf_sponsor_view_form" model="ir.ui.view">
+            <field name="name">vf.sponsor.form</field>
+            <field name="model">vf.sponsor</field>
+            <field name="arch" type="xml">
+                <form string="Sponsor">
+                    <header>
+                        <button name="action_activate" type="object" string="Activate" 
+                                attrs="{'invisible': [('state', '!=', 'prospect')]}" class="btn-primary"/>
+                        <button name="action_renew" type="object" string="Renew" 
+                                attrs="{'invisible': [('state', '!=', 'active')]}" class="btn-secondary"/>
+                        <button name="action_terminate" type="object" string="Terminate" 
+                                attrs="{'invisible': [('state', '=', 'terminated')]}" class="btn-warning"/>
+                        <button name="action_send_update" type="object" string="Send Update" 
+                                attrs="{'invisible': [('state', '!=', 'active')]}" class="btn-info"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_contracts" type="object" 
+                                    class="oe_stat_button" icon="fa-file-contract">
+                                <field name="contract_ids" widget="statinfo" 
+                                       string="Contracts" help="Number of contracts"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="sponsor_info">
+                                <field name="partner_id" required="1"/>
+                                <field name="sponsorship_level_id" required="1"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group name="financial_info">
+                                <field name="annual_amount"/>
+                                <field name="currency_id"/>
+                                <field name="payment_term_id"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Contact Information">
+                                <group>
+                                    <field name="contact_person_id"/>
+                                    <field name="email"/>
+                                    <field name="phone"/>
+                                    <field name="website"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Benefits">
+                                <field name="benefit_ids" widget="many2many_tags"/>
+                            </page>
+                            
+                            <page string="Contracts">
+                                <field name="contract_ids">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Sponsor Search View -->
+        <record id="vf_sponsor_view_search" model="ir.ui.view">
+            <field name="name">vf.sponsor.search</field>
+            <field name="model">vf.sponsor</field>
+            <field name="arch" type="xml">
+                <search string="Search Sponsors">
+                    <field name="partner_id"/>
+                    <field name="sponsorship_level_id"/>
+                    <field name="contact_person_id"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Prospects" name="prospects" domain="[('state', '=', 'prospect')]"/>
+                    <filter string="Active Sponsors" name="active_sponsors" domain="[('state', '=', 'active')]"/>
+                    <filter string="Expired" name="expired" domain="[('state', '=', 'expired')]"/>
+                    <filter string="Terminated" name="terminated" domain="[('state', '=', 'terminated')]"/>
+                    <filter string="Expiring Soon" name="expiring_soon" 
+                            domain="[('end_date', '<=', (context_today() + datetime.timedelta(days=90)).strftime('%Y-%m-%d')), 
+                                     ('end_date', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Sponsorship Level" name="group_level" context="{'group_by': 'sponsorship_level_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="End Date" name="group_date" context="{'group_by': 'end_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Sponsor Action -->
+        <record id="vf_sponsor_action" model="ir.actions.act_window">
+            <field name="name">Sponsors</field>
+            <field name="res_model">vf.sponsor</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first sponsor!
+                </p>
+                <p>
+                    Sponsors are organizations or individuals that provide financial
+                    support to the association in exchange for benefits and recognition.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_sponsor_menu_main" name="Sponsors" parent="vf_sponsorship_menu" 
+                  sequence="20" action="vf_sponsor_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Mandate Extension List View -->
+        <record id="vf_mandate_extension_view_tree" model="ir.ui.view">
+            <field name="name">vf.mandate.extension.tree</field>
+            <field name="model">vf.mandate.extension</field>
+            <field name="arch" type="xml">
+                <tree string="Mandate Extensions">
+                    <field name="mandate_id"/>
+                    <field name="original_end_date"/>
+                    <field name="new_end_date"/>
+                    <field name="approved_by"/>
+                    <field name="approval_date"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Mandate Extension Form View -->
+        <record id="vf_mandate_extension_view_form" model="ir.ui.view">
+            <field name="name">vf.mandate.extension.form</field>
+            <field name="model">vf.mandate.extension</field>
+            <field name="arch" type="xml">
+                <form string="Mandate Extension">
+                    <header>
+                        <button name="action_approve" type="object" string="Approve" 
+                                attrs="{'invisible': [('status', '!=', 'pending')]}" class="btn-primary"/>
+                        <button name="action_reject" type="object" string="Reject" 
+                                attrs="{'invisible': [('status', '!=', 'pending')]}"/>
+                        <field name="status" widget="statusbar" 
+                               statusbar_visible="pending,approved,rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group name="extension_info">
+                                <field name="mandate_id"/>
+                                <field name="original_end_date" readonly="1"/>
+                                <field name="new_end_date"/>
+                            </group>
+                            <group name="approval">
+                                <field name="approved_by"/>
+                                <field name="approval_date"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Extension Reason">
+                            <field name="extension_reason" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Mandate Extension Action -->
+        <record id="vf_mandate_extension_action" model="ir.actions.act_window">
+            <field name="name">Mandate Extensions</field>
+            <field name="res_model">vf.mandate.extension</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

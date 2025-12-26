@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Record Rules -->
+        <!-- Roles: Everyone can read, only admins can write -->
+        <record id="rule_vf_role_admin" model="ir.rule">
+            <field name="name">VF Role: Admin Only</field>
+            <field name="model_id" ref="model_vf_role"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_admin'))]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+        
+        <!-- Positions: Leaders can see positions in their scope -->
+        <record id="rule_vf_position_leader" model="ir.rule">
+            <field name="name">VF Position: Section/Group Positions</field>
+            <field name="model_id" ref="model_vf_position"/>
+            <field name="domain_force">['|', ('section_id.manager_id', '=', user.partner_id.id), ('group_id.leader_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Positions: Admins can see all -->
+        <record id="rule_vf_position_admin" model="ir.rule">
+            <field name="name">VF Position: All</field>
+            <field name="model_id" ref="model_vf_position"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Mandates: Users can see their own mandates -->
+        <record id="rule_vf_mandate_own" model="ir.rule">
+            <field name="name">VF Mandate: Own Mandates</field>
+            <field name="model_id" ref="model_vf_mandate"/>
+            <field name="domain_force">[('person_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Mandates: Leaders can see mandates in their scope -->
+        <record id="rule_vf_mandate_leader" model="ir.rule">
+            <field name="name">VF Mandate: Scope Mandates</field>
+            <field name="model_id" ref="model_vf_mandate"/>
+            <field name="domain_force">['|', ('position_id.section_id.manager_id', '=', user.partner_id.id), ('position_id.group_id.leader_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Mandates: Admins can see all -->
+        <record id="rule_vf_mandate_admin" model="ir.rule">
+            <field name="name">VF Mandate: All</field>
+            <field name="model_id" ref="model_vf_mandate"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Mandate Extensions: Users can see extensions for their mandates -->
+        <record id="rule_vf_mandate_extension_own" model="ir.rule">
+            <field name="name">VF Mandate Extension: Own</field>
+            <field name="model_id" ref="model_vf_mandate_extension"/>
+            <field name="domain_force">[('mandate_id.person_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Mandate Extensions: Leaders can see extensions in their scope -->
+        <record id="rule_vf_mandate_extension_leader" model="ir.rule">
+            <field name="name">VF Mandate Extension: Scope</field>
+            <field name="model_id" ref="model_vf_mandate_extension"/>
+            <field name="domain_force">['|', ('mandate_id.position_id.section_id.manager_id', '=', user.partner_id.id), ('mandate_id.position_id.group_id.leader_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Mandate Extensions: Admins can see all -->
+        <record id="rule_vf_mandate_extension_admin" model="ir.rule">
+            <field name="name">VF Mandate Extension: All</field>
+            <field name="model_id" ref="model_vf_mandate_extension"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_admin'))]"/>
+        </record>
+    </data>
+</odoo>

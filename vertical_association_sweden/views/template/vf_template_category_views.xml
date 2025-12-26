@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Template Category List View -->
+        <record id="vf_template_category_view_tree" model="ir.ui.view">
+            <field name="name">vf.template.category.tree</field>
+            <field name="model">vf.template.category</field>
+            <field name="arch" type="xml">
+                <tree string="Template Categories">
+                    <field name="name"/>
+                    <field name="template_type"/>
+                    <field name="description"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Template Category Form View -->
+        <record id="vf_template_category_view_form" model="ir.ui.view">
+            <field name="name">vf.template.category.form</field>
+            <field name="model">vf.template.category</field>
+            <field name="arch" type="xml">
+                <form string="Template Category">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="template_type"/>
+                                <field name="active"/>
+                            </group>
+                            <group>
+                                <field name="default_visibility" 
+                                       attrs="{'invisible': [('template_type', '!=', 'document')]}"/>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        <group string="Statistics" name="statistics">
+                            <group>
+                                <field name="document_template_count" 
+                                       attrs="{'invisible': [('template_type', '!=', 'document')]}"/>
+                                <field name="email_template_count" 
+                                       attrs="{'invisible': [('template_type', '!=', 'email')]}"/>
+                                <field name="layout_count" 
+                                       attrs="{'invisible': [('template_type', '!=', 'layout')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Template Category Actions -->
+        <record id="vf_template_category_action" model="ir.actions.act_window">
+            <field name="name">Template Categories</field>
+            <field name="res_model">vf.template.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first template category!
+                </p>
+                <p>
+                    Template categories help organize your templates by type and purpose.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <menuitem id="vf_template_menu_main" name="Templates" 
+                  parent="vertical_association_sweden.vf_menu_main" sequence="50"/>
+        
+        <menuitem id="vf_template_category_menu" name="Categories" 
+                  parent="vf_template_menu_main" 
+                  action="vf_template_category_action" sequence="10"/>
+    </data>
+</odoo>

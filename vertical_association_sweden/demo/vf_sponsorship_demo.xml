@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sponsorship Levels -->
+        <record id="vf_sponsorship_level_bronze" model="vf.sponsorship.level">
+            <field name="name">Bronze</field>
+            <field name="sequence">10</field>
+            <field name="default_amount">5000</field>
+            <field name="color">#CD7F32</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="vf_sponsorship_level_silver" model="vf.sponsorship.level">
+            <field name="name">Silver</field>
+            <field name="sequence">20</field>
+            <field name="default_amount">10000</field>
+            <field name="color">#C0C0C0</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="vf_sponsorship_level_gold" model="vf.sponsorship.level">
+            <field name="name">Gold</field>
+            <field name="sequence">30</field>
+            <field name="default_amount">25000</field>
+            <field name="color">#FFD700</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Sponsorship Benefits -->
+        <record id="vf_sponsorship_benefit_logo" model="vf.sponsorship.benefit">
+            <field name="name">Logo on Website</field>
+            <field name="category">visibility</field>
+            <field name="active">True</field>
+        </record>
+        
+        <record id="vf_sponsorship_benefit_newsletter" model="vf.sponsorship.benefit">
+            <field name="name">Newsletter Mention</field>
+            <field name="category">promotion</field>
+            <field name="active">True</field>
+        </record>
+        
+        <!-- Merchandise Products -->
+        <record id="vf_merchandise_tshirt" model="vf.merchandise.product">
+            <field name="name">Association T-Shirt</field>
+            <field name="member_price">150</field>
+            <field name="non_member_price">200</field>
+            <field name="state">available</field>
+            <field name="show_on_website">True</field>
+        </record>
+        
+        <record id="vf_merchandise_cap" model="vf.merchandise.product">
+            <field name="name">Association Cap</field>
+            <field name="member_price">100</field>
+            <field name="non_member_price">150</field>
+            <field name="state">available</field>
+            <field name="show_on_website">True</field>
+        </record>
+    </data>
+</odoo>

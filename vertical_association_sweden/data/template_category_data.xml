@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Document Template Categories -->
+        <record id="category_document_reports" model="vf.template.category">
+            <field name="name">Reports</field>
+            <field name="description">Document templates for various reports</field>
+            <field name="template_type">document</field>
+            <field name="default_visibility">leadership</field>
+        </record>
+        
+        <record id="category_document_certificates" model="vf.template.category">
+            <field name="name">Certificates</field>
+            <field name="description">Certificate templates for awards and achievements</field>
+            <field name="template_type">document</field>
+            <field name="default_visibility">members</field>
+        </record>
+        
+        <record id="category_document_forms" model="vf.template.category">
+            <field name="name">Forms</field>
+            <field name="description">Form templates for applications and requests</field>
+            <field name="template_type">document</field>
+            <field name="default_visibility">public</field>
+        </record>
+        
+        <record id="category_document_letters" model="vf.template.category">
+            <field name="name">Letters</field>
+            <field name="description">Letter templates for official correspondence</field>
+            <field name="template_type">document</field>
+            <field name="default_visibility">leadership</field>
+        </record>
+        
+        <record id="category_document_contracts" model="vf.template.category">
+            <field name="name">Contracts</field>
+            <field name="description">Contract templates for agreements</field>
+            <field name="template_type">document</field>
+            <field name="default_visibility">leadership</field>
+        </record>
+        
+        <!-- Email Template Categories -->
+        <record id="category_email_notifications" model="vf.template.category">
+            <field name="name">Notifications</field>
+            <field name="description">Email templates for system notifications</field>
+            <field name="template_type">email</field>
+        </record>
+        
+        <record id="category_email_reminders" model="vf.template.category">
+            <field name="name">Reminders</field>
+            <field name="description">Email templates for payment and event reminders</field>
+            <field name="template_type">email</field>
+        </record>
+        
+        <record id="category_email_confirmations" model="vf.template.category">
+            <field name="name">Confirmations</field>
+            <field name="description">Email templates for registration and payment confirmations</field>
+            <field name="template_type">email</field>
+        </record>
+        
+        <record id="category_email_welcome" model="vf.template.category">
+            <field name="name">Welcome Emails</field>
+            <field name="description">Email templates for welcoming new members</field>
+            <field name="template_type">email</field>
+        </record>
+        
+        <record id="category_email_invoices" model="vf.template.category">
+            <field name="name">Invoices</field>
+            <field name="description">Email templates for invoices and payment requests</field>
+            <field name="template_type">email</field>
+        </record>
+        
+        <!-- Communication Layout Categories -->
+        <record id="category_layout_email" model="vf.template.category">
+            <field name="name">Email Layouts</field>
+            <field name="description">Layout templates for email communications</field>
+            <field name="template_type">layout</field>
+        </record>
+        
+        <record id="category_layout_letters" model="vf.template.category">
+            <field name="name">Letter Layouts</field>
+            <field name="description">Layout templates for official letters</field>
+            <field name="template_type">layout</field>
+        </record>
+        
+        <record id="category_layout_exports" model="vf.template.category">
+            <field name="name">Export Layouts</field>
+            <field name="description">Layout templates for PDF and Excel exports</field>
+            <field name="template_type">layout</field>
+        </record>
+        
+        <record id="category_layout_reports" model="vf.template.category">
+            <field name="name">Report Layouts</field>
+            <field name="description">Layout templates for formal reports</field>
+            <field name="template_type">layout</field>
+        </record>
+    </data>
+</odoo>

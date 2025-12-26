@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Resource List View -->
+        <record id="vf_resource_view_tree" model="ir.ui.view">
+            <field name="name">vf.resource.tree</field>
+            <field name="model">vf.resource</field>
+            <field name="arch" type="xml">
+                <tree string="Resources">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="resource_type"/>
+                    <field name="location"/>
+                    <field name="capacity"/>
+                    <field name="current_bookings"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Resource Form View -->
+        <record id="vf_resource_view_form" model="ir.ui.view">
+            <field name="name">vf.resource.form</field>
+            <field name="model">vf.resource</field>
+            <field name="arch" type="xml">
+                <form string="Resource">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_bookings" type="object" 
+                                    class="oe_stat_button" icon="fa-calendar">
+                                <field name="current_bookings" widget="statinfo" 
+                                       string="Current Bookings"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="resource_info">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="resource_type"/>
+                                <field name="location"/>
+                            </group>
+                            <group name="configuration">
+                                <field name="capacity"/>
+                                <field name="active"/>
+                                <field name="requires_approval"/>
+                                <field name="manager_id"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Booking Rules">
+                                <group>
+                                    <field name="min_booking_duration"/>
+                                    <field name="max_booking_duration"/>
+                                    <field name="advance_booking_days"/>
+                                </group>
+                                <p class="text-muted">
+                                    These rules control how the resource can be booked.
+                                </p>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Resource Search View -->
+        <record id="vf_resource_view_search" model="ir.ui.view">
+            <field name="name">vf.resource.search</field>
+            <field name="model">vf.resource</field>
+            <field name="arch" type="xml">
+                <search string="Search Resources">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="location"/>
+                    <field name="manager_id"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Available" name="available" domain="[('is_available', '=', True)]"/>
+                    <filter string="In Use" name="in_use" domain="[('current_bookings', '>', 0)]"/>
+                    <filter string="Requires Approval" name="requires_approval" 
+                            domain="[('requires_approval', '=', True)]"/>
+                    <separator/>
+                    <filter string="Rooms" name="rooms" domain="[('resource_type', '=', 'room')]"/>
+                    <filter string="Equipment" name="equipment" domain="[('resource_type', '=', 'equipment')]"/>
+                    <filter string="Vehicles" name="vehicles" domain="[('resource_type', '=', 'vehicle')]"/>
+                    <filter string="Facilities" name="facilities" domain="[('resource_type', '=', 'facility')]"/>
+                    <filter string="My Resources" name="my_resources" 
+                            domain="[('manager_id', '=', user.partner_id.id)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Type" name="group_type" context="{'group_by': 'resource_type'}"/>
+                        <filter string="Location" name="group_location" context="{'group_by': 'location'}"/>
+                        <filter string="Manager" name="group_manager" context="{'group_by': 'manager_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Resource Action -->
+        <record id="vf_resource_action" model="ir.actions.act_window">
+            <field name="name">Resources</field>
+            <field name="res_model">vf.resource</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first resource!
+                </p>
+                <p>
+                    Resources are physical items or locations that can be booked
+                    for activities, such as rooms, equipment, and vehicles.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_resource_menu" name="Resources" 
+                  parent="vertical_association_sweden.vf_activity_menu" 
+                  sequence="20"
+                  action="vf_resource_action"/>
+    </data>
+</odoo>

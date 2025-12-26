@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Merchandise Product Tree View -->
+        <record id="vf_merchandise_product_view_tree" model="ir.ui.view">
+            <field name="name">vf.merchandise.product.tree</field>
+            <field name="model">vf.merchandise.product</field>
+            <field name="arch" type="xml">
+                <tree string="Merchandise Products">
+                    <field name="display_name"/>
+                    <field name="category_id"/>
+                    <field name="member_price"/>
+                    <field name="non_member_price"/>
+                    <field name="total_sold"/>
+                    <field name="state"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Merchandise Product Form View -->
+        <record id="vf_merchandise_product_view_form" model="ir.ui.view">
+            <field name="name">vf.merchandise.product.form</field>
+            <field name="model">vf.merchandise.product</field>
+            <field name="arch" type="xml">
+                <form string="Merchandise Product">
+                    <header>
+                        <button name="action_make_available" type="object" string="Make Available" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_mark_sold_out" type="object" string="Mark Sold Out" 
+                                attrs="{'invisible': [('state', '!=', 'available')]}" class="btn-warning"/>
+                        <button name="action_discontinue" type="object" string="Discontinue" 
+                                attrs="{'invisible': [('state', '=', 'discontinued')]}" class="btn-danger"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_sales" type="object" 
+                                    class="oe_stat_button" icon="fa-shopping-cart">
+                                <field name="total_sold" widget="statinfo" 
+                                       string="Sold" help="Total units sold"/>
+                            </button>
+                            <button name="action_create_sale_order" type="object" 
+                                    class="oe_stat_button" icon="fa-plus">
+                                <field name="stock_available" widget="statinfo" 
+                                       string="Stock" help="Available stock"/>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="product_info">
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="product_id"/>
+                            </group>
+                            <group name="pricing">
+                                <field name="member_price"/>
+                                <field name="non_member_price"/>
+                                <field name="currency_id"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Inventory">
+                                <group>
+                                    <field name="stock_available"/>
+                                    <field name="min_stock_level"/>
+                                    <field name="max_stock_level"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Sales">
+                                <field name="order_ids">
+                                    <tree>
+                                        <field name="order_number"/>
+                                        <field name="member_id"/>
+                                        <field name="order_date"/>
+                                        <field name="quantity"/>
+                                        <field name="total_amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Merchandise Product Search View -->
+        <record id="vf_merchandise_product_view_search" model="ir.ui.view">
+            <field name="name">vf.merchandise.product.search</field>
+            <field name="model">vf.merchandise.product</field>
+            <field name="arch" type="xml">
+                <search string="Search Merchandise Products">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="description"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Available" name="available" domain="[('state', '=', 'available')]"/>
+                    <filter string="Sold Out" name="sold_out" domain="[('state', '=', 'sold_out')]"/>
+                    <filter string="Discontinued" name="discontinued" domain="[('state', '=', 'discontinued')]"/>
+                    <filter string="Low Stock" name="low_stock" 
+                            domain="[('stock_available', '<=', 'min_stock_level')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Merchandise Product Action -->
+        <record id="vf_merchandise_product_action" model="ir.actions.act_window">
+            <field name="name">Merchandise Products</field>
+            <field name="res_model">vf.merchandise.product</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_available': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first merchandise product!
+                </p>
+                <p>
+                    Merchandise products are items that can be sold to members
+                    and non-members, often as part of sponsorship benefits.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_merchandise_menu" name="Merchandise" parent="vf_sponsorship_menu" 
+                  sequence="40" action="vf_merchandise_product_action"/>
+    </data>
+</odoo>

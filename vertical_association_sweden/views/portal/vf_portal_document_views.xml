@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Portal Document Access Tree View -->
+        <record id="vf_portal_document_access_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.document.access.tree</field>
+            <field name="model">vf.portal.document.access</field>
+            <field name="arch" type="xml">
+                <tree string="Document Access">
+                    <field name="document_id"/>
+                    <field name="member_id"/>
+                    <field name="access_granted"/>
+                    <field name="date_granted"/>
+                    <field name="expires_on"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Document Access Form View -->
+        <record id="vf_portal_document_access_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.document.access.form</field>
+            <field name="model">vf.portal.document.access</field>
+            <field name="arch" type="xml">
+                <form string="Document Access">
+                    <sheet>
+                        <group>
+                            <group name="access_info">
+                                <field name="document_id" required="1"/>
+                                <field name="member_id" required="1"/>
+                                <field name="access_granted"/>
+                            </group>
+                            <group name="date_info">
+                                <field name="date_granted" readonly="1"/>
+                                <field name="expires_on"/>
+                                <field name="granted_by" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Notes">
+                                <field name="notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Portal Document Category Tree View -->
+        <record id="vf_portal_document_category_view_tree" model="ir.ui.view">
+            <field name="name">vf.portal.document.category.tree</field>
+            <field name="model">vf.portal.document.category</field>
+            <field name="arch" type="xml">
+                <tree string="Document Categories">
+                    <field name="name"/>
+                    <field name="sequence"/>
+                    <field name="member_access_count"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Portal Document Category Form View -->
+        <record id="vf_portal_document_category_view_form" model="ir.ui.view">
+            <field name="name">vf.portal.document.category.form</field>
+            <field name="model">vf.portal.document.category</field>
+            <field name="arch" type="xml">
+                <form string="Document Category">
+                    <sheet>
+                        <group>
+                            <group name="category_info">
+                                <field name="name"/>
+                                <field name="sequence"/>
+                                <field name="active"/>
+                            </group>
+                            <group name="access_info">
+                                <field name="member_access_count" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            
+                            <page string="Access Control">
+                                <group>
+                                    <field name="role_ids" widget="many2many_tags"/>
+                                    <field name="group_ids" widget="many2many_tags"/>
+                                    <field name="section_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Portal Document Access Action -->
+        <record id="vf_portal_document_access_action" model="ir.actions.act_window">
+            <field name="name">Document Access</field>
+            <field name="res_model">vf.portal.document.access</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No document access records yet.
+                </p>
+                <p>
+                    Document access records control which members can access
+                    specific documents through the portal.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Portal Document Category Action -->
+        <record id="vf_portal_document_category_action" model="ir.actions.act_window">
+            <field name="name">Document Categories</field>
+            <field name="res_model">vf.portal.document.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first document category!
+                </p>
+                <p>
+                    Document categories organize documents for the portal
+                    and control access permissions.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_portal_document_menu" name="Document Access" parent="vf_portal_menu" 
+                  sequence="30" action="vf_portal_document_access_action"/>
+        <menuitem id="vf_portal_document_category_menu" name="Document Categories" 
+                  parent="vf_portal_document_menu" action="vf_portal_document_category_action"/>
+    </data>
+</odoo>

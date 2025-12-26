@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Economy Report Action -->
+        <record id="action_vf_economy_report" model="ir.actions.report">
+            <field name="name">Economy Report</field>
+            <field name="model">vf.economy.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">vertical_association_sweden.report_economy_summary</field>
+            <field name="report_file">Economy_Report.pdf</field>
+            <field name="binding_model_id" ref="model_vf_economy_report"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

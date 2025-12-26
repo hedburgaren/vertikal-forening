@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Record Rules -->
+        <!-- Members can see their own data -->
+        <record id="rule_vf_member_own" model="ir.rule">
+            <field name="name">VF Member: Own Data</field>
+            <field name="model_id" ref="model_vf_member"/>
+            <field name="domain_force">['|', ('partner_id.user_ids', '=', user.id), ('partner_id', 'in', user.partner_id.minor_guardian_ids.member_id.partner_id.ids)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Leaders can see members in their groups -->
+        <record id="rule_vf_member_leader" model="ir.rule">
+            <field name="name">VF Member: Group Members</field>
+            <field name="model_id" ref="model_vf_member"/>
+            <field name="domain_force">[('group_membership_ids.group_id', 'in', user.mandate_ids.position_id.group_id.ids)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Admins can see all members -->
+        <record id="rule_vf_member_admin" model="ir.rule">
+            <field name="name">VF Member: All</field>
+            <field name="model_id" ref="model_vf_member"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_admin'))]"/>
+        </record>
+        
+        <!-- Guardian Relationships: Guardians see their minor's relationships -->
+        <record id="rule_vf_guardian_own" model="ir.rule">
+            <field name="name">VF Guardian: Own Minors</field>
+            <field name="model_id" ref="model_vf_guardian_relationship"/>
+            <field name="domain_force">[('guardian_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Guardian Relationships: Members can see their own guardians -->
+        <record id="rule_vf_guardian_member" model="ir.rule">
+            <field name="name">VF Guardian: Member View</field>
+            <field name="model_id" ref="model_vf_guardian_relationship"/>
+            <field name="domain_force">[('member_id.partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_user'))]"/>
+        </record>
+        
+        <!-- Leaders can see guardians of members in their groups -->
+        <record id="rule_vf_guardian_leader" model="ir.rule">
+            <field name="name">VF Guardian: Group Members</field>
+            <field name="model_id" ref="model_vf_guardian_relationship"/>
+            <field name="domain_force">[('member_id.group_membership_ids.group_id', 'in', user.mandate_ids.position_id.group_id.ids)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_leader'))]"/>
+        </record>
+        
+        <!-- Admins see all guardian relationships -->
+        <record id="rule_vf_guardian_admin" model="ir.rule">
+            <field name="name">VF Guardian: All</field>
+            <field name="model_id" ref="model_vf_guardian_relationship"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('vertical_association_sweden.group_vf_admin'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Email Template List View -->
+        <record id="vf_email_template_view_tree" model="ir.ui.view">
+            <field name="name">vf.email.template.tree</field>
+            <field name="model">vf.email.template</field>
+            <field name="arch" type="xml">
+                <tree string="Email Templates">
+                    <field name="display_name"/>
+                    <field name="email_type"/>
+                    <field name="category_id"/>
+                    <field name="subject"/>
+                    <field name="active"/>
+                    <field name="usage_count" widget="integer"/>
+                    <field name="last_used"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Email Template Form View -->
+        <record id="vf_email_template_view_form" model="ir.ui.view">
+            <field name="name">vf.email.template.form</field>
+            <field name="model">vf.email.template</field>
+            <field name="arch" type="xml">
+                <form string="Email Template">
+                    <header>
+                        <button name="action_send_test" type="object" 
+                                string="Send Test Email" class="btn-primary"/>
+                        <button name="action_preview" type="object" 
+                                string="Preview" class="btn-secondary"/>
+                        <button name="action_translate" type="object" 
+                                string="Translate" class="btn-secondary"/>
+                        <button name="action_duplicate" type="object" 
+                                string="Duplicate" class="btn-secondary"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="email_type"/>
+                                <field name="usage_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="default_from"/>
+                                <field name="reply_to"/>
+                                <field name="last_used" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Content">
+                                <group string="Subject">
+                                    <field name="subject" nolabel="1"/>
+                                </group>
+                                <group string="Body">
+                                    <field name="body_html" nolabel="1" widget="html"/>
+                                    <field name="body_text" nolabel="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Variables">
+                                <group string="Template Variables">
+                                    <field name="variable_ids" nolabel="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="variable_type"/>
+                                            <field name="description"/>
+                                            <field name="default_value"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            
+                            <page string="Attachments">
+                                <group string="Default Attachments">
+                                    <field name="attachment_ids" nolabel="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Settings">
+                                <group string="Email Settings">
+                                    <field name="auto_delete"/>
+                                    <field name="mail_server_id"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Email Template Search View -->
+        <record id="vf_email_template_view_search" model="ir.ui.view">
+            <field name="name">vf.email.template.search</field>
+            <field name="model">vf.email.template</field>
+            <field name="arch" type="xml">
+                <search string="Search Email Templates">
+                    <field name="name"/>
+                    <field name="subject"/>
+                    <field name="category_id"/>
+                    <field name="email_type"/>
+                    <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                    <filter string="Notification" name="notification" domain="[('email_type', '=', 'notification')]"/>
+                    <filter string="Newsletter" name="newsletter" domain="[('email_type', '=', 'newsletter')]"/>
+                    <filter string="Reminder" name="reminder" domain="[('email_type', '=', 'reminder')]"/>
+                    <filter string="Invitation" name="invitation" domain="[('email_type', '=', 'invitation')]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                        <filter string="Type" name="group_type" context="{'group_by': 'email_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Email Template Action -->
+        <record id="vf_email_template_action" model="ir.actions.act_window">
+            <field name="name">Email Templates</field>
+            <field name="res_model">vf.email.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_active': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first email template!
+                </p>
+                <p>
+                    Email templates allow you to create standardized emails
+                    with variable content that can be sent to members.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <menuitem id="vf_email_template_menu" name="Email Templates" 
+                  parent="vf_template_menu_main" 
+                  action="vf_email_template_action" sequence="30"/>
+    </data>
+</odoo>

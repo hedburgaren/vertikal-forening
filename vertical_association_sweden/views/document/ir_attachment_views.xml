@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Attachment Form View Extension -->
+        <record id="view_attachment_form_inherit_vf_document" model="ir.ui.view">
+            <field name="name">ir.attachment.form.inherit.vf.document</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='datas']" position="after">
+                    <group string="Association Document" attrs="{'invisible': [('is_vf_document', '=', False)]}">
+                        <field name="is_vf_document" readonly="1"/>
+                        <field name="document_ids" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                        <button name="action_create_document" type="object" string="Create Document" 
+                                attrs="{'invisible': [('is_vf_document', '=', True)]}" class="btn-primary"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Attachment Kanban View Extension -->
+        <record id="view_attachment_kanban_inherit_vf_document" model="ir.ui.view">
+            <field name="name">ir.attachment.kanban.inherit.vf.document</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='datas_fname']" position="after">
+                    <t t-if="record.is_vf_document.raw_value">
+                        <div class="oe_kanban_bottom_left">
+                            <span class="badge badge-info">Association Document</span>
+                        </div>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

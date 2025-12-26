@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Document List View -->
+        <record id="vf_document_view_tree" model="ir.ui.view">
+            <field name="name">vf.document.tree</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <tree string="Documents">
+                    <field name="display_name"/>
+                    <field name="category_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="visibility"/>
+                    <field name="file_type"/>
+                    <field name="current_version"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Document Form View -->
+        <record id="vf_document_view_form" model="ir.ui.view">
+            <field name="name">vf.document.form</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <form string="Document">
+                    <header>
+                        <button name="action_publish" type="object" string="Publish" 
+                                attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary"/>
+                        <button name="action_archive" type="object" string="Archive" 
+                                attrs="{'invisible': [('state', '=', 'archived')]}"/>
+                        <button name="action_set_to_draft" type="object" string="Set to Draft" 
+                                attrs="{'invisible': [('state', '=', 'draft')]}"/>
+                        <button name="action_view_versions" type="object" string="Versions"/>
+                        <button name="action_create_from_template" type="object" string="Create from Template" 
+                                attrs="{'invisible': [('is_template', '=', False)]}" class="btn-secondary"/>
+                        <field name="state" widget="statusbar" 
+                               statusbar_visible="draft,published,archived"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_download" type="object" 
+                                    class="oe_stat_button" icon="fa-download">
+                                <span>Download</span>
+                            </button>
+                        </div>
+                        
+                        <group>
+                            <group name="document_info">
+                                <field name="name"/>
+                                <field name="category_id"/>
+                                <field name="date"/>
+                                <field name="current_version"/>
+                            </group>
+                            <group name="properties">
+                                <field name="visibility"/>
+                                <field name="is_template"/>
+                                <field name="file_type"/>
+                                <field name="file_size" readonly="1"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" nolabel="1"/>
+                            </page>
+                            
+                            <page string="Access Control">
+                                <group string="Document Access">
+                                    <field name="role_ids" widget="many2many_tags"/>
+                                    <field name="group_ids" widget="many2many_tags"/>
+                                    <field name="section_ids" widget="many2many_tags"/>
+                                    <field name="member_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Versions">
+                                <field name="version_ids">
+                                    <tree>
+                                        <field name="version_number"/>
+                                        <field name="date"/>
+                                        <field name="created_by"/>
+                                        <field name="change_description"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Document Kanban View -->
+        <record id="vf_document_view_kanban" model="ir.ui.view">
+            <field name="name">vf.document.kanban</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="category_id">
+                    <field name="display_name"/>
+                    <field name="category_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="visibility"/>
+                    <field name="file_type"/>
+                    <field name="current_version"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="display_name"/>
+                                            </strong>
+                                            <div class="o_kanban_record_subtitle">
+                                                <field name="category_id"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="file_type"/> • <field name="current_version"/>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="state"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Document Search View -->
+        <record id="vf_document_view_search" model="ir.ui.view">
+            <field name="name">vf.document.search</field>
+            <field name="model">vf.document</field>
+            <field name="arch" type="xml">
+                <search string="Search Documents">
+                    <field name="name"/>
+                    <field name="category_id"/>
+                    <field name="description"/>
+                    <field name="date"/>
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Published" name="published" domain="[('state', '=', 'published')]"/>
+                    <filter string="Archived" name="archived" domain="[('state', '=', 'archived')]"/>
+                    <filter string="Templates" name="templates" domain="[('is_template', '=', True)]"/>
+                    <filter string="Public" name="public" domain="[('visibility', '=', 'public')]"/>
+                    <filter string="Private" name="private" domain="[('visibility', '=', 'private')]"/>
+                    <filter string="Accessible" name="accessible" 
+                            domain="[('id', 'in', user.partner_id.accessible_document_ids.ids)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="group_category" context="{'group_by': 'category_id'}"/>
+                        <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Type" name="group_type" context="{'group_by': 'file_type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Document Action -->
+        <record id="vf_document_action" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">vf.document</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="context">{'search_default_published': 1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first document!
+                </p>
+                <p>
+                    Documents store files and information that can be shared with
+                    members based on their roles and permissions.
+                </p>
+            </field>
+        </record>
+        
+        <!-- Menu Items -->
+        <menuitem id="vf_document_menu" name="Documents" parent="vertical_association_sweden.vf_root_menu" 
+                  sequence="50" action="vf_document_action"/>
+        <menuitem id="vf_document_all_menu" name="All Documents" parent="vf_document_menu" 
+                  sequence="10" action="vf_document_action"/>
+    </data>
+</odoo>
